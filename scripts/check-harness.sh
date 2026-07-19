@@ -10,6 +10,7 @@ required_files=(
   ".env.example"
   "AGENTS.md"
   "CLAUDE.md"
+  "Makefile"
   "README.md"
   "compose.yaml"
   "frontend/package.json"

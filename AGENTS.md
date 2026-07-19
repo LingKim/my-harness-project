@@ -104,6 +104,9 @@ AIWorkSpace 由三个独立 Git 仓库组成：
 # 检查 Harness / OpenSpec 基础结构
 ./scripts/check-harness.sh
 
+# 一键启动前端和后端
+make dev
+
 # 普通 clone 后初始化前后端 submodule
 git submodule update --init --recursive
 

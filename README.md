@@ -104,6 +104,31 @@ docker compose down
 
 只有明确需要删除本地数据库数据时，才执行 `docker compose down -v`。
 
+## 一键启动前后端
+
+在项目根目录执行以下任一命令，同时启动 Next.js 前端和 Spring Boot 后端：
+
+```bash
+make
+# 或
+make dev
+```
+
+脚本会在根目录 `.env` 存在时自动加载它；不存在时使用前后端默认配置。按 `Ctrl+C` 会同时停止两个进程。
+
+也可以单独启动：
+
+```bash
+make frontend
+make backend
+```
+
+查看全部 Make 命令：
+
+```bash
+make help
+```
+
 ## 启动前端
 
 ```bash
