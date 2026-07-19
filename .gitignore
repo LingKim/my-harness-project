@@ -1,0 +1,29 @@
+# IDE and OS
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Secrets and local overrides
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.local
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Common build outputs
+target/
+build/
+dist/
+out/
+node_modules/
+coverage/
+
+# OpenSpec keeps active and archived artifacts versioned.

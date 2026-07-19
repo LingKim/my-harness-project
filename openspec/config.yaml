@@ -1,0 +1,55 @@
+schema: spec-driven
+
+context: |
+  本仓库是基于 OpenSpec 与 Superpowers 方法论的 AIWorkSpace 主仓库。
+
+  仓库边界：
+  - 主仓库：https://github.com/LingKim/my-harness-project，负责 Harness、OpenSpec、Compose、环境模板和 submodule 编排。
+  - frontend/：Git submodule，远端为 https://github.com/LingKim/my-harness-frontend。
+  - backend/：Git submodule，远端为 https://github.com/LingKim/my-harness-backtend。
+  - 子仓库提交必须先推送并确认远端可达，主仓库随后才能更新 gitlink。
+
+  技术栈：
+  - frontend/ submodule：Next.js 16.2.10、React 19.2.7、TypeScript、Tailwind CSS 4.3.3、pnpm。
+  - backend/ submodule：Java 21、Spring Boot 4.1.0、Maven、MyBatis-Plus 3.5.17、Flyway、Spring AI 2.0.0。
+  - 本地基础设施：Docker Compose 与 MySQL 8.4。
+  - AI：OpenAI-compatible 配置，默认关闭，不提交真实 API Key。
+
+  事实来源优先级：
+  1. openspec/specs/ 中的当前规格。
+  2. openspec/changes/<change-name>/ 中已确认的活动变更 artifacts。
+  3. .gitmodules、主仓库 gitlink、submodule 仓库状态和远端可达性。
+  4. 自动化测试和真实运行结果。
+  5. 实现代码与辅助文档。
+
+  工程原则：
+  - 证据优先于假设和口头结论。
+  - 非平凡行为在实现前先讨论并确认规格。
+  - 优先采用满足规格的最小方案。
+  - 可自动化测试的行为遵循 RED-GREEN-REFACTOR。
+  - 修复缺陷前先复现并定位根因。
+  - 声明完成前必须运行新的验证。
+  - 人类可读文档默认使用中文；代码标识符和标准结构关键字保持原文。
+  - 跨仓库变更分别记录每个仓库的实现、验证、提交和 gitlink 更新。
+
+rules:
+  proposal:
+    - 先说明用户或业务问题，再描述解决方案。
+    - 必须包含明确的目标和非目标。
+    - 列出可衡量的验收结果和有意义的风险。
+    - 保持最小范围，不加入推测性的未来工作。
+  specs:
+    - 使用可观察行为描述需求，不把实现愿望当作需求。
+    - 每条需求至少包含一个具体场景。
+    - 相关时覆盖校验、失败行为、权限和边界条件。
+    - 正文使用中文，保留 OpenSpec 所需的结构关键字。
+  design:
+    - 解释关键决策、备选方案和取舍。
+    - 相关时说明受影响组件、数据流、兼容性、迁移和回滚。
+    - 设计深度与变更规模相称，不增加没有决策价值的流程。
+  tasks:
+    - 按依赖顺序排列任务，并使每项任务可以独立验证。
+    - 包含精确文件路径或明确标识的组件。
+    - 测试任务必须位于实现任务之前或与实现任务并列。
+    - 包含明确的验证和文档任务。
+    - 所有任务描述使用中文。
