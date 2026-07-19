@@ -23,5 +23,5 @@
 ## 5. 验证与首次交付
 
 - [x] 5.1 运行 `bash -n scripts/check-harness.sh`、`./scripts/check-harness.sh`、OpenSpec 严格校验、`git submodule status`、`git ls-files --stage frontend backend` 和远端 SHA 可达性检查，记录实际结果；本次不运行无关的前后端 build。
-- [ ] 5.2 在根仓库创建包含 AIWorkSpace 基线与两个 gitlink 的首个提交并推送 `origin/main`，确认 GitHub 远端 HEAD 指向该提交。
-- [ ] 5.3 在临时目录执行 `git clone --recurse-submodules https://github.com/LingKim/my-harness-project`，验证根级 Harness、`frontend/package.json`、`backend/pom.xml` 和两个 submodule SHA；删除临时验证目录后更新任务状态并推送最终的 OpenSpec 完成记录。
+- [x] 5.2 在根仓库创建包含 AIWorkSpace 基线与两个 gitlink 的首个提交并推送 `origin/main`，确认 GitHub 远端 HEAD 指向该提交。
+- [x] 5.3 在临时目录执行 `git clone --recurse-submodules https://github.com/LingKim/my-harness-project`，验证根级 Harness、`frontend/package.json`、`backend/pom.xml` 和两个 submodule SHA；删除临时验证目录后更新任务状态并推送最终的 OpenSpec 完成记录。
