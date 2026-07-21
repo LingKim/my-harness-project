@@ -78,6 +78,41 @@ AIWorkSpace 由三个独立 Git 仓库组成：
 
 只加载与当前任务有关的内容，避免用大量无关文件污染上下文。
 
+### React / Next.js 最佳实践 Skill
+
+- 凡涉及 `frontend/` 内 React 组件、Next.js 页面、数据获取、Server Component、Client Component、Server Action、bundle、渲染或性能的编写、评审和重构，必须使用 `vercel-react-best-practices`。
+- 使用该 Skill 时，先完整读取 `.agents/skills/vercel-react-best-practices/SKILL.md`，再按任务需要读取其 `rules/` 中直接相关的规则文件；不得为了节省上下文而跳过 Skill 入口说明。
+- 事实优先级固定为：当前 `openspec/specs/` 与已确认的活动 change → `frontend/AGENTS.md` 和当前安装版本的 `frontend/node_modules/next/dist/docs/` → `vercel-react-best-practices` 通用建议 → 代理既有知识。
+- 如果 Skill 建议与当前 Next.js 16 本地文档或前端局部规则冲突，采用当前版本文档或局部规则，并在交付说明中指出冲突；不得用通用 Skill 覆盖已验证的当前版本行为。
+- Skill 只提供编码与评审基线，不替代 `pnpm lint`、相关自动化测试和真实运行验证，也不得仅因 Skill 提到某个库就在没有需求时新增依赖。
+- 更新项目级 Skill 必须显式执行 Skills CLI、复核文件差异与 `skills-lock.json` 来源及哈希，并重新运行 `./scripts/check-harness.sh`；不得静默跟随外部仓库最新内容。
+- `skills-lock.json` 只能包含通过独立 OpenSpec change 明确批准、并登记在 `scripts/check-harness.sh` 批准清单中的项目级 Skill；新增或移除 Skill 时必须同步更新来源校验和失败场景，不得把临时安装结果直接视为项目规范。
+
+### Java / Spring Boot 最佳实践 Skill
+
+- 凡涉及 `backend/` 内 Java、Spring Boot、Web、配置、事务、日志、测试或安全的编写、评审和重构，必须使用 `java-springboot`。
+- 使用该 Skill 时，先完整读取 `.agents/skills/java-springboot/SKILL.md`，再应用与当前任务直接相关且不与项目事实冲突的规则；不得只根据 Skill 名称推测其内容。
+- 事实优先级固定为：当前 `openspec/specs/` 与已确认的活动 change → `backend/` 局部规则、实际依赖、源码与测试 → Java 21 和 Spring Boot 4.1 当前官方文档 → `java-springboot` 通用建议 → 代理既有知识。
+- 如果 Skill 的 starter、注解、API、测试方式或其他示例与当前 Spring Boot 4.1 依赖、源码、测试或官方文档冲突，采用当前项目事实，并在交付说明中指出冲突。
+- 本项目数据访问继续使用 MyBatis-Plus 3.5.17，数据库结构继续只由 Flyway 管理；`java-springboot` 中涉及 Spring Data JPA、JPA entity、`JpaRepository`、`CrudRepository`、JPA Criteria API 和 `@DataJpaTest` 的建议默认不适用。
+- 不得仅因 Skill 建议而新增 JPA、Lombok 或其他依赖，也不得创建 JPA entity、repository、starter 或 JPA 专用测试；只有已确认的独立 OpenSpec change 明确修改技术栈规格时才可改变该约束。
+- Skill 只提供编码与评审基线，不替代 `./mvnw test`、静态检查和真实运行验证；针对具体变更仍须执行与风险相称的验证。
+
+### MySQL 数据库与 SQL 最佳实践 Skill
+
+- 凡涉及 `compose.yaml` 中的 MySQL 配置、`backend/src/main/resources/db/migration/`、MyBatis XML 或注解 SQL、schema、表、字段类型、约束、索引、查询、事务锁、连接或数据库运维的编写、评审和重构，必须使用 `mysql`。
+- 使用该 Skill 时，先完整读取 `.agents/skills/mysql/SKILL.md`，再按任务需要读取 `.agents/skills/mysql/references/` 中直接相关的参考文件；不得一次性加载全部参考文件，也不得只根据入口摘要代替专项规则。
+- 事实优先级固定为：当前 `openspec/specs/` 与已确认的活动 change → `backend/` 局部规则、实际 schema、SQL、依赖与测试 → MySQL 8.4 当前官方文档和安全环境中的执行证据 → `mysql` 通用建议 → 代理既有知识。
+- 当前项目继续使用 Docker Compose MySQL 8.4 与 InnoDB，并通过 MyBatis-Plus 访问数据；忽略 Skill 的 PlanetScale 托管推荐和 Vitess 特有假设，不得仅因 Skill 建议改变数据库托管或运行架构。
+- `BIGINT UNSIGNED AUTO_INCREMENT`、`utf8mb4_0900_ai_ci`、`DATETIME`、分区阈值、隔离级别和在线 DDL 算法都只能作为候选；必须根据业务标识、比较与时区语义、实际数据量、并发模型、MySQL 8.4 官方行为和真实变更风险逐项决定。
+- 数据库结构继续只由 Flyway migration 管理；新增或修改表、字段、约束和索引必须创建新的受版本管理 migration，不得通过 JPA/Hibernate 自动建表、启动脚本或未受版本管理的手工 DDL 绕过 Flyway。
+- 数据库设计必须说明主键、数据类型、长度、NULL 语义、默认值、约束、字符比较语义和索引依据；应用数据查询默认显式列出所需列，不得把无业务证据的索引、反范式设计或 `SELECT *` 当作通用优化。
+- MyBatis SQL 的业务值必须使用 `#{}` 参数绑定；`${}` 只能用于 JDBC 无法参数化的标识符或受控 SQL 片段，输入必须来自服务端封闭白名单，原始或间接用户输入不得进入 `${}`，也不得通过字符串拼接构造 SQL。
+- 索引与性能修改必须先收集查询模式、数据规模和 `EXPLAIN` 等证据；`EXPLAIN ANALYZE` 会实际执行 SQL，只能在确认安全的非生产环境用于只读语句，禁止用它直接分析写入或破坏性语句。
+- 事务必须保持短小，并保持一致的加锁顺序；网络、文件或其他外部 I/O 不得放在数据库事务内。隔离级别、锁与死锁重试策略必须基于已确认的并发行为，不能把 Skill 默认值直接写入项目。
+- 破坏性数据库操作必须在执行前获得用户明确批准，包括 `DROP`、`TRUNCATE`、无条件 `DELETE`/`UPDATE`、不可逆字段或索引删除；执行前必须解析精确目标，说明影响、备份或恢复方式、兼容发布、回滚和部署后验证方案。
+- Skill 只提供设计与评审基线，不替代 Flyway migration 测试、数据库集成测试、执行计划、锁指标或真实环境验证；更新 Skill 必须显式执行 Skills CLI、审查差异和锁文件哈希，并重新运行 Harness。
+
 ## 5. 计划与执行纪律
 
 - 计划中的每个任务应足够小，通常能在一次短迭代内完成。

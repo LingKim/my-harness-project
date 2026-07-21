@@ -5,6 +5,12 @@ set -euo pipefail
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$project_root"
 
+approved_skill_names=(
+  "java-springboot"
+  "mysql"
+  "vercel-react-best-practices"
+)
+
 required_files=(
   ".gitmodules"
   ".env.example"
@@ -24,6 +30,15 @@ required_files=(
   "backend/src/main/java/com/heness/project/health/HealthController.java"
   "backend/src/main/java/com/heness/project/config/ai/AiConfiguration.java"
   "backend/src/test/java/com/heness/project/config/ai/AiConfigurationTests.java"
+  ".agents/skills/java-springboot/SKILL.md"
+  ".agents/skills/mysql/SKILL.md"
+  ".agents/skills/mysql/references/data-types.md"
+  ".agents/skills/mysql/references/explain-analysis.md"
+  ".agents/skills/mysql/references/online-ddl.md"
+  ".agents/skills/mysql/references/row-locking-gotchas.md"
+  ".agents/skills/vercel-react-best-practices/SKILL.md"
+  ".agents/skills/vercel-react-best-practices/rules/async-parallel.md"
+  "skills-lock.json"
   "openspec/config.yaml"
 )
 
@@ -31,6 +46,8 @@ required_directories=(
   ".codex/skills"
   ".claude/commands/opsx"
   ".claude/skills"
+  ".agents/skills/mysql/references"
+  ".agents/skills/vercel-react-best-practices/rules"
   "frontend/src/app"
   "backend/src/main/java/com/heness/project"
   "backend/src/main/resources/mapper"
@@ -134,6 +151,114 @@ if grep -Fq '<artifactId>mybatis-spring-boot-starter</artifactId>' backend/pom.x
   exit 1
 fi
 
+if ! node -e '
+const fs = require("fs");
+const lock = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+const approvedSkillNames = process.argv.slice(2).sort();
+const skillNames = Object.keys(lock.skills ?? {}).sort();
+const javaSkill = lock.skills?.["java-springboot"];
+const mysqlSkill = lock.skills?.mysql;
+const reactSkill = lock.skills?.["vercel-react-best-practices"];
+const unapprovedSkillNames = skillNames.filter(
+  (name) => !approvedSkillNames.includes(name),
+);
+const missingSkillNames = approvedSkillNames.filter(
+  (name) => !skillNames.includes(name),
+);
+
+if (unapprovedSkillNames.length > 0) {
+  console.error(`未批准 Skill：${unapprovedSkillNames.join(", ")}`);
+}
+if (missingSkillNames.length > 0) {
+  console.error(`缺少已批准 Skill：${missingSkillNames.join(", ")}`);
+}
+
+const valid = lock.version === 1
+  && unapprovedSkillNames.length === 0
+  && missingSkillNames.length === 0
+  && javaSkill?.source === "github/awesome-copilot"
+  && javaSkill?.sourceType === "github"
+  && javaSkill?.skillPath === "skills/java-springboot/SKILL.md"
+  && /^[0-9a-f]{64}$/.test(javaSkill?.computedHash ?? "")
+  && mysqlSkill?.source === "planetscale/database-skills"
+  && mysqlSkill?.sourceType === "github"
+  && mysqlSkill?.skillPath === "skills/mysql/SKILL.md"
+  && /^[0-9a-f]{64}$/.test(mysqlSkill?.computedHash ?? "")
+  && reactSkill?.source === "vercel-labs/agent-skills"
+  && reactSkill?.sourceType === "github"
+  && reactSkill?.skillPath === "skills/react-best-practices/SKILL.md"
+  && /^[0-9a-f]{64}$/.test(reactSkill?.computedHash ?? "");
+process.exit(valid ? 0 : 1);
+' skills-lock.json "${approved_skill_names[@]}"; then
+  echo "失败：skills-lock.json 必须匹配项目批准的 Skill 清单，且 Java/MySQL/React Skill 必须来自批准的官方仓库" >&2
+  exit 1
+fi
+
+if ! grep -Fq '必须使用 `vercel-react-best-practices`' AGENTS.md; then
+  echo "失败：AGENTS.md 必须强制 React/Next.js 任务使用 vercel-react-best-practices" >&2
+  exit 1
+fi
+
+if ! grep -Fq '`frontend/node_modules/next/dist/docs/`' AGENTS.md; then
+  echo "失败：AGENTS.md 必须声明当前 Next.js 本地文档的事实优先级" >&2
+  exit 1
+fi
+
+if ! grep -Fq '必须使用 `java-springboot`' AGENTS.md; then
+  echo "失败：AGENTS.md 必须强制后端 Java/Spring Boot 任务使用 java-springboot" >&2
+  exit 1
+fi
+
+if ! grep -Fq '先完整读取 `.agents/skills/java-springboot/SKILL.md`' AGENTS.md; then
+  echo "失败：AGENTS.md 必须要求完整读取 java-springboot Skill 入口" >&2
+  exit 1
+fi
+
+if ! grep -Fq '`java-springboot` 中涉及 Spring Data JPA' AGENTS.md; then
+  echo "失败：AGENTS.md 必须声明 java-springboot 的 Spring Data JPA 建议不适用于当前项目" >&2
+  exit 1
+fi
+
+if ! grep -Fq '数据库结构继续只由 Flyway 管理' AGENTS.md; then
+  echo "失败：AGENTS.md 必须保留 MyBatis-Plus 与 Flyway 的技术栈覆盖规则" >&2
+  exit 1
+fi
+
+if ! grep -Fq '必须使用 `mysql`' AGENTS.md; then
+  echo "失败：AGENTS.md 必须强制数据库与 SQL 任务使用 mysql Skill" >&2
+  exit 1
+fi
+
+if ! grep -Fq '先完整读取 `.agents/skills/mysql/SKILL.md`' AGENTS.md; then
+  echo "失败：AGENTS.md 必须要求完整读取 mysql Skill 入口" >&2
+  exit 1
+fi
+
+if ! grep -Fq '数据库结构继续只由 Flyway migration 管理' AGENTS.md; then
+  echo "失败：AGENTS.md 必须保留数据库结构的 Flyway-only 规则" >&2
+  exit 1
+fi
+
+if ! grep -Fq '业务值必须使用 `#{}` 参数绑定' AGENTS.md; then
+  echo "失败：AGENTS.md 必须要求 MyBatis 业务值使用参数绑定" >&2
+  exit 1
+fi
+
+if ! grep -Fq '`${}` 只能用于 JDBC 无法参数化' AGENTS.md; then
+  echo "失败：AGENTS.md 必须限制 MyBatis \${} 只接受服务端封闭白名单" >&2
+  exit 1
+fi
+
+if ! grep -Fq '`EXPLAIN ANALYZE` 会实际执行 SQL' AGENTS.md; then
+  echo "失败：AGENTS.md 必须声明 EXPLAIN ANALYZE 的真实执行风险" >&2
+  exit 1
+fi
+
+if ! grep -Fq '破坏性数据库操作必须在执行前获得用户明确批准' AGENTS.md; then
+  echo "失败：AGENTS.md 必须要求破坏性数据库操作获得人工批准" >&2
+  exit 1
+fi
+
 codex_skill_count="$(find .codex/skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l | tr -d ' ')"
 claude_skill_count="$(find .claude/skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l | tr -d ' ')"
 claude_command_count="$(find .claude/commands/opsx -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')"
@@ -151,4 +276,7 @@ echo "      Claude 技能：$claude_skill_count"
 echo "      Claude 命令：$claude_command_count"
 echo "      submodule：frontend / backend"
 echo "      前端：Next.js 16.2.10 / React 19.2.7"
+echo "      前端 Skill：vercel-react-best-practices（Vercel 官方）"
 echo "      后端：Spring Boot 4.1.0 / Spring AI 2.0.0 / MyBatis-Plus 3.5.17"
+echo "      后端 Skill：java-springboot（GitHub 官方仓库）"
+echo "      数据库 Skill：mysql（PlanetScale）"

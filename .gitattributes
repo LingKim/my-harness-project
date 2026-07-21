@@ -1,0 +1,2 @@
+# 项目级 Skills 是按哈希锁定的第三方原样副本，保留其 Markdown 行尾空白。
+.agents/skills/** -whitespace

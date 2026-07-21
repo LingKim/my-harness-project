@@ -1,0 +1,1794 @@
+{
+  "version": "2.14",
+  "children": [
+    {
+      "type": "frame",
+      "id": "ay6XZ",
+      "x": 0,
+      "y": 0,
+      "name": "ChinaMate · 登录页",
+      "clip": true,
+      "width": 1920,
+      "height": 1080,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "iwZHP",
+          "name": "全局导航",
+          "width": "fill_container",
+          "height": 88,
+          "fill": "$paper",
+          "stroke": "$line",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "padding": [
+            0,
+            104
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "m0NZXe",
+              "name": "品牌",
+              "gap": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "bfguC",
+                  "name": "品牌印章",
+                  "width": 42,
+                  "height": 42,
+                  "fill": "$cinnabar",
+                  "cornerRadius": [
+                    21,
+                    21,
+                    21,
+                    7
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "b1muet",
+                      "name": "品牌印章文字",
+                      "fill": "$surface",
+                      "content": "旅",
+                      "fontFamily": "$font-display",
+                      "fontSize": 19,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "qXPsM",
+                  "name": "品牌名称",
+                  "fill": "$ink",
+                  "content": "ChinaMate",
+                  "fontFamily": "$font-display",
+                  "fontSize": 25,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "aD1Um",
+              "name": "主导航",
+              "gap": 44,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "hIXMj",
+                  "name": "导航 · 首页",
+                  "fill": "$ink-soft",
+                  "content": "首页",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "DvNMm",
+                  "name": "导航 · AI 助手",
+                  "fill": "$ink-soft",
+                  "content": "AI 助手",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "iBUnD",
+                  "name": "导航 · 攻略",
+                  "fill": "$ink-soft",
+                  "content": "攻略",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "Y7HUi",
+                  "name": "导航 · 社区",
+                  "fill": "$ink-soft",
+                  "content": "社区",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "gkIsS",
+              "name": "导航工具",
+              "gap": 20,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "vvFOQ",
+                  "name": "语言切换",
+                  "cornerRadius": 22,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "gap": 8,
+                  "padding": [
+                    10,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "s0xzLZ",
+                      "name": "语言图标",
+                      "fill": "$jade-dark",
+                      "content": "文",
+                      "fontFamily": "$font-display",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "R5x6a",
+                      "name": "语言文字",
+                      "fill": "$ink",
+                      "content": "简体中文",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "j9CC1",
+                  "name": "当前账号入口",
+                  "fill": "$jade-dark",
+                  "content": "登录 / 注册",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "kb2lu",
+          "name": "登录主体",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "xOWg7",
+              "name": "品牌故事区",
+              "clip": true,
+              "width": 770,
+              "height": "fill_container",
+              "fill": "$jade-dark",
+              "layout": "none",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "S7CzA",
+                  "x": 430,
+                  "y": -110,
+                  "name": "旅行轨道 · 大",
+                  "fill": "#FFFFFF00",
+                  "width": 520,
+                  "height": 520,
+                  "stroke": "#D8B96F88",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "ellipse",
+                  "id": "I01N5Z",
+                  "x": -130,
+                  "y": 650,
+                  "name": "旅行轨道 · 小",
+                  "fill": "#FFFFFF00",
+                  "width": 410,
+                  "height": 410,
+                  "stroke": "#D8B96F66",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "Ye4sV",
+                  "x": 90,
+                  "y": 96,
+                  "name": "故事编号",
+                  "fill": "$gold",
+                  "content": "08 / ACCOUNT",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 13,
+                  "fontWeight": "600",
+                  "letterSpacing": 1.8
+                },
+                {
+                  "type": "text",
+                  "id": "RMK4t",
+                  "x": 90,
+                  "y": 154,
+                  "name": "故事标题",
+                  "fill": "$surface",
+                  "textGrowth": "fixed-width",
+                  "width": 600,
+                  "content": "Save every solution\nfrom your journey.",
+                  "lineHeight": 1.08,
+                  "fontFamily": "$font-display",
+                  "fontSize": 58,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "ArXOi",
+                  "x": 90,
+                  "y": 380,
+                  "name": "故事说明",
+                  "fill": "#E5EEE9",
+                  "textGrowth": "fixed-width",
+                  "width": 520,
+                  "content": "收藏可信攻略、保存 AI 对话，并在需要时向真实旅行者求助。只用账号和密码，轻松继续你的中国之旅。",
+                  "lineHeight": 1.65,
+                  "fontFamily": "$font-body",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "h7hJi",
+                  "x": 90,
+                  "y": 590,
+                  "name": "价值列表",
+                  "width": 560,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Pp4jk",
+                      "name": "价值 · 保存",
+                      "width": "fill_container",
+                      "stroke": "#FFFFFF2F",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": 18,
+                      "padding": [
+                        18,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hHxA6",
+                          "name": "价值编号 · 01",
+                          "fill": "$gold",
+                          "content": "01",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ZUqpO",
+                          "name": "价值文本 · 保存",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "VFyzd",
+                              "name": "价值标题 · 保存",
+                              "fill": "$surface",
+                              "content": "保存",
+                              "fontFamily": "$font-display",
+                              "fontSize": 20,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "eWktG",
+                              "name": "价值说明 · 保存",
+                              "fill": "#C9DAD3",
+                              "content": "跨设备保留攻略与问答",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "NjdSJ",
+                      "name": "价值 · 继续",
+                      "width": "fill_container",
+                      "stroke": "#FFFFFF2F",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": 18,
+                      "padding": [
+                        18,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kHxVP",
+                          "name": "价值编号 · 02",
+                          "fill": "$gold",
+                          "content": "02",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "dH7Xh",
+                          "name": "价值文本 · 继续",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "T0zGGU",
+                              "name": "价值标题 · 继续",
+                              "fill": "$surface",
+                              "content": "继续",
+                              "fontFamily": "$font-display",
+                              "fontSize": 20,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "U1ZLTX",
+                              "name": "价值说明 · 继续",
+                              "fill": "#C9DAD3",
+                              "content": "注册后返回刚才的操作",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dVOb9",
+                      "name": "价值 · 互助",
+                      "width": "fill_container",
+                      "stroke": "#FFFFFF2F",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": 18,
+                      "padding": [
+                        18,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "rOYSi",
+                          "name": "价值编号 · 03",
+                          "fill": "$gold",
+                          "content": "03",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "xPPn5",
+                          "name": "价值文本 · 互助",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "AVhdc",
+                              "name": "价值标题 · 互助",
+                              "fill": "$surface",
+                              "content": "互助",
+                              "fontFamily": "$font-display",
+                              "fontSize": 20,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "mvwLy",
+                              "name": "价值说明 · 互助",
+                              "fill": "#C9DAD3",
+                              "content": "连接已解决的真实经验",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "cDrq1",
+                  "x": 90,
+                  "y": 900,
+                  "name": "安全说明",
+                  "fill": "#AFC8BE",
+                  "textGrowth": "fixed-width",
+                  "width": 540,
+                  "content": "不会收集邮箱、手机号或第三方账号",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 12,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "SDxqZ",
+              "name": "登录表单区",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$paper",
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "UhBi5",
+                  "name": "登录表单",
+                  "width": 560,
+                  "layout": "vertical",
+                  "gap": 22,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NuK2H",
+                      "name": "登录眉题",
+                      "fill": "$cinnabar",
+                      "content": "WELCOME BACK",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "DhNlA",
+                      "name": "登录标题",
+                      "fill": "$ink",
+                      "content": "继续你的 ChinaMate 旅程",
+                      "fontFamily": "$font-display",
+                      "fontSize": 44,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ERLcL",
+                      "name": "登录引导",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "使用注册时设置的账号和密码登录。",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ekgxW",
+                      "name": "统一登录错误提示",
+                      "width": "fill_container",
+                      "fill": "$danger-pale",
+                      "cornerRadius": 8,
+                      "gap": 12,
+                      "padding": [
+                        13,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "i6H1F",
+                          "name": "错误图标",
+                          "fill": "$cinnabar",
+                          "content": "!",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 13,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "KQufV",
+                          "name": "错误文案",
+                          "fill": "#82382D",
+                          "content": "账号或密码错误，请检查后重试。",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "go1xJ",
+                      "name": "账号字段",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "m7TkUe",
+                          "name": "账号标签",
+                          "fill": "$ink",
+                          "content": "账号",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "kbiDb",
+                          "name": "账号输入框",
+                          "width": "fill_container",
+                          "height": 58,
+                          "fill": "$surface",
+                          "cornerRadius": 10,
+                          "stroke": "$jade",
+                          "strokeWidth": 2,
+                          "padding": [
+                            0,
+                            18
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "nGmaA",
+                              "name": "账号占位符",
+                              "fill": "$ink-soft",
+                              "content": "请输入 4—20 位账号",
+                              "fontFamily": "$font-body",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Mt87i",
+                      "name": "密码字段",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "P8IY0Q",
+                          "name": "密码标签",
+                          "fill": "$ink",
+                          "content": "密码",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "O9K95E",
+                          "name": "密码输入框",
+                          "width": "fill_container",
+                          "height": 58,
+                          "fill": "$surface",
+                          "cornerRadius": 10,
+                          "stroke": "$line",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            18
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "KSoFc",
+                              "name": "密码占位符",
+                              "fill": "$ink-soft",
+                              "content": "请输入密码",
+                              "fontFamily": "$font-body",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "g29Ws",
+                              "name": "显示密码",
+                              "fill": "$jade-dark",
+                              "content": "显示",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "nk5tV",
+                      "name": "登录按钮",
+                      "width": "fill_container",
+                      "height": 58,
+                      "fill": "$jade-dark",
+                      "cornerRadius": 29,
+                      "gap": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bRNvV",
+                          "name": "登录按钮文字",
+                          "fill": "$surface",
+                          "content": "登录并继续",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "RhECb",
+                          "name": "登录按钮箭头",
+                          "fill": "$gold",
+                          "content": "→",
+                          "fontFamily": "$font-body",
+                          "fontSize": 19,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TqZkX",
+                      "name": "切换注册",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "xC9ft",
+                          "name": "注册提示",
+                          "fill": "$ink-soft",
+                          "content": "还没有账号？",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "jkCqF",
+                          "name": "注册链接",
+                          "fill": "$jade-dark",
+                          "content": "创建账号",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "BYPRe",
+                      "name": "登录安全提示",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "连续登录失败达到安全阈值后，将暂时限制尝试并显示剩余等待时间。",
+                      "lineHeight": 1.5,
+                      "textAlign": "center",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "kAJhd",
+      "x": 2040,
+      "y": 0,
+      "name": "ChinaMate · 注册页",
+      "clip": true,
+      "width": 1920,
+      "height": 1080,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "h2sihF",
+          "name": "全局导航 · 注册页",
+          "width": "fill_container",
+          "height": 88,
+          "fill": "$paper",
+          "stroke": "$line",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "padding": [
+            0,
+            104
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "p3ePqv",
+              "name": "品牌",
+              "gap": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "x4QqIB",
+                  "name": "品牌印章",
+                  "width": 42,
+                  "height": 42,
+                  "fill": "$cinnabar",
+                  "cornerRadius": [
+                    21,
+                    21,
+                    21,
+                    7
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Ejk93",
+                      "name": "品牌印章文字",
+                      "fill": "$surface",
+                      "content": "旅",
+                      "fontFamily": "$font-display",
+                      "fontSize": 19,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "d2oOXo",
+                  "name": "品牌名称",
+                  "fill": "$ink",
+                  "content": "ChinaMate",
+                  "fontFamily": "$font-display",
+                  "fontSize": 25,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "TbuJx",
+              "name": "主导航",
+              "gap": 44,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "N8rSH8",
+                  "name": "导航 · 首页",
+                  "fill": "$ink-soft",
+                  "content": "首页",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "zCbwc",
+                  "name": "导航 · AI 助手",
+                  "fill": "$ink-soft",
+                  "content": "AI 助手",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "v8E6Dz",
+                  "name": "导航 · 攻略",
+                  "fill": "$ink-soft",
+                  "content": "攻略",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "lGwwH",
+                  "name": "导航 · 社区",
+                  "fill": "$ink-soft",
+                  "content": "社区",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "nrVL8",
+              "name": "导航工具",
+              "gap": 20,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "N7vtaC",
+                  "name": "语言切换",
+                  "cornerRadius": 22,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "gap": 8,
+                  "padding": [
+                    10,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pxgWb",
+                      "name": "语言图标",
+                      "fill": "$jade-dark",
+                      "content": "文",
+                      "fontFamily": "$font-display",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "CpuYM",
+                      "name": "语言文字",
+                      "fill": "$ink",
+                      "content": "简体中文",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "z3PIM",
+                  "name": "当前账号入口",
+                  "fill": "$jade-dark",
+                  "content": "登录 / 注册",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "dVcZ9",
+          "name": "注册主体",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "S6i6Ri",
+              "name": "注册价值区",
+              "clip": true,
+              "width": 720,
+              "height": "fill_container",
+              "fill": "$jade-dark",
+              "layout": "none",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "US6Da",
+                  "x": 360,
+                  "y": -160,
+                  "name": "注册轨道 · 大",
+                  "fill": "#FFFFFF00",
+                  "width": 570,
+                  "height": 570,
+                  "stroke": "#D8B96F88",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "ellipse",
+                  "id": "oNxhg",
+                  "x": -180,
+                  "y": 640,
+                  "name": "注册轨道 · 小",
+                  "fill": "#FFFFFF00",
+                  "width": 430,
+                  "height": 430,
+                  "stroke": "#D8B96F66",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "XXhSR",
+                  "x": 82,
+                  "y": 90,
+                  "name": "注册故事编号",
+                  "fill": "$gold",
+                  "content": "08 / CREATE ACCOUNT",
+                  "fontFamily": "$font-caption",
+                  "fontSize": 13,
+                  "fontWeight": "600",
+                  "letterSpacing": 1.8
+                },
+                {
+                  "type": "text",
+                  "id": "JSa9L",
+                  "x": 82,
+                  "y": 150,
+                  "name": "注册故事标题",
+                  "fill": "$surface",
+                  "textGrowth": "fixed-width",
+                  "width": 570,
+                  "content": "A simple account.\nA smoother journey.",
+                  "lineHeight": 1.08,
+                  "fontFamily": "$font-display",
+                  "fontSize": 56,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "lS2c5",
+                  "x": 82,
+                  "y": 365,
+                  "name": "注册故事说明",
+                  "fill": "#E5EEE9",
+                  "textGrowth": "fixed-width",
+                  "width": 500,
+                  "content": "创建账号，只为保存真正有用的旅行信息。我们不要求邮箱、手机号、验证码，也不接入第三方登录。",
+                  "lineHeight": 1.65,
+                  "fontFamily": "$font-body",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "tNHxc",
+                  "x": 82,
+                  "y": 550,
+                  "name": "注册信任说明",
+                  "width": 535,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "BKRRy",
+                      "name": "信任项 · 不打断当前操作",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "VFcrO",
+                          "name": "信任图标 · 不打断当前操作",
+                          "width": 34,
+                          "height": 34,
+                          "fill": "#FFFFFF18",
+                          "cornerRadius": 17,
+                          "stroke": "#D8B96F88",
+                          "strokeWidth": 1,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "x9OZk",
+                              "name": "信任符号 · 不打断当前操作",
+                              "fill": "$gold",
+                              "content": "✓",
+                              "fontFamily": "$font-body",
+                              "fontSize": 15,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rMHgn",
+                          "name": "信任文字 · 不打断当前操作",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "t4vYcC",
+                              "name": "信任标题 · 不打断当前操作",
+                              "fill": "$surface",
+                              "content": "不打断当前操作",
+                              "fontFamily": "$font-display",
+                              "fontSize": 17,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "f3Gh4o",
+                              "name": "信任描述 · 不打断当前操作",
+                              "fill": "#C9DAD3",
+                              "content": "注册完成后返回刚才的页面",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Daf5t",
+                      "name": "信任项 · 最少信息原则",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "k4VovF",
+                          "name": "信任图标 · 最少信息原则",
+                          "width": 34,
+                          "height": 34,
+                          "fill": "#FFFFFF18",
+                          "cornerRadius": 17,
+                          "stroke": "#D8B96F88",
+                          "strokeWidth": 1,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "nFaBT",
+                              "name": "信任符号 · 最少信息原则",
+                              "fill": "$gold",
+                              "content": "✓",
+                              "fontFamily": "$font-body",
+                              "fontSize": 15,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rRNSH",
+                          "name": "信任文字 · 最少信息原则",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "m51L0",
+                              "name": "信任标题 · 最少信息原则",
+                              "fill": "$surface",
+                              "content": "最少信息原则",
+                              "fontFamily": "$font-display",
+                              "fontSize": 17,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "rKr01",
+                              "name": "信任描述 · 最少信息原则",
+                              "fill": "#C9DAD3",
+                              "content": "只需要账号和密码",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "acHoN",
+                      "name": "信任项 · 公开身份分离",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Rp8mU",
+                          "name": "信任图标 · 公开身份分离",
+                          "width": 34,
+                          "height": 34,
+                          "fill": "#FFFFFF18",
+                          "cornerRadius": 17,
+                          "stroke": "#D8B96F88",
+                          "strokeWidth": 1,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "AjFWY",
+                              "name": "信任符号 · 公开身份分离",
+                              "fill": "$gold",
+                              "content": "✓",
+                              "fontFamily": "$font-body",
+                              "fontSize": 15,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Ne11b",
+                          "name": "信任文字 · 公开身份分离",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Ntdww",
+                              "name": "信任标题 · 公开身份分离",
+                              "fill": "$surface",
+                              "content": "公开身份分离",
+                              "fontFamily": "$font-display",
+                              "fontSize": 17,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "eDZ2z",
+                              "name": "信任描述 · 公开身份分离",
+                              "fill": "#C9DAD3",
+                              "content": "展示名称与登录账号分开",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "yZKvJ",
+                  "x": 82,
+                  "y": 840,
+                  "name": "账号保管提醒",
+                  "width": 535,
+                  "fill": "#FFFFFF12",
+                  "cornerRadius": 8,
+                  "stroke": "#FFFFFF22",
+                  "strokeWidth": 1,
+                  "gap": 12,
+                  "padding": [
+                    15,
+                    16
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PrXcp",
+                      "name": "提醒标识",
+                      "fill": "$gold",
+                      "content": "!",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 13,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "E0sjD4",
+                      "name": "提醒正文",
+                      "fill": "#E5EEE9",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "MVP 暂不提供未登录状态的密码找回，请妥善保存账号和密码。",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "heVbO",
+              "name": "注册表单区",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$paper",
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "kqm7v",
+                  "name": "注册表单",
+                  "width": 610,
+                  "layout": "vertical",
+                  "gap": 14,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "B4p8SJ",
+                      "name": "注册眉题",
+                      "fill": "$cinnabar",
+                      "content": "CREATE YOUR ACCOUNT",
+                      "fontFamily": "$font-caption",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "frame",
+                      "id": "nk00T",
+                      "name": "注册标题行",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "djFAJ",
+                          "name": "注册标题",
+                          "fill": "$ink",
+                          "content": "开始使用 ChinaMate",
+                          "fontFamily": "$font-display",
+                          "fontSize": 42,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "lLjkL",
+                          "name": "已有账号入口",
+                          "gap": 5,
+                          "padding": [
+                            0,
+                            0,
+                            5,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "E9rvCd",
+                              "name": "已有账号提示",
+                              "fill": "$ink-soft",
+                              "content": "已有账号？",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CG1fQ",
+                              "name": "去登录",
+                              "fill": "$jade-dark",
+                              "content": "去登录",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "d6yu2",
+                      "name": "注册引导",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "注册后即可跨设备保存攻略、AI 对话和社区进度。",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "EV8y7",
+                      "name": "注册账号字段",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 7,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "udOSa",
+                          "name": "注册账号标签",
+                          "fill": "$ink",
+                          "content": "账号 *",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XDXD8",
+                          "name": "注册账号输入框",
+                          "width": "fill_container",
+                          "height": 52,
+                          "fill": "$surface",
+                          "cornerRadius": 9,
+                          "stroke": "$jade",
+                          "strokeWidth": 2,
+                          "padding": [
+                            0,
+                            17
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "TofP9",
+                              "name": "注册账号占位符",
+                              "fill": "$ink-soft",
+                              "content": "4—20 位字母、数字或下划线",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "WgduE",
+                          "name": "注册账号规则",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "注册后不可自行修改；唯一性忽略英文字母大小写。",
+                          "fontFamily": "$font-body",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "igVlj",
+                      "name": "注册密码字段",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 7,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "O6dec4",
+                          "name": "注册密码标签",
+                          "fill": "$ink",
+                          "content": "密码 *",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "aeA42",
+                          "name": "注册密码输入框",
+                          "width": "fill_container",
+                          "height": 52,
+                          "fill": "$surface",
+                          "cornerRadius": 9,
+                          "stroke": "$line",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            17
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "usrp5",
+                              "name": "注册密码占位符",
+                              "fill": "$ink-soft",
+                              "content": "8—64 位，至少包含字母和数字",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "lxnQM",
+                              "name": "注册密码显示密码",
+                              "fill": "$jade-dark",
+                              "content": "显示",
+                              "fontFamily": "$font-body",
+                              "fontSize": 12,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "ybSDt",
+                          "name": "注册密码规则",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "建议使用不在其他网站重复使用的密码。",
+                          "fontFamily": "$font-body",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CTcOf",
+                      "name": "确认密码字段",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 7,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gkJQz",
+                          "name": "确认密码标签",
+                          "fill": "$ink",
+                          "content": "确认密码 *",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "S3HIQj",
+                          "name": "确认密码输入框",
+                          "width": "fill_container",
+                          "height": 52,
+                          "fill": "$surface",
+                          "cornerRadius": 9,
+                          "stroke": "$line",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            17
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RzDHC",
+                              "name": "确认密码占位符",
+                              "fill": "$ink-soft",
+                              "content": "请再次输入密码",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "FXbcx",
+                              "name": "确认密码显示密码",
+                              "fill": "$jade-dark",
+                              "content": "显示",
+                              "fontFamily": "$font-body",
+                              "fontSize": 12,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "roQEr",
+                          "name": "确认密码规则",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "必须与上方密码完全一致。",
+                          "fontFamily": "$font-body",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lwLmA",
+                      "name": "条款确认",
+                      "width": "fill_container",
+                      "gap": 11,
+                      "padding": [
+                        4,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "WZsn8",
+                          "name": "条款复选框",
+                          "width": 20,
+                          "height": 20,
+                          "fill": "$jade-dark",
+                          "cornerRadius": 4,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Svo6J",
+                              "name": "条款勾选",
+                              "fill": "$surface",
+                              "content": "✓",
+                              "fontFamily": "$font-body",
+                              "fontSize": 12,
+                              "fontWeight": "800"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "O3LAN2",
+                          "name": "条款文案",
+                          "width": "fill_container",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "NNDIK",
+                              "name": "条款前缀",
+                              "fill": "$ink-soft",
+                              "content": "我已阅读并同意",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "T2nWu",
+                              "name": "服务条款",
+                              "fill": "$jade-dark",
+                              "content": "《服务条款》",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "RBp1i",
+                              "name": "条款连接",
+                              "fill": "$ink-soft",
+                              "content": "和",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "lgkwP",
+                              "name": "隐私政策",
+                              "fill": "$jade-dark",
+                              "content": "《隐私政策》",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "EKalj",
+                      "name": "注册按钮",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "$jade-dark",
+                      "cornerRadius": 28,
+                      "gap": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "OQxf5",
+                          "name": "注册按钮文字",
+                          "fill": "$surface",
+                          "content": "注册并继续",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Y5Nuy2",
+                          "name": "注册按钮箭头",
+                          "fill": "$gold",
+                          "content": "→",
+                          "fontFamily": "$font-body",
+                          "fontSize": 19,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "l5IFm",
+                      "name": "注册安全说明",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "W8yiHR",
+                          "name": "安全锁",
+                          "fill": "$jade",
+                          "content": "◇",
+                          "fontFamily": "$font-caption",
+                          "fontSize": 12,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "R4WZ1",
+                          "name": "安全说明文案",
+                          "fill": "$ink-soft",
+                          "content": "密码将被安全处理，页面不会明文保存或返回密码。",
+                          "fontFamily": "$font-body",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "paper": {
+      "type": "color",
+      "value": "#F7F2E8"
+    },
+    "paper-deep": {
+      "type": "color",
+      "value": "#EEE5D5"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#FFFDF8"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#263A34"
+    },
+    "ink-soft": {
+      "type": "color",
+      "value": "#61706A"
+    },
+    "jade": {
+      "type": "color",
+      "value": "#2F6758"
+    },
+    "jade-dark": {
+      "type": "color",
+      "value": "#214A40"
+    },
+    "jade-pale": {
+      "type": "color",
+      "value": "#DDEBE4"
+    },
+    "cinnabar": {
+      "type": "color",
+      "value": "#C6513E"
+    },
+    "gold": {
+      "type": "color",
+      "value": "#D8B96F"
+    },
+    "line": {
+      "type": "color",
+      "value": "#D8D0C2"
+    },
+    "danger-pale": {
+      "type": "color",
+      "value": "#F6E3DE"
+    },
+    "font-display": {
+      "type": "string",
+      "value": "Playfair Display"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "font-caption": {
+      "type": "string",
+      "value": "Geist Mono"
+    }
+  },
+  "fileToken": "4ee802bf-2475-4931-ae36-069663105783"
+}

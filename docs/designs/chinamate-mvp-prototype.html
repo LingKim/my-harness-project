@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChinaMate MVP 产品原型</title>
+  <style>
+    :root {
+      --ink: oklch(27% 0.035 164);
+      --ink-soft: oklch(47% 0.035 164);
+      --paper: oklch(97% 0.018 82);
+      --paper-deep: oklch(93% 0.025 82);
+      --surface: oklch(99% 0.009 82);
+      --jade: oklch(48% 0.105 164);
+      --jade-dark: oklch(35% 0.085 164);
+      --jade-pale: oklch(91% 0.045 164);
+      --cinnabar: oklch(57% 0.18 31);
+      --cinnabar-pale: oklch(93% 0.045 31);
+      --gold: oklch(76% 0.12 82);
+      --line: oklch(84% 0.025 82);
+      --warning: oklch(55% 0.14 55);
+      --shadow: 0 18px 55px oklch(30% 0.035 164 / 0.10);
+      --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+      --font-body: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --space-1: .25rem;
+      --space-2: .5rem;
+      --space-3: .75rem;
+      --space-4: 1rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-12: 3rem;
+      --radius-sm: .55rem;
+      --radius-md: 1rem;
+      --radius-lg: 1.75rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, transparent 49.8%, oklch(86% 0.025 82 / .22) 50%, transparent 50.2%),
+        var(--paper);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.5;
+      font-kerning: normal;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button, [data-route] { cursor: pointer; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [data-route]:focus-visible {
+      outline: 3px solid oklch(72% 0.12 82 / .65);
+      outline-offset: 3px;
+    }
+
+    .prototype-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: .55rem clamp(1rem, 3vw, 3rem);
+      color: var(--paper);
+      background: var(--ink);
+      border-bottom: 3px solid var(--gold);
+    }
+    .prototype-bar strong { font-family: var(--font-display); letter-spacing: .05em; }
+    .prototype-note { color: oklch(84% 0.025 82); font-size: .82rem; }
+    .prototype-bar select {
+      margin-left: auto;
+      min-width: 210px;
+      padding: .45rem .75rem;
+      color: var(--ink);
+      background: var(--paper);
+      border: 0;
+      border-radius: var(--radius-sm);
+    }
+    .map-button {
+      min-height: 36px;
+      padding: .4rem .85rem;
+      color: var(--paper);
+      background: transparent;
+      border: 1px solid oklch(70% 0.035 82);
+      border-radius: var(--radius-sm);
+    }
+
+    .site-header {
+      min-height: 76px;
+      display: grid;
+      grid-template-columns: 220px 1fr auto;
+      align-items: center;
+      gap: var(--space-8);
+      padding: 0 clamp(2rem, 6vw, 7rem);
+      background: color-mix(in oklch, var(--paper) 92%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      border: 0;
+      color: var(--ink);
+      background: transparent;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .brand-mark {
+      width: 38px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      color: var(--paper);
+      background: var(--cinnabar);
+      border-radius: 50% 50% 50% 16%;
+      transform: rotate(-5deg);
+      font-size: 1rem;
+    }
+    .brand-mark span { transform: rotate(5deg); }
+    .main-nav { display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 2.5vw, 2.5rem); }
+    .main-nav button, .header-action {
+      min-height: 44px;
+      padding: .45rem .25rem;
+      border: 0;
+      color: var(--ink-soft);
+      background: transparent;
+    }
+    .main-nav button.active { color: var(--jade-dark); border-bottom: 2px solid var(--jade); font-weight: 700; }
+    .header-tools { display: flex; align-items: center; gap: var(--space-3); }
+    .account-button {
+      min-height: 42px;
+      padding: .55rem 1rem;
+      color: var(--paper);
+      background: var(--jade-dark);
+      border: 0;
+      border-radius: 99px;
+    }
+
+    main { min-height: calc(100vh - 128px); }
+    .screen { display: none; animation: reveal .38s cubic-bezier(.22, 1, .36, 1) both; }
+    .screen.active { display: block; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+    .container { width: min(1440px, calc(100% - 5rem)); margin-inline: auto; }
+    .page-head { display: flex; align-items: end; justify-content: space-between; gap: var(--space-8); padding: var(--space-12) 0 var(--space-8); }
+    .eyebrow { margin: 0 0 var(--space-2); color: var(--cinnabar); font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1, h2, h3 { margin: 0; font-family: var(--font-display); line-height: 1.15; }
+    h1 { max-width: 15ch; font-size: clamp(2.7rem, 5vw, 5.5rem); font-weight: 700; letter-spacing: -.045em; }
+    h2 { font-size: clamp(1.85rem, 3vw, 3rem); letter-spacing: -.025em; }
+    h3 { font-size: 1.25rem; }
+    .lead { max-width: 62ch; color: var(--ink-soft); font-size: 1.08rem; }
+    .muted { color: var(--ink-soft); }
+    .tiny { font-size: .78rem; }
+    .btn {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      padding: .7rem 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: var(--ink);
+      background: var(--surface);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.primary { color: var(--paper); background: var(--jade-dark); border-color: var(--jade-dark); }
+    .btn.danger { color: var(--paper); background: var(--cinnabar); border-color: var(--cinnabar); }
+    .text-button { padding: .45rem 0; border: 0; color: var(--jade-dark); background: transparent; font-weight: 700; }
+    .tag { display: inline-flex; align-items: center; gap: .35rem; padding: .28rem .65rem; color: var(--jade-dark); background: var(--jade-pale); border-radius: 99px; font-size: .78rem; font-weight: 700; }
+    .tag.warm { color: oklch(42% .12 31); background: var(--cinnabar-pale); }
+
+    .hero {
+      min-height: calc(100vh - 128px);
+      display: grid;
+      grid-template-columns: 1.22fr .78fr;
+      align-items: center;
+      gap: clamp(3rem, 7vw, 8rem);
+      padding-block: clamp(3rem, 7vh, 6rem);
+    }
+    .hero-copy { position: relative; }
+    .hero-copy::before {
+      content: "旅";
+      position: absolute;
+      inset: -5rem auto auto -3rem;
+      z-index: -1;
+      color: oklch(86% 0.04 82);
+      font-family: var(--font-display);
+      font-size: 15rem;
+      line-height: 1;
+    }
+    .hero h1 em { color: var(--cinnabar); font-style: normal; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+    .ask-box { margin-top: var(--space-8); display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); padding: var(--space-3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); box-shadow: var(--shadow); }
+    .ask-box input { min-width: 0; padding: .8rem 1rem; border: 0; color: var(--ink); background: transparent; }
+    .scene-board { position: relative; min-height: 580px; background: var(--jade-dark); border-radius: 48% 48% 2rem 2rem; overflow: hidden; color: var(--paper); }
+    .scene-board::before, .scene-board::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid oklch(77% .09 82 / .55); }
+    .scene-board::before { width: 430px; height: 430px; right: -150px; top: -80px; }
+    .scene-board::after { width: 300px; height: 300px; left: -120px; bottom: -100px; }
+    .scene-content { position: relative; z-index: 1; padding: clamp(2rem, 5vw, 4rem); }
+    .scene-number { color: var(--gold); font-family: var(--font-display); font-size: 5rem; line-height: 1; }
+    .scene-list { display: grid; gap: 0; margin-top: var(--space-12); }
+    .scene-item { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: var(--space-4); padding: 1.15rem 0; border-bottom: 1px solid oklch(72% .045 164 / .45); }
+    .scene-item b { font-family: var(--font-display); font-size: 1.1rem; }
+
+    .two-col { display: grid; grid-template-columns: minmax(230px, .3fr) minmax(0, 1fr); gap: var(--space-8); padding-bottom: var(--space-12); }
+    .sidebar { padding: var(--space-6); background: var(--paper-deep); border-radius: var(--radius-md); align-self: start; }
+    .sidebar button { width: 100%; min-height: 44px; display: flex; justify-content: space-between; padding: .7rem .8rem; border: 0; border-bottom: 1px solid var(--line); color: var(--ink); background: transparent; text-align: left; }
+    .sidebar button.active { color: var(--paper); background: var(--jade-dark); border-radius: var(--radius-sm); }
+    .content-panel { min-width: 0; }
+    .filter-row { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-6); }
+    .filter-row input, .field input, .field textarea, .field select {
+      width: 100%; min-height: 46px; padding: .7rem .9rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+    }
+    .filter-row input { flex: 1; min-width: 260px; }
+    .guide-list, .question-list { display: grid; gap: var(--space-4); }
+    .list-card { display: grid; grid-template-columns: 135px 1fr auto; align-items: center; gap: var(--space-6); padding: var(--space-6); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); }
+    .list-card:hover { border-color: var(--jade); }
+    .card-index { min-height: 100px; display: grid; place-items: center; color: var(--jade-dark); background: var(--jade-pale); border-radius: var(--radius-sm); font-family: var(--font-display); font-size: 2rem; }
+    .card-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); color: var(--ink-soft); font-size: .82rem; }
+
+    .chat-layout { display: grid; grid-template-columns: 300px minmax(0, 1fr) 310px; min-height: calc(100vh - 128px); }
+    .chat-history { padding: var(--space-6); background: var(--paper-deep); border-right: 1px solid var(--line); }
+    .chat-history .new-chat { width: 100%; margin-bottom: var(--space-6); }
+    .history-item { padding: .85rem .7rem; border-bottom: 1px solid var(--line); }
+    .history-item.active { background: var(--surface); border-radius: var(--radius-sm); }
+    .chat-main { display: flex; flex-direction: column; min-width: 0; padding: var(--space-8); }
+    .chat-messages { flex: 1; display: grid; align-content: start; gap: var(--space-6); max-width: 850px; width: 100%; margin: 0 auto; }
+    .message { max-width: 82%; padding: var(--space-4) var(--space-6); border-radius: var(--radius-md); }
+    .message.user { justify-self: end; color: var(--paper); background: var(--jade-dark); border-bottom-right-radius: .2rem; }
+    .message.ai { background: var(--surface); border: 1px solid var(--line); border-bottom-left-radius: .2rem; }
+    .answer-block { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+    .answer-block ol { padding-left: 1.2rem; }
+    .risk-box { padding: var(--space-3); color: oklch(38% .10 55); background: oklch(93% .045 55); border-radius: var(--radius-sm); }
+    .chat-compose { max-width: 850px; width: 100%; margin: var(--space-6) auto 0; padding: var(--space-3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); box-shadow: var(--shadow); }
+    .chat-compose textarea { width: 100%; min-height: 72px; resize: vertical; padding: .6rem; border: 0; color: var(--ink); background: transparent; }
+    .compose-actions { display: flex; justify-content: space-between; gap: var(--space-3); }
+    .context-panel { padding: var(--space-6); background: var(--ink); color: var(--paper); }
+    .context-row { padding: var(--space-4) 0; border-bottom: 1px solid oklch(65% .03 164 / .5); }
+
+    .detail-layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: var(--space-12); padding-bottom: var(--space-12); }
+    .article { padding: clamp(2rem, 4vw, 4rem); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+    .article h1 { max-width: 22ch; font-size: clamp(2.2rem, 4vw, 4rem); }
+    .step { display: grid; grid-template-columns: 52px 1fr; gap: var(--space-4); padding: var(--space-6) 0; border-bottom: 1px solid var(--line); }
+    .step-num { width: 44px; height: 44px; display: grid; place-items: center; color: var(--paper); background: var(--cinnabar); border-radius: 50%; font-family: var(--font-display); font-size: 1.2rem; }
+    .phrase { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-4); background: var(--jade-pale); border-radius: var(--radius-sm); }
+    .detail-aside { align-self: start; display: grid; gap: var(--space-4); }
+    .aside-block { padding: var(--space-6); background: var(--paper-deep); border-radius: var(--radius-md); }
+
+    .form-shell { width: min(760px, calc(100% - 3rem)); margin: var(--space-12) auto; display: grid; grid-template-columns: .8fr 1.2fr; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+    .form-intro { padding: var(--space-12); color: var(--paper); background: var(--jade-dark); }
+    .form-body { display: grid; gap: var(--space-4); padding: var(--space-12); }
+    .field { display: grid; gap: var(--space-2); }
+    .field label { font-size: .85rem; font-weight: 700; }
+    .checkbox-row { display: flex; align-items: flex-start; gap: var(--space-2); font-size: .85rem; }
+
+    .flow-map { padding-block: var(--space-12); }
+    .flow-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-8); margin-top: var(--space-12); }
+    .flow-column { position: relative; display: grid; align-content: start; gap: var(--space-4); }
+    .flow-column:not(:last-child)::after { content: "→"; position: absolute; right: -1.7rem; top: 4rem; color: var(--cinnabar); font-size: 1.6rem; }
+    .flow-node { min-height: 92px; padding: var(--space-4); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); text-align: left; }
+    .flow-node.primary-node { color: var(--paper); background: var(--jade-dark); border-color: var(--jade-dark); }
+    .flow-branch { margin-left: var(--space-6); border-left: 2px dashed var(--gold); padding-left: var(--space-4); }
+
+    .ops-shell { display: grid; grid-template-columns: 250px 1fr; min-height: calc(100vh - 128px); }
+    .ops-nav { padding: var(--space-8) var(--space-4); color: var(--paper); background: var(--ink); }
+    .ops-nav button { width: 100%; min-height: 46px; padding: .7rem; color: var(--paper); background: transparent; border: 0; border-bottom: 1px solid oklch(60% .03 164 / .5); text-align: left; }
+    .ops-nav button.active { color: var(--ink); background: var(--gold); border-radius: var(--radius-sm); }
+    .ops-main { padding: var(--space-8); }
+    .metric-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
+    .metric { padding: var(--space-6); border-right: 1px solid var(--line); }
+    .metric strong { display: block; font-family: var(--font-display); font-size: 2.4rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: var(--space-8); background: var(--surface); }
+    th, td { padding: 1rem; border-bottom: 1px solid var(--line); text-align: left; }
+    th { color: var(--ink-soft); font-size: .8rem; }
+
+    .toast { position: fixed; right: 2rem; bottom: 2rem; z-index: 200; max-width: 340px; padding: 1rem 1.2rem; color: var(--paper); background: var(--ink); border-left: 4px solid var(--gold); border-radius: var(--radius-sm); box-shadow: var(--shadow); opacity: 0; transform: translateY(16px); pointer-events: none; transition: .25s ease; }
+    .toast.show { opacity: 1; transform: none; }
+
+    @media (max-width: 1100px) {
+      .site-header { grid-template-columns: 1fr auto; }
+      .main-nav { display: none; }
+      .hero, .form-shell { grid-template-columns: 1fr; }
+      .scene-board { min-height: 430px; }
+      .chat-layout { grid-template-columns: 230px 1fr; }
+      .context-panel { display: none; }
+      .flow-grid { grid-template-columns: 1fr 1fr; }
+      .flow-column::after { display: none; }
+    }
+    @media (max-width: 760px) {
+      .prototype-note, .header-tools .header-action { display: none; }
+      .prototype-bar { flex-wrap: wrap; }
+      .prototype-bar select { order: 3; width: 100%; }
+      .site-header { padding: 0 1rem; }
+      .container { width: min(100% - 2rem, 1440px); }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero h1 { font-size: 3rem; }
+      .scene-board { min-height: 390px; }
+      .two-col, .detail-layout, .ops-shell { grid-template-columns: 1fr; }
+      .chat-layout { grid-template-columns: 1fr; }
+      .chat-history { display: none; }
+      .list-card { grid-template-columns: 1fr; }
+      .card-index { min-height: 70px; }
+      .flow-grid, .metric-strip { grid-template-columns: 1fr; }
+      .ops-nav { display: flex; overflow-x: auto; }
+      .ops-nav button { min-width: 150px; }
+      .form-intro, .form-body { padding: var(--space-8); }
+    }
+  </style>
+</head>
+<body>
+  <div class="prototype-bar">
+    <strong>ChinaMate · MVP 原型</strong>
+    <span class="prototype-note">单文件交互演示 · 依据 PRD v1.2 · 1920×1080 基准</span>
+    <select id="screenSelect" aria-label="选择原型页面">
+      <option value="home">01 官网首页</option>
+      <option value="ai">02 AI 实时助手</option>
+      <option value="guides">03 攻略列表</option>
+      <option value="guide-detail">04 攻略详情</option>
+      <option value="community">05 社区列表</option>
+      <option value="question-detail">06 问题详情</option>
+      <option value="publish">07 发布求助</option>
+      <option value="auth">08 注册 / 登录</option>
+      <option value="profile">09 旅行上下文</option>
+      <option value="ops">10 运营后台</option>
+      <option value="flow">11 页面流转图</option>
+    </select>
+    <button class="map-button" data-route="flow">查看流转图</button>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <button class="brand" data-route="home" aria-label="返回首页">
+      <span class="brand-mark"><span>伴</span></span>
+      <span>ChinaMate</span>
+    </button>
+    <nav class="main-nav" aria-label="全局导航">
+      <button data-nav="home" data-route="home">首页</button>
+      <button data-nav="ai" data-route="ai">AI 助手</button>
+      <button data-nav="guides" data-route="guides">旅行攻略</button>
+      <button data-nav="community" data-route="community">旅行社区</button>
+    </nav>
+    <div class="header-tools">
+      <button class="header-action" id="languageToggle">中 / EN</button>
+      <button class="account-button" data-route="auth">登录 / 注册</button>
+    </div>
+  </header>
+
+  <main id="app">
+    <section class="screen active" data-screen="home">
+      <div class="container hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Know before you go · Get help when you need it</p>
+          <h1>在中国旅行，<em>有人懂你</em>的下一步。</h1>
+          <p class="lead">为来华自由行游客提供可信攻略、AI 现场协助和真实经验。先把问题说出来，我们帮你变成可以执行的步骤。</p>
+          <div class="ask-box">
+            <input id="homeQuestion" aria-label="输入旅行问题" placeholder="例如：外国银行卡如何乘坐上海地铁？">
+            <button class="btn primary" id="homeAskButton">问问 AI →</button>
+          </div>
+          <div class="hero-actions">
+            <button class="btn" data-route="guides">浏览高频攻略</button>
+            <button class="text-button" data-route="community">看看大家解决了什么 →</button>
+          </div>
+        </div>
+        <aside class="scene-board" aria-label="六类核心旅行场景">
+          <div class="scene-content">
+            <div class="scene-number">06</div>
+            <p>首发高频旅行任务</p>
+            <div class="scene-list">
+              <div class="scene-item"><span>01</span><b>支付与银行卡</b><span>→</span></div>
+              <div class="scene-item"><span>02</span><b>上网与通信</b><span>→</span></div>
+              <div class="scene-item"><span>03</span><b>交通与问路</b><span>→</span></div>
+              <div class="scene-item"><span>04</span><b>预约、点餐与现场沟通</b><span>→</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="ai">
+      <div class="chat-layout">
+        <aside class="chat-history">
+          <button class="btn primary new-chat" id="newChatButton">＋ 新建对话</button>
+          <p class="eyebrow">今天</p>
+          <div class="history-item active"><strong>菜单中是否含花生？</strong><div class="tiny muted">上海 · 12:42</div></div>
+          <div class="history-item"><strong>虹桥站在哪里检票</strong><div class="tiny muted">上海 · 10:18</div></div>
+          <p class="eyebrow" style="margin-top:2rem">昨天</p>
+          <div class="history-item"><strong>故宫预约需要什么</strong><div class="tiny muted">北京 · 昨天</div></div>
+        </aside>
+        <div class="chat-main">
+          <div class="chat-messages" id="chatMessages">
+            <div>
+              <p class="eyebrow">Ask AI · 上海</p>
+              <h2>菜单中哪些菜可能含花生？</h2>
+            </div>
+            <div class="message user">我对花生严重过敏。这张菜单里哪些菜需要避免？</div>
+            <div class="message ai">
+              <span class="tag">有依据 · 2 个来源</span>
+              <p><strong>先不要直接食用“宫保鸡丁”和标注“花生碎”的凉菜。</strong>图片识别可能有误，请让服务员再次确认。</p>
+              <div class="answer-block">
+                <h3>现在这样做</h3>
+                <ol><li>向服务员展示下方中文短语。</li><li>确认烹饪用油和酱料是否含花生成分。</li><li>若无法确认，选择原料简单且可单独制作的菜。</li></ol>
+              </div>
+              <div class="phrase"><span><b>我对花生严重过敏，请确认这道菜完全不含花生。</b><br><span class="tiny muted">I have a severe peanut allergy.</span></span><button class="text-button" data-toast="中文短语已复制">复制</button></div>
+              <div class="answer-block risk-box"><b>风险提示</b><br>严重过敏可能危及生命。AI 识别不能代替餐厅确认或专业医疗建议。</div>
+              <div class="answer-block tiny muted">依据：《在中国餐厅说明食物过敏》· 2026-07-12；社区已解决问题 #S238</div>
+              <div class="hero-actions"><button class="btn" data-toast="已记录：解决了">解决了</button><button class="btn" data-toast="已记录：部分解决">部分解决</button><button class="btn danger" data-route="publish">没有解决，转社区求助</button></div>
+            </div>
+          </div>
+          <div class="chat-compose">
+            <textarea id="aiQuestion" aria-label="继续提问" placeholder="继续描述问题，或补充一张现场图片……"></textarea>
+            <div class="compose-actions"><button class="btn" data-toast="原型：已选择图片">⌑ 上传图片</button><button class="btn primary" id="sendAiButton">发送问题 →</button></div>
+          </div>
+        </div>
+        <aside class="context-panel">
+          <p class="eyebrow" style="color:var(--gold)">本次回答使用的旅行信息</p>
+          <div class="context-row"><span class="tiny">当前城市</span><br><strong>上海 Shanghai</strong></div>
+          <div class="context-row"><span class="tiny">旅行日期</span><br><strong>7 月 20 日—24 日</strong></div>
+          <div class="context-row"><span class="tiny">重要限制</span><br><strong>花生严重过敏</strong></div>
+          <button class="btn" style="margin-top:1.5rem" data-route="profile">修改旅行信息</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="guides">
+      <div class="container">
+        <div class="page-head"><div><p class="eyebrow">Guides · 结构化旅行攻略</p><h2>照着做，就能走下一步</h2></div><p class="lead">每篇攻略都标明来源、适用条件和最后验证时间。</p></div>
+        <div class="two-col">
+          <aside class="sidebar">
+            <p class="eyebrow">城市</p><button class="active">上海 <span>12</span></button><button>北京 <span>8</span></button>
+            <p class="eyebrow" style="margin-top:2rem">主题</p><button>支付 <span>5</span></button><button>交通 <span>6</span></button><button>购票预约 <span>4</span></button><button>点餐 <span>3</span></button>
+          </aside>
+          <div class="content-panel">
+            <div class="filter-row"><input id="guideSearch" placeholder="搜索攻略，例如：地铁、支付宝、故宫"><button class="btn primary" id="guideSearchButton">搜索</button></div>
+            <div class="guide-list">
+              <article class="list-card" data-route="guide-detail" tabindex="0"><div class="card-index">地铁</div><div><span class="tag">上海 · 交通</span><h3>外国游客如何乘坐上海地铁</h3><p class="muted">购票、刷卡、安检、换乘和末班车，一次讲清楚。</p><div class="card-meta"><span>预计 8 分钟</span><span>最后验证 2026-07-18</span><span>来源 3</span></div></div><button class="text-button">查看步骤 →</button></article>
+              <article class="list-card"><div class="card-index">支付</div><div><span class="tag">上海 / 北京 · 支付</span><h3>境外银行卡绑定支付宝失败怎么办</h3><p class="muted">从卡片支持、身份验证到备用支付方案逐步排查。</p><div class="card-meta"><span>预计 12 分钟</span><span>最后验证 2026-07-16</span><span>来源 4</span></div></div><button class="text-button" data-route="guide-detail">查看步骤 →</button></article>
+              <article class="list-card"><div class="card-index">预约</div><div><span class="tag warm">北京 · 购票预约</span><h3>第一次预约故宫门票需要准备什么</h3><p class="muted">护照、开放时间、预约入口和当天入场流程。</p><div class="card-meta"><span>预计 10 分钟</span><span>最后验证 2026-07-15</span><span>来源 2</span></div></div><button class="text-button" data-route="guide-detail">查看步骤 →</button></article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="guide-detail">
+      <div class="container">
+        <div class="page-head"><button class="text-button" data-route="guides">← 返回攻略</button><span class="tag">已发布 · 信息有效</span></div>
+        <div class="detail-layout">
+          <article class="article">
+            <p class="eyebrow">上海 · 交通 · 新手游客</p><h1>外国游客如何乘坐上海地铁</h1>
+            <p class="lead">适用于使用护照、没有中国手机号的游客。全程约 8 分钟完成首次乘车准备。</p>
+            <div class="hero-actions"><span class="tag">需要准备：护照或交通码</span><span class="tag">最后验证：2026-07-18</span></div>
+            <div class="step"><div class="step-num">1</div><div><h3>先选择购票方式</h3><p>可在自动售票机购买单程票；已能正常使用支付宝的游客，也可开通乘车码。</p></div></div>
+            <div class="step"><div class="step-num">2</div><div><h3>通过安检并找到正确方向</h3><p>确认线路颜色、终点站方向和换乘站。大件行李需要通过安检机。</p></div></div>
+            <div class="step"><div class="step-num">3</div><div><h3>进站、换乘和出站</h3><p>单程票进站刷卡、出站回收；换乘通常不需要出站。</p></div></div>
+            <h3 style="margin:2rem 0 1rem">可以直接展示的中文</h3>
+            <div class="phrase"><span><b>请问去人民广场应该坐哪个方向？</b><br><span class="tiny muted">Which direction should I take for People's Square?</span></span><button class="text-button" data-toast="中文短语已复制">复制</button></div>
+          </article>
+          <aside class="detail-aside">
+            <div class="aside-block"><p class="eyebrow">常见失败</p><h3>自动售票机不接受支付</h3><p class="muted">尝试人工服务台、现金或支付宝乘车码，不要反复提交同一笔支付。</p><button class="text-button" data-route="ai">带着这个问题问 AI →</button></div>
+            <div class="aside-block"><p class="eyebrow">可信度</p><p><b>信息来源</b><br>上海地铁官网、现场核验、已解决社区经验</p><button class="btn" data-toast="感谢反馈：有帮助">有帮助</button> <button class="text-button" data-toast="已提交待复核反馈">可能过期</button></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="community">
+      <div class="container">
+        <div class="page-head"><div><p class="eyebrow">Community · 任务型旅行社区</p><h2>一个具体问题，一次真实解决</h2></div><button class="btn primary" data-route="publish">＋ 发布旅行求助</button></div>
+        <div class="two-col">
+          <aside class="sidebar"><p class="eyebrow">状态</p><button class="active">全部问题 <span>86</span></button><button>待回答 <span>12</span></button><button>讨论中 <span>23</span></button><button>已解决 <span>51</span></button><p class="eyebrow" style="margin-top:2rem">城市</p><button>上海 <span>48</span></button><button>北京 <span>38</span></button></aside>
+          <div class="content-panel">
+            <div class="filter-row"><input placeholder="搜索大家遇到过的问题"><button class="btn">最近发布</button><button class="btn">与我相关</button></div>
+            <div class="question-list">
+              <article class="list-card" data-route="question-detail" tabindex="0"><div class="card-index">✓</div><div><span class="tag">已解决</span><h3>虹桥火车站电子票应该去哪里检票？</h3><p class="muted">英国游客 · 上海 · 交通 · 3 个回答</p><div class="card-meta"><span>最佳回答已选择</span><span>12 分钟前解决</span><span>AI translated</span></div></div><button class="text-button">查看答案 →</button></article>
+              <article class="list-card"><div class="card-index">?</div><div><span class="tag warm">尽快回复 · 待回答</span><h3>北京餐厅可以只用现金付款吗？</h3><p class="muted">澳大利亚游客 · 北京 · 支付 · 暂无回答</p><div class="card-meta"><span>8 分钟前发布</span><span>不承诺实时响应</span></div></div><button class="text-button" data-route="question-detail">去回答 →</button></article>
+              <article class="list-card"><div class="card-index">3</div><div><span class="tag">讨论中</span><h3>境外手机号收不到景区预约短信怎么办</h3><p class="muted">西班牙游客 · 北京 · 购票预约 · 3 个回答</p><div class="card-meta"><span>1 小时前更新</span><span>2 人觉得有帮助</span></div></div><button class="text-button" data-route="question-detail">参与讨论 →</button></article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="question-detail">
+      <div class="container">
+        <div class="page-head"><button class="text-button" data-route="community">← 返回社区</button><span class="tag">已解决</span></div>
+        <div class="detail-layout">
+          <article class="article"><p class="eyebrow">上海 · 交通 · 12 分钟前解决</p><h2>虹桥火车站电子票应该去哪里检票？</h2><p class="lead">我用护照买了上海到杭州的高铁票，没有纸质票。应该直接去检票口，还是先取票？</p><p class="tiny muted">Alex · 英国 · 原文为英文 · <button class="text-button" data-toast="已切换为原文">查看原文</button></p>
+            <div class="answer-block" style="margin-top:3rem"><span class="tag">✓ 最佳回答</span><h3 style="margin-top:1rem">通常可以直接使用购票时的护照检票</h3><p>先看电子订单中的检票口，然后前往人工通道。把护照和订单页面一起交给工作人员；不需要先打印纸质票。</p><div class="phrase"><b>我用护照买了票，请问从哪个人工通道检票？</b><button class="text-button" data-toast="中文短语已复制">复制</button></div><p class="tiny muted">Mia · 上海本地贡献者 · 6 人觉得有帮助 · AI translated</p></div>
+            <div class="answer-block"><h3>补充回答</h3><p>车站很大，建议至少提前 40 分钟到达；安检排队时间不固定。</p></div>
+          </article>
+          <aside class="detail-aside"><div class="aside-block"><p class="eyebrow">问题结果</p><h3>提问者确认已解决</h3><p class="muted">最佳回答进入社区可信知识候选，但仍属于用户经验。</p></div><div class="aside-block"><button class="btn" data-toast="已标记有帮助">有帮助</button> <button class="text-button" data-toast="已打开举报原因选择">举报内容</button></div></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="publish">
+      <div class="form-shell" style="width:min(960px,calc(100% - 3rem))">
+        <div class="form-intro"><p class="eyebrow" style="color:var(--gold)">从 AI 会话生成草稿</p><h2>确认后才会公开</h2><p>系统已经带入问题摘要、上海和点餐分类。请删除个人信息并确认图片适合公开。</p><button class="btn" data-route="ai">← 返回 AI 会话</button></div>
+        <form class="form-body" id="publishForm"><div class="field"><label>问题标题 *</label><input required value="菜单中哪些菜可能含花生？"></div><div class="field"><label>问题描述 *</label><textarea required rows="6">我对花生严重过敏，无法确认菜单中的配料。请问哪些菜应该避免？我已经询问 AI，但仍需要有经验的人帮忙确认。</textarea></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><div class="field"><label>城市 *</label><select><option>上海</option><option>北京</option></select></div><div class="field"><label>分类 *</label><select><option>点餐</option><option>支付</option><option>交通</option></select></div></div><label class="checkbox-row"><input type="checkbox"> 标记为“尽快回复”（平台不承诺响应时效）</label><div class="risk-box">发布前检查：不要包含手机号、证件号、订单号、精确住宿地址或未打码的敏感图片。</div><button class="btn primary" type="submit">确认并发布问题 →</button></form>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="auth">
+      <div class="form-shell">
+        <div class="form-intro"><p class="eyebrow" style="color:var(--gold)">低摩擦账号</p><h2>保存旅途中的每一次解决</h2><p>不需要邮箱、手机号或验证码，只使用账号和密码。</p><p class="tiny">注册完成后返回刚才的操作，不丢失已经输入的问题。</p></div>
+        <form class="form-body" id="authForm"><div><p class="eyebrow">创建账号</p><h2>开始使用 ChinaMate</h2></div><div class="field"><label>账号 *</label><input required minlength="4" maxlength="20" placeholder="4—20 位字母、数字或下划线"></div><div class="field"><label>密码 *</label><input required minlength="8" type="password" placeholder="8—64 位，至少包含字母和数字"></div><div class="field"><label>确认密码 *</label><input required type="password"></div><label class="checkbox-row"><input required type="checkbox"> 我已阅读并同意服务条款和隐私政策</label><button class="btn primary" type="submit">注册并继续 →</button><button class="text-button" type="button" data-toast="原型：切换到登录表单">已有账号？使用账号密码登录</button><p class="tiny muted">MVP 不提供未登录状态的密码找回，请妥善保存账号和密码。</p></form>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="profile">
+      <div class="container"><div class="page-head"><div><p class="eyebrow">Travel Context · 旅行上下文</p><h2>让答案更符合这次旅行</h2></div><p class="lead">除界面语言外，其余信息都可以跳过或随时删除。</p></div>
+        <div class="form-shell" style="margin-top:0;width:min(1050px,100%);grid-template-columns:.65fr 1.35fr"><div class="form-intro"><h3>本次上海旅行</h3><p>AI 使用这些信息时，会在答案中明确说明。</p><div class="context-row">界面语言<br><b>English</b></div><div class="context-row">重要限制<br><b>Peanut allergy</b></div></div><form class="form-body" id="profileForm"><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><div class="field"><label>界面语言</label><select><option>English</option><option>简体中文</option></select></div><div class="field"><label>国家 / 地区</label><select><option>United Kingdom</option><option>Australia</option><option>Spain</option></select></div><div class="field"><label>当前或计划城市</label><select><option>上海 Shanghai</option><option>北京 Beijing</option></select></div><div class="field"><label>旅行日期</label><input value="2026-07-20 — 2026-07-24"></div></div><div class="field"><label>饮食禁忌和过敏原</label><textarea rows="3">Severe peanut allergy</textarea></div><div class="field"><label>无障碍或其他帮助需求</label><textarea rows="3" placeholder="可以跳过"></textarea></div><div class="hero-actions"><button class="btn primary" type="submit">保存旅行信息</button><button class="text-button" type="button" data-toast="原型：旅行信息已清空">删除全部信息</button></div></form></div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="ops">
+      <div class="ops-shell"><aside class="ops-nav"><button class="active">运营概览</button><button>攻略管理</button><button>举报审核</button><button>AI 失败样本</button><button>官方渠道</button></aside><div class="ops-main"><p class="eyebrow">Operations · 内容与治理</p><h2>今天需要处理什么</h2><div class="metric-strip"><div class="metric"><span class="muted">待审核攻略</span><strong>06</strong></div><div class="metric"><span class="muted">待复核内容</span><strong>11</strong></div><div class="metric"><span class="muted">待处理举报</span><strong>08</strong></div><div class="metric"><span class="muted">AI 未解决</span><strong>24</strong></div></div><table><thead><tr><th>任务</th><th>类型</th><th>城市</th><th>状态</th><th>最后更新</th><th></th></tr></thead><tbody><tr><td>外国游客如何乘坐上海地铁</td><td>攻略复核</td><td>上海</td><td><span class="tag warm">3 条过期反馈</span></td><td>10 分钟前</td><td><button class="text-button" data-toast="原型：进入复核详情">处理 →</button></td></tr><tr><td>社区问题 #C892</td><td>隐私举报</td><td>北京</td><td><span class="tag warm">高优先级</span></td><td>18 分钟前</td><td><button class="text-button" data-toast="原型：进入举报详情">处理 →</button></td></tr><tr><td>菜单过敏原识别</td><td>AI 失败样本</td><td>上海</td><td><span class="tag">待分析</span></td><td>34 分钟前</td><td><button class="text-button" data-toast="原型：进入失败样本">查看 →</button></td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="screen" data-screen="flow">
+      <div class="container flow-map"><p class="eyebrow">Prototype Map · 页面与跳转关系</p><h2>ChinaMate MVP 主流程</h2><p class="lead">点击任一节点即可进入对应原型页面。虚线分支表示未登录或 AI 不确定时的升级路径。</p><div class="flow-grid"><div class="flow-column"><button class="flow-node primary-node" data-route="home"><b>01 官网首页</b><br><span class="tiny">理解价值 / 首次提问</span></button><button class="flow-node" data-route="guides"><b>03 攻略列表</b><br><span class="tiny">城市、主题、搜索</span></button><button class="flow-node" data-route="guide-detail"><b>04 攻略详情</b><br><span class="tiny">执行步骤 / 可信来源</span></button></div><div class="flow-column"><button class="flow-node primary-node" data-route="ai"><b>02 AI 助手</b><br><span class="tiny">文本、图片、连续追问</span></button><div class="flow-branch"><button class="flow-node" data-route="profile"><b>09 旅行上下文</b><br><span class="tiny">城市、日期、个人限制</span></button></div></div><div class="flow-column"><button class="flow-node" data-route="auth"><b>08 注册 / 登录</b><br><span class="tiny">收藏、发布、跨设备保存</span></button><button class="flow-node primary-node" data-route="publish"><b>07 发布求助</b><br><span class="tiny">AI 会话生成可编辑草稿</span></button></div><div class="flow-column"><button class="flow-node" data-route="community"><b>05 社区列表</b><br><span class="tiny">城市、分类、解决状态</span></button><button class="flow-node" data-route="question-detail"><b>06 问题详情</b><br><span class="tiny">回答 / 最佳回答 / 已解决</span></button></div><div class="flow-column"><button class="flow-node primary-node" data-route="ops"><b>10 运营后台</b><br><span class="tiny">攻略、举报、AI 质量</span></button><div class="flow-branch"><div class="flow-node"><b>可信知识沉淀</b><br><span class="tiny">复核后回流攻略和 AI 检索</span></div></div></div></div><div class="aside-block" style="margin-top:3rem"><b>核心闭环：</b>首页提问 → AI 给出有依据的步骤 → 用户确认解决；若未解决，则生成社区问题 → 最佳回答 → 运营复核 → 回流可信知识。</div></div>
+    </section>
+
+    <script>
+      (() => {
+        const screens = [...document.querySelectorAll('[data-screen]')];
+        const selector = document.getElementById('screenSelect');
+        const header = document.getElementById('siteHeader');
+        const toast = document.getElementById('toast');
+        const topLevel = { home: 'home', ai: 'ai', guides: 'guides', 'guide-detail': 'guides', community: 'community', 'question-detail': 'community', publish: 'community' };
+
+        function showToast(message) {
+          toast.textContent = message;
+          toast.classList.add('show');
+          clearTimeout(window.prototypeToastTimer);
+          window.prototypeToastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+        }
+
+        function navigate(route, updateHash = true) {
+          const target = document.querySelector(`[data-screen="${route}"]`) || document.querySelector('[data-screen="home"]');
+          screens.forEach(screen => screen.classList.toggle('active', screen === target));
+          document.querySelectorAll('[data-nav]').forEach(item => item.classList.toggle('active', item.dataset.nav === topLevel[route]));
+          selector.value = target.dataset.screen;
+          header.style.display = ['ai', 'ops', 'flow'].includes(target.dataset.screen) ? 'none' : 'grid';
+          if (updateHash) history.replaceState(null, '', `#${target.dataset.screen}`);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('click', event => {
+          const routeTarget = event.target.closest('[data-route]');
+          if (routeTarget) navigate(routeTarget.dataset.route);
+          const toastTarget = event.target.closest('[data-toast]');
+          if (toastTarget) showToast(toastTarget.dataset.toast);
+        });
+        document.addEventListener('keydown', event => {
+          const routeTarget = event.target.closest('[data-route]');
+          if (routeTarget && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); navigate(routeTarget.dataset.route); }
+        });
+        selector.addEventListener('change', event => navigate(event.target.value));
+        document.getElementById('homeAskButton').addEventListener('click', () => {
+          const value = document.getElementById('homeQuestion').value.trim();
+          navigate('ai');
+          if (value) document.getElementById('aiQuestion').value = value;
+        });
+        document.getElementById('sendAiButton').addEventListener('click', () => {
+          const input = document.getElementById('aiQuestion');
+          if (!input.value.trim()) return showToast('请先输入一个旅行问题');
+          const message = document.createElement('div');
+          message.className = 'message user';
+          message.textContent = input.value;
+          document.getElementById('chatMessages').appendChild(message);
+          input.value = '';
+          showToast('原型演示：问题已发送');
+        });
+        document.getElementById('newChatButton').addEventListener('click', () => { document.getElementById('aiQuestion').focus(); showToast('已创建新的空白会话'); });
+        document.getElementById('guideSearchButton').addEventListener('click', () => showToast(`正在搜索：${document.getElementById('guideSearch').value || '全部攻略'}`));
+        document.getElementById('languageToggle').addEventListener('click', event => { event.currentTarget.textContent = event.currentTarget.textContent.includes('中') ? 'EN / 中' : '中 / EN'; showToast('已切换界面语言，当前页面状态保持不变'); });
+        ['publishForm', 'authForm', 'profileForm'].forEach(id => document.getElementById(id).addEventListener('submit', event => { event.preventDefault(); showToast(id === 'publishForm' ? '问题已发布，进入社区详情' : '信息已保存'); if (id === 'publishForm') setTimeout(() => navigate('question-detail'), 500); }));
+
+        navigate(location.hash.replace('#', '') || 'home', false);
+      })();
+    </script>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
