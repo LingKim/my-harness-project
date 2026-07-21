@@ -25,11 +25,22 @@ required_files=(
   "frontend/src/app/page.test.tsx"
   "backend/pom.xml"
   "backend/mvnw"
+  "backend/AGENTS.md"
+  "backend/docs/architecture.md"
   "backend/src/main/resources/application.yml"
   "backend/src/main/resources/db/migration/V1__baseline.sql"
+  "backend/src/main/java/com/heness/project/account/package-info.java"
+  "backend/src/main/java/com/heness/project/assistant/package-info.java"
   "backend/src/main/java/com/heness/project/health/HealthController.java"
-  "backend/src/main/java/com/heness/project/config/ai/AiConfiguration.java"
-  "backend/src/test/java/com/heness/project/config/ai/AiConfigurationTests.java"
+  "backend/src/main/java/com/heness/project/assistant/infrastructure/ai/AiConfiguration.java"
+  "backend/src/main/java/com/heness/project/community/package-info.java"
+  "backend/src/main/java/com/heness/project/guide/package-info.java"
+  "backend/src/main/java/com/heness/project/media/package-info.java"
+  "backend/src/main/java/com/heness/project/moderation/package-info.java"
+  "backend/src/main/java/com/heness/project/notification/package-info.java"
+  "backend/src/main/java/com/heness/project/support/package-info.java"
+  "backend/src/test/java/com/heness/project/assistant/infrastructure/ai/AiConfigurationTests.java"
+  "backend/src/test/java/com/heness/project/architecture/ArchitectureRulesTests.java"
   ".agents/skills/java-springboot/SKILL.md"
   ".agents/skills/mysql/SKILL.md"
   ".agents/skills/mysql/references/data-types.md"
@@ -131,8 +142,13 @@ required_content=(
   'frontend/package.json|"next": "16.2.10"'
   'frontend/package.json|"react": "19.2.7"'
   'backend/pom.xml|<spring-ai.version>2.0.0</spring-ai.version>'
+  'backend/pom.xml|<archunit.version>1.4.1</archunit.version>'
   'backend/pom.xml|<mybatis-plus.version>3.5.17</mybatis-plus.version>'
+  'backend/pom.xml|<artifactId>archunit-junit5</artifactId>'
   'backend/pom.xml|<artifactId>mybatis-plus-spring-boot4-starter</artifactId>'
+  'backend/AGENTS.md|跨模块同步调用只能使用目标模块公开的 `application` 契约'
+  'backend/docs/architecture.md|./mvnw -Dtest=ArchitectureRulesTests test'
+  'backend/README.md|[模块化单体架构说明](docs/architecture.md)'
   'backend/src/main/resources/application.yml|mybatis-plus:'
   'backend/src/main/resources/application.yml|enabled: ${AI_ENABLED:false}'
 )
