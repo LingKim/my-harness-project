@@ -21,3 +21,9 @@
 - [x] 4.1 获得用户明确授权后，在 `backend/` 确认 `main` 分支和 staged diff 只包含本变更，提交并推送后端仓库，再验证新提交可从 `origin/main` 到达。
 - [x] 4.2 回到主仓库，将 `api-error-handling-validation` delta spec 同步到 `openspec/specs/`，确认 change 无未完成实现或验证任务，并运行 OpenSpec 校验。
 - [x] 4.3 获得用户明确授权后，在主仓库仅暂存本 change artifacts、同步后的规格和 `backend` gitlink，提交并按用户要求决定是否推送；不得夹带现有无关修改。
+
+## 5. 异常日志敏感信息回归修复
+
+- [x] 5.1 在 `backend/src/test/java/com/heness/project/shared/web/error/GlobalExceptionHandlerTests.java` 增加日志安全断言：未知异常日志保留 `traceId` 和异常类型，但不得包含异常消息中的敏感值；运行对应测试并确认现有实现因泄露敏感值而失败。
+- [x] 5.2 修改 `backend/src/main/java/com/heness/project/shared/web/error/GlobalExceptionHandler.java`，不再把原始异常消息写入生产日志，同时保留异常类型和脱敏调用栈用于定位。
+- [x] 5.3 运行 `cd backend && ./mvnw -Dtest=GlobalExceptionHandlerTests test`、`cd backend && ./mvnw test`、两个仓库的 `git diff --check`、根级 Harness 与 OpenSpec 严格校验；未经单独 Git 授权不提交或推送。
