@@ -21,8 +21,10 @@ required_files=(
   "compose.yaml"
   "frontend/package.json"
   "frontend/pnpm-lock.yaml"
+  "frontend/playwright.config.ts"
   "frontend/vitest.config.ts"
-  "frontend/src/app/page.test.tsx"
+  "frontend/src/components/product-shell.test.tsx"
+  "frontend/src/i18n/config.test.ts"
   "backend/pom.xml"
   "backend/mvnw"
   "backend/AGENTS.md"
@@ -60,6 +62,7 @@ required_directories=(
   ".agents/skills/mysql/references"
   ".agents/skills/vercel-react-best-practices/rules"
   "frontend/src/app"
+  "frontend/e2e"
   "backend/src/main/java/com/heness/project"
   "backend/src/main/resources/mapper"
   "docs/designs"
@@ -141,6 +144,8 @@ required_content=(
   'compose.yaml|image: mysql:8.4'
   'frontend/package.json|"next": "16.2.10"'
   'frontend/package.json|"react": "19.2.7"'
+  'frontend/package.json|"typecheck": "next typegen && tsc --noEmit"'
+  'frontend/package.json|"test:e2e": "playwright test"'
   'backend/pom.xml|<spring-ai.version>2.0.0</spring-ai.version>'
   'backend/pom.xml|<archunit.version>1.4.1</archunit.version>'
   'backend/pom.xml|<mybatis-plus.version>3.5.17</mybatis-plus.version>'
