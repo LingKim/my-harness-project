@@ -195,6 +195,10 @@ AI_MODEL=gpt-4.1-mini
 
 ## OpenSpec 工作流
 
+项目接口设计与开发前先阅读：
+
+- [ChinaMate 接口开发规范](docs/standards/api-development-guidelines.md)
+
 需求还不明确时：
 
 ```text
