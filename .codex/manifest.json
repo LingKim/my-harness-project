@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "platform": "codex",
+  "generator": {
+    "name": "@fission-ai/openspec",
+    "version": "1.6.0",
+    "command": "openspec update --force",
+    "verifiedAt": "2026-07-26"
+  },
+  "generatedPaths": [
+    ".codex/skills/openspec-*"
+  ],
+  "customAgents": [
+    {
+      "name": "product_manager",
+      "path": ".codex/agents/product_manager.toml",
+      "sandboxMode": "workspace-write"
+    },
+    {
+      "name": "interaction_designer",
+      "path": ".codex/agents/interaction_designer.toml",
+      "sandboxMode": "workspace-write"
+    },
+    {
+      "name": "frontend_engineer",
+      "path": ".codex/agents/frontend_engineer.toml",
+      "sandboxMode": "workspace-write"
+    },
+    {
+      "name": "backend_engineer",
+      "path": ".codex/agents/backend_engineer.toml",
+      "sandboxMode": "workspace-write"
+    },
+    {
+      "name": "qa_engineer",
+      "path": ".codex/agents/qa_engineer.toml",
+      "sandboxMode": "workspace-write"
+    },
+    {
+      "name": "spec_reviewer",
+      "path": ".codex/agents/spec_reviewer.toml",
+      "sandboxMode": "read-only"
+    },
+    {
+      "name": "experience_reviewer",
+      "path": ".codex/agents/experience_reviewer.toml",
+      "sandboxMode": "read-only"
+    }
+  ],
+  "prohibitedPaths": [
+    "frontend/.codex",
+    "backend/.codex",
+    ".agents",
+    ".claude",
+    "CLAUDE.md"
+  ],
+  "policy": "本项目只维护根 .codex 中的 Agents、Rules、Skills。OpenSpec 更新若生成其他工具目录，必须清理后才能通过 Harness。"
+}

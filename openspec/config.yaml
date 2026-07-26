@@ -31,6 +31,10 @@ context: |
   - 声明完成前必须运行新的验证。
   - 人类可读文档默认使用中文；代码标识符和标准结构关键字保持原文。
   - 跨仓库变更分别记录每个仓库的实现、验证、提交和 gitlink 更新。
+  - AI Coding 治理以 Codex 为准：三个 AGENTS.md 只负责入口，七个项目角色、所有 Rules 与 Skills 集中在主仓库根 .codex；不得保留子仓库 .codex、.agents、.claude 或 CLAUDE.md。
+  - spec_reviewer 在实现完成后只读执行 Spec → 代码与代码 → Spec 双向逐条对账，按实际条目计算覆盖率并输出修复 Action Items，不修改代码或规格。
+  - 主 Agent 按交付物选择最少必要角色；产品合同未确认不得实现，只有契约冻结且文件互不争用时才并行写入。
+  - React/Next.js、Java/Spring Boot 与 MySQL Skills 均由根 .codex/skills 拥有，分别由相关角色和技术 Rules 按需路由。
 
 rules:
   proposal:

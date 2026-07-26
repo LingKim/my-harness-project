@@ -44,8 +44,8 @@
 ├── .gitmodules                # submodule 路径与远端地址
 ├── compose.yaml                # MySQL 本地开发服务
 ├── .env.example                # 不含真实凭据的环境变量模板
-├── AGENTS.md                   # AI 代理统一开发约束
-├── CLAUDE.md                   # Claude Code 项目入口
+├── AGENTS.md                   # Codex 自动发现的薄入口
+├── .codex/                     # 集中的 Codex Agents、Rules、Skills 与治理清单
 ├── openspec/                   # 当前规格和变更 artifacts
 ├── docs/                       # 跨变更设计与计划
 └── scripts/check-harness.sh    # 仓库结构自检
@@ -144,6 +144,7 @@ pnpm dev
 ```bash
 cd frontend
 pnpm lint
+pnpm typecheck
 pnpm test
 ```
 
@@ -192,6 +193,23 @@ AI_MODEL=gpt-4.1-mini
 ```
 
 需要启用时，把 `AI_ENABLED` 改为 `true`，并提供当前供应商兼容的基础地址、API Key 和模型名称。配置缺失会在启动阶段明确失败。本次基线没有暴露模型调用接口，因此不会主动产生模型调用或费用。
+
+## Agent、Rules、Skills 治理
+
+项目以 Codex 为准，所有治理内容集中在主仓库根 `.codex/`：
+
+- `AGENTS.md`：Codex 自动入口，只说明作用域、事实优先级、权限边界和任务路由。
+- `.codex/agents/`：七个项目级研发角色及其职责、交付格式、限制和 Tools 授权。
+- `.codex/rules/`：集中保存通用、前端、后端和数据库项目约束。
+- `.codex/skills/`：集中保存 OpenSpec、React、Java 与 MySQL 任务方法。
+
+项目只在根 `.codex/agents/` 维护 `product_manager`、`interaction_designer`、`frontend_engineer`、`backend_engineer`、`qa_engineer`、只读 `spec_reviewer` 与只读 `experience_reviewer`；不在子仓库复制 `.codex/`，也不维护 `.agents/`、`.claude/` 或 `CLAUDE.md`。登记清单见 [`.codex/manifest.json`](.codex/manifest.json)，角色索引见 [`.codex/agents/README.md`](.codex/agents/README.md)，规则索引见 [`.codex/rules/README.md`](.codex/rules/README.md)。
+
+治理结构验证：
+
+```bash
+./scripts/check-agent-governance.sh
+```
 
 ## OpenSpec 工作流
 
@@ -266,4 +284,4 @@ git push
 ./scripts/check-harness.sh
 ```
 
-Superpowers 的实际插件属于用户级 Harness 配置，不把第三方插件源码复制进业务仓库。本 AIWorkSpace 通过 `AGENTS.md` 固化探索、TDD、系统调试、submodule 边界和完成前验证等核心纪律。
+该命令验证仓库编排、关键工程入口以及 Agent/Rules/Skills 接入；它不替代前端 lint/typecheck/test、后端测试、数据库证据或真实运行验证。第三方 Skills 保持供应商内容原样，项目覆盖规则只写入所属仓库 conventions。
