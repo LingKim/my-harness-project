@@ -50,6 +50,19 @@ required_files=(
   ".codex/skills/vercel-react-best-practices/SKILL.md"
   ".codex/skills/java-springboot/SKILL.md"
   ".codex/skills/mysql/SKILL.md"
+  ".codex/skills/chinamate-fullstack-delivery/SKILL.md"
+  ".codex/skills/chinamate-fullstack-delivery/agents/openai.yaml"
+  ".codex/skills/chinamate-fullstack-delivery/references/stage-routing.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/control-matrix.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/knowledge-routing.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/verification-profiles.md"
+  ".codex/skills/chinamate-fullstack-delivery/scripts/collect_verification.py"
+  ".codex/skills/chinamate-fullstack-delivery/scripts/check_verification_freshness.py"
+  "docs/architecture/system-map.md"
+  "docs/standards/domain-glossary.md"
+  "docs/templates/openspec-change-evidence.md"
+  "scripts/test-ai-delivery-governance.py"
+  "scripts/test-verification-collector.py"
 )
 
 required_directories=(
@@ -156,11 +169,16 @@ fi
 node -e '
 const fs = require("fs");
 const lock = JSON.parse(fs.readFileSync(".codex/skills-lock.json", "utf8"));
-if (lock.version !== 1 || JSON.stringify(Object.keys(lock.skills ?? {}).sort()) !== JSON.stringify(["java-springboot", "mysql", "vercel-react-best-practices"])) {
+const projectSkill = lock.projectSkills?.["chinamate-fullstack-delivery"];
+if (lock.version !== 1
+  || JSON.stringify(Object.keys(lock.skills ?? {}).sort()) !== JSON.stringify(["java-springboot", "mysql", "vercel-react-best-practices"])
+  || JSON.stringify(Object.keys(lock.projectSkills ?? {}).sort()) !== JSON.stringify(["chinamate-fullstack-delivery"])
+  || projectSkill?.sourceType !== "project"
+  || !/^[0-9a-f]{64}$/.test(projectSkill?.contentHash ?? "")) {
   process.exit(1);
 }
 ' || {
-  echo "失败：根统一 Skills 锁必须且只能包含前端、Java 与 MySQL 三个应用 Skill" >&2
+  echo "失败：根统一 Skills 锁必须分区登记单人全栈项目 Skill 与三个第三方技术 Skill" >&2
   exit 1
 }
 
@@ -177,5 +195,6 @@ bash scripts/check-agent-governance.sh
 echo "通过：AIWorkSpace Harness、submodule 与集中 Agents/Rules/Skills 治理结构完整"
 echo "      OpenSpec schema：spec-driven"
 echo "      治理平台：Codex-only（根 .codex/agents + .codex/rules + .codex/skills）"
+echo "      单人全栈 Skill：.codex/skills/chinamate-fullstack-delivery"
 echo "      前端 Skill：.codex/skills/vercel-react-best-practices"
 echo "      后端 Skills：.codex/skills/java-springboot + mysql"

@@ -4,7 +4,7 @@
 
 - 主仓库负责 Harness、OpenSpec、跨项目文档、环境模板、Compose 和 submodule gitlink。
 - `frontend/` 与 `backend/` 是独立 Git 仓库，应用内部文件只能由对应仓库跟踪；主仓库只记录模式 `160000` 的 gitlink。
-- 前端和后端的技术 Rules 与 Skills 跟随对应 submodule，不在主仓库维护第二份规范源。
+- 应用源码和普通应用文档由对应 submodule 拥有；项目 Agents、Rules 与 Skills 由完整 AIWorkSpace 根 `.codex/` 集中拥有，子仓库入口只路由到根治理能力，不保存副本。
 
 ## RULE-REPO-002：修改 submodule 前确认局部上下文
 

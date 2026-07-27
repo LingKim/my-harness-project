@@ -8,6 +8,8 @@
 - 当前结论：`PASS / FAIL / BLOCKED`
 - 最后更新：`YYYY-MM-DD HH:mm +08:00`
 - 影响仓库：`root / frontend / backend`
+- 机器验证清单：[`reviews/verification-manifest.json`](./reviews/verification-manifest.json) / `未生成`
+- 机器清单时效：`FRESH / STALE / NOT_CHECKED / 不适用`
 - 实现或检查范围：
   - `<path-or-component>`
 
@@ -70,11 +72,13 @@
 - OpenSpec strict validate：`PASS / FAIL / BLOCKED / NOT_RUN`
 - Spec Review：`PASS / PASS_WITH_ISSUES / FAIL / NOT_RUN`
 - Experience Review：`PASS / PASS_WITH_ISSUES / FAIL / NOT_RUN / 不适用`
+- 机器验证清单时效：`FRESH / STALE / NOT_CHECKED / 不适用`
 - 是否建议归档：`是 / 否`
 - 结论依据：
 
 ## 记录边界
 
 - 只保存完整命令、关键输出摘要、测试数量、失败数量、可复现步骤和相对路径，不粘贴完整终端日志或缓存。
+- `reviews/verification-manifest.json` 只保存受控 profile 的命令、退出码、脱敏摘要、仓库状态和输入指纹；它不替代 QA、Spec Review、体验结论或归档判断。
 - 凭据、token、Cookie、隐私数据和敏感日志必须脱敏；无法安全脱敏时不得保存。
 - 审查或最终验证后又修改覆盖范围内的实现、测试或规格时，把旧记录标记为“已失效”，并追加新的验证记录或不重跑依据。

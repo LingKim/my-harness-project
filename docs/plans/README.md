@@ -15,3 +15,9 @@
 ## 治理参考
 
 - [OpenSpec Change 交付证据模板](../templates/openspec-change-evidence.md)：业务、行为、跨仓库、API、数据库、安全、架构和治理 change 的验证与审查证据入口；纯文案、机械格式化和只读探索可以豁免并说明原因。
+- [单人全栈交付 Skill](../../.codex/skills/chinamate-fullstack-delivery/SKILL.md)：产品、交互、前后端、测试与验收由一人承担时的阶段恢复和最短路径入口。
+- [Rule 控制矩阵](../../.codex/skills/chinamate-fullstack-delivery/references/control-matrix.md)：Critical Rule 的责任、硬关卡与证据位置。
+- [跨栈系统地图](../architecture/system-map.md)与[领域术语桥](../standards/domain-glossary.md)：业务到页面、API、模块、数据和测试的轻量知识入口。
+- [验证 Profiles](../../.codex/skills/chinamate-fullstack-delivery/references/verification-profiles.md)：固定命令采集 machine manifest 并检查输入时效；机器结果不替代 QA、Spec Review 或体验验收。
+
+编排不会自动执行 commit、push、gitlink 更新或 OpenSpec 归档。只有达到 Skill 中记录的量化升级触发条件时，才另开 change 评估逐模块 Wiki 或更重的知识基线。

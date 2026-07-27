@@ -10,6 +10,13 @@
   "generatedPaths": [
     ".codex/skills/openspec-*"
   ],
+  "projectSkills": [
+    {
+      "name": "chinamate-fullstack-delivery",
+      "path": ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
+      "source": "skill-creator"
+    }
+  ],
   "customAgents": [
     {
       "name": "product_manager",

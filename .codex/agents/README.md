@@ -14,6 +14,7 @@
 
 ## 使用原则
 
+- 单人承担完整交付时，由主 Agent 使用 `../skills/chinamate-fullstack-delivery/SKILL.md` 串行切换角色视角并维护交接；角色不是必须并行启动的虚拟团队。
 - 已确认 OpenSpec、当前源码与真实验证结果优先于角色示例和通用 Skill。
 - Skills 与 Rules 只从根 `.codex/skills/` 和 `.codex/rules/` 加载，不在子仓库复制。
 - 产品规格未经用户确认时，写入型开发角色不得开始实现。

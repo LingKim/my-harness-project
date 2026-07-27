@@ -1,5 +1,14 @@
 {
   "version": 1,
+  "projectSkills": {
+    "chinamate-fullstack-delivery": {
+      "source": "ChinaMate project",
+      "sourceType": "project",
+      "skillPath": ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
+      "computedHash": "f2caa091cd3dc255603592db2ea666cd0513b5deafeb0ea896dec0490e039f34",
+      "contentHash": "f2caa091cd3dc255603592db2ea666cd0513b5deafeb0ea896dec0490e039f34"
+    }
+  },
   "skills": {
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",

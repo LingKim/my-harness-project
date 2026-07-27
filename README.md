@@ -203,6 +203,18 @@ AI_MODEL=gpt-4.1-mini
 - `.codex/rules/`：集中保存通用、前端、后端和数据库项目约束。
 - `.codex/skills/`：集中保存 OpenSpec、React、Java 与 MySQL 任务方法。
 
+同一名开发者承担产品、交互、前端、后端、测试和验收时，统一从 [ChinaMate 单人全栈交付 Skill](.codex/skills/chinamate-fullstack-delivery/SKILL.md) 进入。它从 OpenSpec、Git、测试与 `evidence.md` 推导阶段，按任务选择最短安全路径，并把七个角色作为串行职责视角；不会建立第二套状态，也不会自动 commit、push、更新 gitlink 或归档。
+
+配套入口：
+
+- [Rule 控制矩阵](.codex/skills/chinamate-fullstack-delivery/references/control-matrix.md)：明确 Critical Rule 的责任、控制类型、阻断条件和证据位置。
+- [验证 Profiles](.codex/skills/chinamate-fullstack-delivery/references/verification-profiles.md)：以固定参数数组运行根、前端或后端门禁，并生成脱敏的 machine manifest。
+- [交付安全预检与清理复核](.codex/skills/chinamate-fullstack-delivery/references/verification-profiles.md#环境预检)：识别 worktree 依赖和 Java/Mockito 风险，要求分页等真实场景跨越边界两侧，并用声明式 cleanup manifest 只读证明临时数据库、端口、worktree、分支和路径零残留。
+- [跨栈系统地图](docs/architecture/system-map.md)：以 `CURRENT`/`PLANNED` 区分真实路径与计划能力。
+- [领域术语桥](docs/standards/domain-glossary.md)：把产品语言映射到工程含义和权威来源。
+
+当前只维护上述轻量知识入口。只有单模块真实文件超过 50 个、同一定位问题重复三次、发生两次已确认地图漂移，或同一需求出现三个以上专用外部收料通道时，才另建 OpenSpec change 评估重型知识库。
+
 项目只在根 `.codex/agents/` 维护 `product_manager`、`interaction_designer`、`frontend_engineer`、`backend_engineer`、`qa_engineer`、只读 `spec_reviewer` 与只读 `experience_reviewer`；不在子仓库复制 `.codex/`，也不维护 `.agents/`、`.claude/` 或 `CLAUDE.md`。登记清单见 [`.codex/manifest.json`](.codex/manifest.json)，角色索引见 [`.codex/agents/README.md`](.codex/agents/README.md)，规则索引见 [`.codex/rules/README.md`](.codex/rules/README.md)。
 
 治理结构验证：

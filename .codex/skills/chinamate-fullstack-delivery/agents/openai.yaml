@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChinaMate 单人全栈交付"
+  short_description: "编排产品、交互、前后端、测试与验收的单人全栈交付流程"
+  default_prompt: "Use $chinamate-fullstack-delivery to continue this ChinaMate change through the smallest safe delivery path."

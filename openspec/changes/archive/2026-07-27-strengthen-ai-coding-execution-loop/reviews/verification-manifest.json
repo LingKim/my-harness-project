@@ -1,0 +1,141 @@
+{
+  "schema": "chinamate-verification-manifest/v1",
+  "profile": "root-governance",
+  "createdAt": "2026-07-27T15:29:23+08:00",
+  "status": "PASS",
+  "commands": [
+    {
+      "name": "agent-governance",
+      "cwd": ".",
+      "argv": [
+        "./scripts/check-agent-governance.sh"
+      ],
+      "command": "./scripts/check-agent-governance.sh",
+      "startedAt": "2026-07-27T15:29:21+08:00",
+      "finishedAt": "2026-07-27T15:29:22+08:00",
+      "exitCode": 0,
+      "status": "PASS",
+      "summary": "__.VerificationCollectorTests.test_application_profiles_only_fingerprint_their_repository) ... ok\ntest_approved_profiles_do_not_use_shell_or_forbidden_commands (__main__.VerificationCollectorTests.test_approved_profiles_do_not_use_shell_or_forbidden_commands) ... ok\ntest_manifest_round_trip_and_freshness (__main__.VerificationCollectorTests.test_manifest_round_trip_and_freshness) ... ok\ntest_run_commands_preserves_each_exit_code_and_redacts_secrets (__main__.VerificationCollectorTests.test_run_commands_preserves_each_exit_code_and_redacts_secrets) ... ok\ntest_unknown_profile_is_rejected (__main__.VerificationCollectorTests.test_unknown_profile_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.116s\n\nOK\ntest_cleanup_checker_reports_absent_path_closed_port_and_database (__main__.DeliverySafetyTests.test_cleanup_checker_reports_absent_path_closed_port_and_database) ... ok\ntest_cleanup_manifest_rejects_commands_and_unsafe_targets (__main__.DeliverySafetyTests.test_cleanup_manifest_rejects_commands_and_unsafe_targets) ... ok\ntest_external_node_modules_symlink_is_blocked (__main__.DeliverySafetyTests.test_external_node_modules_symlink_is_blocked) ... ok\ntest_java21_mockito_without_agent_requires_review (__main__.DeliverySafetyTests.test_java21_mockito_without_agent_requires_review) ... ok\ntest_pagination_guidance_requires_boundary_fixture (__main__.DeliverySafetyTests.test_pagination_guidance_requires_boundary_fixture) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.009s\n\nOK"
+    },
+    {
+      "name": "harness",
+      "cwd": ".",
+      "argv": [
+        "./scripts/check-harness.sh"
+      ],
+      "command": "./scripts/check-harness.sh",
+      "startedAt": "2026-07-27T15:29:22+08:00",
+      "finishedAt": "2026-07-27T15:29:23+08:00",
+      "exitCode": 0,
+      "status": "PASS",
+      "summary": "__.VerificationCollectorTests.test_application_profiles_only_fingerprint_their_repository) ... ok\ntest_approved_profiles_do_not_use_shell_or_forbidden_commands (__main__.VerificationCollectorTests.test_approved_profiles_do_not_use_shell_or_forbidden_commands) ... ok\ntest_manifest_round_trip_and_freshness (__main__.VerificationCollectorTests.test_manifest_round_trip_and_freshness) ... ok\ntest_run_commands_preserves_each_exit_code_and_redacts_secrets (__main__.VerificationCollectorTests.test_run_commands_preserves_each_exit_code_and_redacts_secrets) ... ok\ntest_unknown_profile_is_rejected (__main__.VerificationCollectorTests.test_unknown_profile_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.124s\n\nOK\ntest_cleanup_checker_reports_absent_path_closed_port_and_database (__main__.DeliverySafetyTests.test_cleanup_checker_reports_absent_path_closed_port_and_database) ... ok\ntest_cleanup_manifest_rejects_commands_and_unsafe_targets (__main__.DeliverySafetyTests.test_cleanup_manifest_rejects_commands_and_unsafe_targets) ... ok\ntest_external_node_modules_symlink_is_blocked (__main__.DeliverySafetyTests.test_external_node_modules_symlink_is_blocked) ... ok\ntest_java21_mockito_without_agent_requires_review (__main__.DeliverySafetyTests.test_java21_mockito_without_agent_requires_review) ... ok\ntest_pagination_guidance_requires_boundary_fixture (__main__.DeliverySafetyTests.test_pagination_guidance_requires_boundary_fixture) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.008s\n\nOK"
+    },
+    {
+      "name": "openspec-strict",
+      "cwd": ".",
+      "argv": [
+        "openspec",
+        "validate",
+        "strengthen-ai-coding-execution-loop",
+        "--strict"
+      ],
+      "command": "openspec validate strengthen-ai-coding-execution-loop --strict",
+      "startedAt": "2026-07-27T15:29:23+08:00",
+      "finishedAt": "2026-07-27T15:29:23+08:00",
+      "exitCode": 0,
+      "status": "PASS",
+      "summary": "Change 'strengthen-ai-coding-execution-loop' is valid"
+    },
+    {
+      "name": "diff-check",
+      "cwd": ".",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "command": "git diff --check",
+      "startedAt": "2026-07-27T15:29:23+08:00",
+      "finishedAt": "2026-07-27T15:29:23+08:00",
+      "exitCode": 0,
+      "status": "PASS",
+      "summary": ""
+    }
+  ],
+  "inputs": [
+    {
+      "path": ".codex/agents",
+      "sha256": "0462da089f09b18262f63ef2136f71e481d79d67642f785f9e3f69466f36c14e"
+    },
+    {
+      "path": ".codex/manifest.json",
+      "sha256": "1c016d612681d6d51f741d284f74a1ec8e9d86ca415400096b6726af5d5d7317"
+    },
+    {
+      "path": ".codex/rules",
+      "sha256": "719c20d06c32a54c186d9f1004dc34ede1a45b770443342b83e91c51f407b997"
+    },
+    {
+      "path": ".codex/skills-lock.json",
+      "sha256": "3a5b83533a7d12eabc53014722ba0cab6241c9f39c8229093ef25cc05b5a760d"
+    },
+    {
+      "path": ".codex/skills/chinamate-fullstack-delivery",
+      "sha256": "f2caa091cd3dc255603592db2ea666cd0513b5deafeb0ea896dec0490e039f34"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "0627c4e83267c914ad430597a8a230fae942bf8cf08e304e1a0a9a6684853f2f"
+    },
+    {
+      "path": "README.md",
+      "sha256": "7916eb077dc4e342c6ae71a2864a8bf7e45e131e5a26485c684b6698746b4443"
+    },
+    {
+      "path": "docs/architecture",
+      "sha256": "fbfa07a9dce1c45975de1ccda523150469882dcc894fb31bc7edb5c206fa0e5c"
+    },
+    {
+      "path": "docs/standards",
+      "sha256": "4f0b76edcf7b87f73db7609afd91963cc1c4086de8353950bbd28f8900f2fd26"
+    },
+    {
+      "path": "docs/templates/openspec-change-evidence.md",
+      "sha256": "266dc5e396b541ca21e09b897f20dfd42e8b47868964d0c91e330d3fcc0b9536"
+    },
+    {
+      "path": "openspec/changes/strengthen-ai-coding-execution-loop/design.md",
+      "sha256": "0530c75bde3e6641ae88fdc70ef9aa44f59d601fe1a5334617d3522bc4a5ff23"
+    },
+    {
+      "path": "openspec/changes/strengthen-ai-coding-execution-loop/proposal.md",
+      "sha256": "be9ff8abffd934528863686b068d4427de93561c09762d441c823e059b82bf1f"
+    },
+    {
+      "path": "openspec/changes/strengthen-ai-coding-execution-loop/specs",
+      "sha256": "72af86ca65471b5b48ed3d254f2ae26271b97e9d7078b2003bd6714b1cb38831"
+    },
+    {
+      "path": "openspec/changes/strengthen-ai-coding-execution-loop/tasks.md",
+      "sha256": "e28592e5c3d886c47fd2a163d63111bd79171b0f611a10319f1315148ae67ceb"
+    },
+    {
+      "path": "scripts",
+      "sha256": "a1e7e5e5a39732afd66c53269fef78b80cb4b380e56b165b81b2964eec4a68e2"
+    }
+  ],
+  "repositories": {
+    "root": {
+      "head": "70ba7bc0bb2af3fbd768abf83d04b9c0e568c4b6",
+      "diffSha256": "59d27ae97d9ae9a5cf41c262b44ae39633c075a3ce05e7cad7ec865e49e7f54a"
+    },
+    "frontend": {
+      "head": "49bb061ce64a42ee4e22649a67d88de275c90dc6",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "backend": {
+      "head": "c03348315def22274a43cb291c47635cb6e4b841",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

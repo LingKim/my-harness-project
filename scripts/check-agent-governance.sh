@@ -27,9 +27,24 @@ required_files=(
   ".codex/skills/vercel-react-best-practices/SKILL.md"
   ".codex/skills/java-springboot/SKILL.md"
   ".codex/skills/mysql/SKILL.md"
+  ".codex/skills/chinamate-fullstack-delivery/SKILL.md"
+  ".codex/skills/chinamate-fullstack-delivery/agents/openai.yaml"
+  ".codex/skills/chinamate-fullstack-delivery/references/stage-routing.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/control-matrix.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/knowledge-routing.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/verification-profiles.md"
+  ".codex/skills/chinamate-fullstack-delivery/scripts/collect_verification.py"
+  ".codex/skills/chinamate-fullstack-delivery/scripts/check_verification_freshness.py"
+  ".codex/skills/chinamate-fullstack-delivery/scripts/check_delivery_environment.py"
+  ".codex/skills/chinamate-fullstack-delivery/scripts/check_delivery_cleanup.py"
   ".codex/skills-lock.json"
   ".codex/manifest.json"
+  "docs/architecture/system-map.md"
+  "docs/standards/domain-glossary.md"
   "docs/templates/openspec-change-evidence.md"
+  "scripts/test-ai-delivery-governance.py"
+  "scripts/test-verification-collector.py"
+  "scripts/test-delivery-safety.py"
   "frontend/scripts/check-agent-governance.sh"
   "backend/scripts/check-agent-governance.sh"
 )
@@ -56,6 +71,11 @@ if ! grep -Fq 'evidence.md' AGENTS.md || ! grep -Fq 'docs/templates/openspec-cha
   exit 1
 fi
 
+if ! grep -Fq '.codex/skills/chinamate-fullstack-delivery/SKILL.md' AGENTS.md; then
+  echo "失败：根 AGENTS.md 必须路由到单人全栈编排 Skill" >&2
+  exit 1
+fi
+
 node -e '
 const fs = require("fs");
 const path = require("path");
@@ -64,6 +84,10 @@ const files = [
   ...fs.readdirSync(".codex/rules").filter((name) => name.endsWith(".md")).map((name) => `.codex/rules/${name}`),
   "frontend/AGENTS.md",
   "backend/AGENTS.md",
+  ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
+  ...fs.readdirSync(".codex/skills/chinamate-fullstack-delivery/references").filter((name) => name.endsWith(".md")).map((name) => `.codex/skills/chinamate-fullstack-delivery/references/${name}`),
+  "docs/architecture/system-map.md",
+  "docs/standards/domain-glossary.md",
 ];
 const missing = [];
 for (const file of files) {
@@ -97,6 +121,9 @@ if [[ -n "$duplicate_rule_ids" ]]; then
 fi
 
 python3 scripts/validate-custom-agents.py
+python3 scripts/test-ai-delivery-governance.py
+python3 scripts/test-verification-collector.py
+python3 scripts/test-delivery-safety.py
 
 for forbidden in .agents .claude CLAUDE.md rules skills-lock.json; do
   if [[ -e "$forbidden" ]]; then
@@ -123,6 +150,14 @@ if (manifest.version !== 1 || manifest.platform !== "codex" || manifest.generato
 if (JSON.stringify(manifest.generatedPaths) !== JSON.stringify([".codex/skills/openspec-*"])) {
   process.exit(1);
 }
+const expectedProjectSkills = [{
+  name: "chinamate-fullstack-delivery",
+  path: ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
+  source: "skill-creator",
+}];
+if (JSON.stringify(manifest.projectSkills ?? []) !== JSON.stringify(expectedProjectSkills)) {
+  process.exit(1);
+}
 const expectedAgents = ["product_manager", "interaction_designer", "frontend_engineer", "backend_engineer", "qa_engineer", "spec_reviewer", "experience_reviewer"];
 if (JSON.stringify((manifest.customAgents ?? []).map((agent) => agent.name)) !== JSON.stringify(expectedAgents)) {
   process.exit(1);
@@ -138,4 +173,4 @@ if ((manifest.prohibitedPaths ?? []).includes(".codex/agents")) {
 bash frontend/scripts/check-agent-governance.sh
 bash backend/scripts/check-agent-governance.sh
 
-echo "通过：AGENTS.md 入口与集中 Agents、Rules、Skills 治理结构有效"
+echo "通过：AGENTS.md 入口、单人全栈编排与集中 Agents、Rules、Skills 治理结构有效"
