@@ -30,6 +30,11 @@ def replace_all(path: Path, old: str, new: str) -> None:
     path.write_text(content.replace(old, new), encoding="utf-8")
 
 
+def remove_if_present(path: Path, text: str) -> None:
+    content = path.read_text(encoding="utf-8")
+    path.write_text(content.replace(text, ""), encoding="utf-8")
+
+
 def remove_assignment(path: Path, field: str) -> None:
     lines = path.read_text(encoding="utf-8").splitlines()
     kept = [line for line in lines if not line.startswith(f"{field} = ")]
@@ -208,6 +213,27 @@ def main() -> int:
                 "完整体验报告",
             ),
             "缺少交付证据合同内容：`reviews/experience-review.md`",
+        ),
+        (
+            "后端角色缺少工程实践合规清单",
+            lambda agents, _: remove_if_present(
+                agents / "backend_engineer.toml", "工程实践合规清单"
+            ),
+            "缺少后端工程实践合同：工程实践合规清单",
+        ),
+        (
+            "QA 缺少后端工程实践验证",
+            lambda agents, _: remove_if_present(
+                agents / "qa_engineer.toml", "后端工程实践验证"
+            ),
+            "缺少QA 工程实践合同：后端工程实践验证",
+        ),
+        (
+            "Spec Reviewer 缺少项目 Rule 对账",
+            lambda agents, _: remove_if_present(
+                agents / "spec_reviewer.toml", "代码 → 项目 Rules/技术基线"
+            ),
+            "缺少Spec Reviewer 工程实践合同：代码 → 项目 Rules/技术基线",
         ),
         (
             "子仓库重复 Agent",

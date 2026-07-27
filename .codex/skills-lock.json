@@ -5,8 +5,15 @@
       "source": "ChinaMate project",
       "sourceType": "project",
       "skillPath": ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
-      "computedHash": "f2caa091cd3dc255603592db2ea666cd0513b5deafeb0ea896dec0490e039f34",
-      "contentHash": "f2caa091cd3dc255603592db2ea666cd0513b5deafeb0ea896dec0490e039f34"
+      "computedHash": "5d364703be1f7e601c8dee4ee81f0a18132806a465906bb8f0d87af07c3f450d",
+      "contentHash": "5d364703be1f7e601c8dee4ee81f0a18132806a465906bb8f0d87af07c3f450d"
+    },
+    "java-springboot": {
+      "source": "ChinaMate project",
+      "sourceType": "project",
+      "skillPath": ".codex/skills/java-springboot/SKILL.md",
+      "computedHash": "475c7f76fece89ca52e30ad6887610285df6ea52831ab62b242d2d2a70b8b674",
+      "contentHash": "475c7f76fece89ca52e30ad6887610285df6ea52831ab62b242d2d2a70b8b674"
     }
   },
   "skills": {
@@ -16,13 +23,6 @@
       "skillPath": "skills/react-best-practices/SKILL.md",
       "computedHash": "3219a1944e404ffc14d1d9d6aef6dd2e3855b81387ee0a044ccbfe14d34c2357",
       "contentHash": "c80222f9339599002afa3a8509afcf644dfa15debff629aecf853d609ad90dfc"
-    },
-    "java-springboot": {
-      "source": "github/awesome-copilot",
-      "sourceType": "github",
-      "skillPath": "skills/java-springboot/SKILL.md",
-      "computedHash": "f1b9c6b1277178fc33e5a612761c1cd1cf6ab5f946d05d69d52026d142c0a0c1",
-      "contentHash": "9a519252e1e3faa13b540f4c1680d538d20126ede326eaa36392eaf4312a1d4b"
     },
     "mysql": {
       "source": "planetscale/database-skills",

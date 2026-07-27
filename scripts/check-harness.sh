@@ -170,15 +170,18 @@ node -e '
 const fs = require("fs");
 const lock = JSON.parse(fs.readFileSync(".codex/skills-lock.json", "utf8"));
 const projectSkill = lock.projectSkills?.["chinamate-fullstack-delivery"];
+const javaSkill = lock.projectSkills?.["java-springboot"];
 if (lock.version !== 1
-  || JSON.stringify(Object.keys(lock.skills ?? {}).sort()) !== JSON.stringify(["java-springboot", "mysql", "vercel-react-best-practices"])
-  || JSON.stringify(Object.keys(lock.projectSkills ?? {}).sort()) !== JSON.stringify(["chinamate-fullstack-delivery"])
+  || JSON.stringify(Object.keys(lock.skills ?? {}).sort()) !== JSON.stringify(["mysql", "vercel-react-best-practices"])
+  || JSON.stringify(Object.keys(lock.projectSkills ?? {}).sort()) !== JSON.stringify(["chinamate-fullstack-delivery", "java-springboot"])
   || projectSkill?.sourceType !== "project"
-  || !/^[0-9a-f]{64}$/.test(projectSkill?.contentHash ?? "")) {
+  || javaSkill?.sourceType !== "project"
+  || !/^[0-9a-f]{64}$/.test(projectSkill?.contentHash ?? "")
+  || !/^[0-9a-f]{64}$/.test(javaSkill?.contentHash ?? "")) {
   process.exit(1);
 }
 ' || {
-  echo "失败：根统一 Skills 锁必须分区登记单人全栈项目 Skill 与三个第三方技术 Skill" >&2
+  echo "失败：根统一 Skills 锁必须登记两个项目 Skill 与两个第三方技术 Skill" >&2
   exit 1
 }
 

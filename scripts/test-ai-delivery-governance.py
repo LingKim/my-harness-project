@@ -68,6 +68,25 @@ class AiDeliveryGovernanceTests(unittest.TestCase):
         self.assertEqual(project_skill_hash(SKILL_ROOT), entry["computedHash"])
         self.assertEqual(project_skill_hash(SKILL_ROOT), entry["contentHash"])
 
+    def test_java_skill_is_first_party_and_hash_locked(self) -> None:
+        java_skill_root = PROJECT_ROOT / ".codex/skills/java-springboot"
+        manifest = json.loads((PROJECT_ROOT / ".codex/manifest.json").read_text(encoding="utf-8"))
+        project_skills = {item["name"]: item for item in manifest.get("projectSkills", [])}
+        self.assertIn("java-springboot", project_skills)
+        self.assertEqual(
+            ".codex/skills/java-springboot/SKILL.md",
+            project_skills["java-springboot"]["path"],
+        )
+        self.assertEqual("project-maintained", project_skills["java-springboot"]["source"])
+
+        lock = json.loads((PROJECT_ROOT / ".codex/skills-lock.json").read_text(encoding="utf-8"))
+        self.assertNotIn("java-springboot", lock.get("skills", {}))
+        entry = lock["projectSkills"]["java-springboot"]
+        self.assertEqual("project", entry["sourceType"])
+        self.assertEqual("ChinaMate project", entry["source"])
+        self.assertEqual(project_skill_hash(java_skill_root), entry["computedHash"])
+        self.assertEqual(project_skill_hash(java_skill_root), entry["contentHash"])
+
     def test_control_matrix_references_real_unique_rules(self) -> None:
         rule_ids = set(
             re.findall(

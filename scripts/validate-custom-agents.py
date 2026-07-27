@@ -51,6 +51,24 @@ DELIVERY_EVIDENCE_REQUIRED_CONTENT = {
     "spec_reviewer": ("`reviews/spec-review.md`", "主 Agent"),
     "experience_reviewer": ("`reviews/experience-review.md`", "主 Agent"),
 }
+ENGINEERING_PRACTICE_REQUIRED_CONTENT = {
+    "backend_engineer": (
+        "后端工程实践合同",
+        ("工程实践合规清单", "MyBatis-Plus Mapper/适配器", "验证失败回滚"),
+    ),
+    "qa_engineer": (
+        "QA 工程实践合同",
+        (
+            "后端工程实践验证",
+            ".codex/skills/java-springboot/SKILL.md",
+            ".codex/skills/mysql/SKILL.md",
+        ),
+    ),
+    "spec_reviewer": (
+        "Spec Reviewer 工程实践合同",
+        ("代码 → 项目 Rules/技术基线", ".codex/skills/java-springboot/SKILL.md"),
+    ),
+}
 
 
 class ValidationError(Exception):
@@ -117,6 +135,15 @@ def validate_agent(
             raise ValidationError(
                 f"{source} 缺少交付证据合同内容：{required_content}"
             )
+
+    engineering_contract = ENGINEERING_PRACTICE_REQUIRED_CONTENT.get(name)
+    if engineering_contract is not None:
+        contract_name, required_contents = engineering_contract
+        for required_content in required_contents:
+            if required_content not in instructions:
+                raise ValidationError(
+                    f"{source} 缺少{contract_name}：{required_content}"
+                )
 
     skill_names = set(SKILL_REFERENCE.findall(instructions))
     if not skill_names:

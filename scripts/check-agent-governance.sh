@@ -154,6 +154,10 @@ const expectedProjectSkills = [{
   name: "chinamate-fullstack-delivery",
   path: ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
   source: "skill-creator",
+}, {
+  name: "java-springboot",
+  path: ".codex/skills/java-springboot/SKILL.md",
+  source: "project-maintained",
 }];
 if (JSON.stringify(manifest.projectSkills ?? []) !== JSON.stringify(expectedProjectSkills)) {
   process.exit(1);

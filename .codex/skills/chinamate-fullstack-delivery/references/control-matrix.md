@@ -16,5 +16,6 @@
 | RULE-FE-007 | frontend | CRITICAL | 前端职责视角 | TEST | frontend-static profile | 客户端读取非公开配置 | 前端测试结果 |
 | RULE-BE-006 | backend | CRITICAL | 后端职责视角 | REVIEW | 后端安全审查 | 配置、日志或异常泄露敏感信息 | 后端测试与 Spec Review |
 | RULE-DB-002 | backend | CRITICAL | 后端职责视角 | REVIEW | 数据库变更审查 | schema 变化不来自 Flyway | migration 与 Spec Review |
+| RULE-DB-009 | backend | CRITICAL | 后端职责视角 | REVIEW | 工程实践责任链 | 无依据直接使用 Spring JDBC 或绕过 MyBatis-Plus 默认路径 | 后端完成报告、QA 与 Spec Review |
 
 控制类型只允许 `SCRIPT`、`TEST`、`REVIEW`、`MAIN_AGENT`、`USER_CONFIRMATION`。脚本只校验稳定字段和引用，不解释 Rule 自然语言。

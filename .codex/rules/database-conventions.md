@@ -49,3 +49,10 @@
 - 执行 `DROP`、`TRUNCATE`、无条件 `DELETE`/`UPDATE`、不可逆字段/索引删除或其他难以恢复的操作前，必须解析精确目标并获得用户明确批准。
 - 执行前说明影响范围、备份或恢复方式、兼容发布、回滚和部署后验证；目标不清楚时停止操作。
 - 审查发现危险 SQL 时将其标为阻断问题，但未经授权不得执行；`EXPLAIN ANALYZE` 不能用来规避此限制。
+
+## RULE-DB-009：业务持久化默认使用 MyBatis-Plus
+
+- 业务表的常规 CRUD、条件查询和分页默认通过所属业务模块 `infrastructure` 中的 MyBatis-Plus Mapper 或适配器完成；Mapper 可以按需继承 `BaseMapper<T>`。
+- 多表查询、聚合、锁定读取和其他复杂 SQL 优先放在同一 Mapper 边界的 XML 或注解 SQL 中，继续遵守显式列、参数绑定和数据库对象不越过 application 边界的约束。
+- 直接使用 `JdbcTemplate`、`NamedParameterJdbcTemplate` 或其他 Spring JDBC API 必须有已确认设计依据，限定在所属模块 `infrastructure`，说明 MyBatis-Plus 不适用的具体原因、替代方案取舍并提供等价测试。
+- 缺少上述依据的直接 JDBC 实现属于阻断级工程实践偏差；SQL 使用占位参数只能证明参数安全，不能证明整体持久化方案合规。

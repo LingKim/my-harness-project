@@ -178,7 +178,8 @@ cd backend
 - 本地完整运行时，从 `.env` 加载 `DATABASE_ENABLED=true` 和数据源变量。
 - 数据库结构只通过 `backend/src/main/resources/db/migration/` 中的 Flyway 脚本修改。
 - MyBatis-Plus XML 放在 `backend/src/main/resources/mapper/` 的业务子目录中。
-- 真实业务 Mapper 可以按需继承 `BaseMapper<T>`，但数据库结构仍只能由 Flyway 修改。
+- 常规业务持久化默认通过所属业务模块的 MyBatis-Plus Mapper/适配器完成；真实 Mapper 可以按需继承 `BaseMapper<T>`，但数据库结构仍只能由 Flyway 修改。
+- 直接使用 Spring JDBC 必须有已确认 design 依据，限定在所属模块 `infrastructure`，说明替代方案取舍并提供等价测试。
 - 不使用 JPA/Hibernate 自动建表。
 
 ## OpenAI-compatible 配置
@@ -202,6 +203,8 @@ AI_MODEL=gpt-4.1-mini
 - `.codex/agents/`：七个项目级研发角色及其职责、交付格式、限制和 Tools 授权。
 - `.codex/rules/`：集中保存通用、前端、后端和数据库项目约束。
 - `.codex/skills/`：集中保存 OpenSpec、React、Java 与 MySQL 任务方法。
+
+其中 `java-springboot` 是与 ChinaMate Java 21、Spring Boot 4.1、模块化单体、MyBatis-Plus 和 Flyway 对齐的项目维护 Skill；Vercel React 与 MySQL Skills 保持第三方来源并由项目 Rules 提供覆盖和例外。
 
 同一名开发者承担产品、交互、前端、后端、测试和验收时，统一从 [ChinaMate 单人全栈交付 Skill](.codex/skills/chinamate-fullstack-delivery/SKILL.md) 进入。它从 OpenSpec、Git、测试与 `evidence.md` 推导阶段，按任务选择最短安全路径，并把七个角色作为串行职责视角；不会建立第二套状态，也不会自动 commit、push、更新 gitlink 或归档。
 

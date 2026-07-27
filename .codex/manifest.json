@@ -15,6 +15,11 @@
       "name": "chinamate-fullstack-delivery",
       "path": ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
       "source": "skill-creator"
+    },
+    {
+      "name": "java-springboot",
+      "path": ".codex/skills/java-springboot/SKILL.md",
+      "source": "project-maintained"
     }
   ],
   "customAgents": [
