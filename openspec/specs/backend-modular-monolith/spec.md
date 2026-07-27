@@ -102,19 +102,23 @@ MyBatis XML SHALL 放置在 `src/main/resources/mapper/<module>/`，模块 Promp
 - **WHEN** 后端代码引入 JPA entity、Spring Data JPA Repository 或 JPA 专用测试模式
 - **THEN** 架构测试或 Harness 门禁失败
 
-### Requirement: 独立后端仓库包含架构上下文
-后端仓库 SHALL 包含局部 `AGENTS.md` 和中文架构文档，使从 `backend/` 独立进入的开发者或 AI 代理能够发现模块边界、技术约束和验证命令。
+### Requirement: 后端治理依赖完整 AIWorkSpace
+后端仓库 SHALL 包含薄 `AGENTS.md` 和中文架构文档，但 MUST NOT 包含局部 `.codex`；受治理的 Java、Spring Boot 或数据库任务必须从完整 AIWorkSpace 读取根 `.codex/rules` 与 `.codex/skills`。
 
-#### Scenario: AI 代理从后端仓库开始任务
-- **WHEN** AI 代理直接以 `backend/` 为工作目录处理 Java 或 Spring Boot 任务
-- **THEN** 可以从 `backend/AGENTS.md` 读取模块边界、MyBatis-Plus/Flyway 约束和验证要求
+#### Scenario: AI 代理从后端仓库开始局部任务
+- **WHEN** AI 代理在完整 AIWorkSpace 中进入 `backend/` 处理 Java、Spring Boot 或数据库任务
+- **THEN** 可以从后端 `AGENTS.md` 定位根 conventions、Skills 和验证命令
 - **AND** 可以从后端 README 定位完整中文架构文档
+
+#### Scenario: 独立检出时请求修改 HTTP 契约
+- **WHEN** 后端独立检出缺少主仓库 `.codex`、OpenSpec 或跨栈接口规范
+- **THEN** 代理必须停止受治理的实现或评审并要求回到完整 AIWorkSpace
+- **AND** 不得复制或推测根级 Rules、Skills 与契约
 
 #### Scenario: 根级与局部规则同时生效
 - **WHEN** AI 代理从主仓库处理后端 submodule 任务
-- **THEN** 根级跨仓库规则与后端局部架构规则共同生效
-- **AND** 后端局部规则不降低根级安全、OpenSpec 或验证要求
-
+- **THEN** 根级跨仓库 Rules 与根 `backend-conventions.md`、`database-conventions.md` 共同生效
+- **AND** 技术 conventions 不降低根级安全、OpenSpec、Git 或验证要求
 ### Requirement: 现有基础行为保持兼容
 架构整理 MUST 保持现有 `/api/health` 契约、默认数据库关闭、默认 AI 关闭和 AI 必填配置校验行为不变，并 MUST NOT 在基础测试中访问外部模型服务。
 

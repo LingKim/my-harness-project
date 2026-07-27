@@ -23,6 +23,13 @@ def replace_once(path: Path, old: str, new: str) -> None:
     path.write_text(content.replace(old, new, 1), encoding="utf-8")
 
 
+def replace_all(path: Path, old: str, new: str) -> None:
+    content = path.read_text(encoding="utf-8")
+    if old not in content:
+        raise AssertionError(f"测试夹具无法在 {path} 中找到：{old}")
+    path.write_text(content.replace(old, new), encoding="utf-8")
+
+
 def remove_assignment(path: Path, field: str) -> None:
     lines = path.read_text(encoding="utf-8").splitlines()
     kept = [line for line in lines if not line.startswith(f"{field} = ")]
@@ -174,6 +181,33 @@ def main() -> int:
                 'sandbox_mode = "workspace-write"',
             ),
             '必须使用 sandbox_mode = "read-only"',
+        ),
+        (
+            "QA 缺少证据交接合同",
+            lambda agents, _: replace_all(
+                agents / "qa_engineer.toml",
+                "`evidence.md`",
+                "交付摘要文档",
+            ),
+            "缺少交付证据合同内容：`evidence.md`",
+        ),
+        (
+            "Spec Reviewer 缺少持久化路径",
+            lambda agents, _: replace_all(
+                agents / "spec_reviewer.toml",
+                "`reviews/spec-review.md`",
+                "完整审查报告",
+            ),
+            "缺少交付证据合同内容：`reviews/spec-review.md`",
+        ),
+        (
+            "体验 Reviewer 缺少持久化路径",
+            lambda agents, _: replace_all(
+                agents / "experience_reviewer.toml",
+                "`reviews/experience-review.md`",
+                "完整体验报告",
+            ),
+            "缺少交付证据合同内容：`reviews/experience-review.md`",
         ),
         (
             "子仓库重复 Agent",

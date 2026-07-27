@@ -29,6 +29,7 @@ required_files=(
   ".codex/skills/mysql/SKILL.md"
   ".codex/skills-lock.json"
   ".codex/manifest.json"
+  "docs/templates/openspec-change-evidence.md"
   "frontend/scripts/check-agent-governance.sh"
   "backend/scripts/check-agent-governance.sh"
 )
@@ -47,6 +48,11 @@ fi
 
 if ! grep -Fq 'frontend/AGENTS.md' AGENTS.md || ! grep -Fq 'backend/AGENTS.md' AGENTS.md; then
   echo "失败：根 AGENTS.md 必须路由到前端和后端局部入口" >&2
+  exit 1
+fi
+
+if ! grep -Fq 'evidence.md' AGENTS.md || ! grep -Fq 'docs/templates/openspec-change-evidence.md' AGENTS.md; then
+  echo "失败：根 AGENTS.md 必须路由 OpenSpec change 交付证据与模板" >&2
   exit 1
 fi
 

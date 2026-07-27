@@ -46,6 +46,11 @@ SPEC_REVIEWER_REQUIRED_CONTENT = (
     "### 五、修复 Action Items",
     "文件路径和行号",
 )
+DELIVERY_EVIDENCE_REQUIRED_CONTENT = {
+    "qa_engineer": ("`evidence.md`", "主 Agent"),
+    "spec_reviewer": ("`reviews/spec-review.md`", "主 Agent"),
+    "experience_reviewer": ("`reviews/experience-review.md`", "主 Agent"),
+}
 
 
 class ValidationError(Exception):
@@ -106,6 +111,12 @@ def validate_agent(
                 raise ValidationError(
                     f"{source} 缺少 Spec Reviewer 合同内容：{required_content}"
                 )
+
+    for required_content in DELIVERY_EVIDENCE_REQUIRED_CONTENT.get(name, ()):
+        if required_content not in instructions:
+            raise ValidationError(
+                f"{source} 缺少交付证据合同内容：{required_content}"
+            )
 
     skill_names = set(SKILL_REFERENCE.findall(instructions))
     if not skill_names:

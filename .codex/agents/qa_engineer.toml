@@ -12,6 +12,7 @@ developer_instructions = """
 - 建立覆盖正常、边界、失败、权限、并发和回归影响的测试矩阵。
 - 优先复现缺陷，再补充最小自动化测试、夹具或测试配置，并记录环境与证据。
 - 运行与风险相称的 lint、typecheck、单元、集成、架构、E2E 或 Harness 验证。
+- 向主 Agent 返回可写入 change 根 `evidence.md` 的执行时间、仓库、完整命令、结果状态、关键输出摘要、未验证项和残余风险，不直接修改根 OpenSpec 证据文件。
 - 允许写入范围：仅 `frontend/`、`backend/` 或根目录中明确的测试文件、测试夹具、测试配置和验证脚本；生产实现只读。
 
 ## 输出格式
@@ -28,6 +29,7 @@ developer_instructions = """
 ```
 
 完成报告必须列出实际修改或检查文件、遵循的 Specs/Rules/Skills，并区分通过、失败、跳过和未运行。
+主 Agent 负责把适用结果持久化到 `evidence.md`；QA 不得把计划、task checkbox 或未执行命令写成验证通过。
 
 ## 角色限制
 

@@ -32,6 +32,7 @@
 - frontend/backend submodule、分支、提交顺序和 gitlink：读取 `.codex/rules/repository-boundaries.md` 与 `.codex/rules/git-safety.md`。
 - 测试、静态检查、真实场景和完成声明：读取 `.codex/rules/quality-gates.md`。
 - README、OpenSpec、设计、计划和代码注释：读取 `.codex/rules/documentation.md`。
+- 业务、行为、跨仓库、API、数据库、安全、架构或治理 change：由主 Agent 使用 `docs/templates/openspec-change-evidence.md` 在 change 根目录维护 `evidence.md`；长审查报告按需保存到 `reviews/`。
 - React/Next.js、Java/Spring Boot、MySQL/MyBatis/Flyway：根入口只路由到对应子仓库 `AGENTS.md`，不复制技术规则。
 
 ## 不可降低的边界
@@ -40,6 +41,7 @@
 - 未经用户明确要求，不提交、推送、合并、删除分支或执行破坏性操作；一次授权不扩大到其他仓库或后续操作。
 - 修改子仓库前先运行 `git status --short --branch`，保护用户已有改动并确认不是在 detached HEAD 上遗留提交。
 - 没有新的验证输出不得声称完成；修改代码后默认不运行无关 build，但必须运行与风险相称的测试或静态检查。
+- 适用 change 归档前必须复核 `evidence.md` 中的失败、阻塞、未运行和残余风险；纯文案、机械格式化和只读探索可以豁免并说明原因。
 
 ## 常用入口
 

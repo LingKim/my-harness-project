@@ -241,6 +241,8 @@ AI_MODEL=gpt-4.1-mini
 /opsx:archive
 ```
 
+业务功能、行为变化、跨仓库、API、数据库、安全、架构和治理行为 change 在自身根目录维护 `evidence.md`，使用 [OpenSpec Change 交付证据模板](docs/templates/openspec-change-evidence.md) 记录真实命令、QA、Spec Review、Experience Review、未验证项和归档建议。纯文案、机械格式化和只读探索可以豁免，但必须如实说明；完整原始日志和敏感信息不得写入证据。
+
 跨仓库变更必须在根级 OpenSpec tasks 中分别记录前端、后端和主仓库工作。应用提交必须先推送到对应远端，再由主仓库更新 gitlink。
 
 ## 日常更新 submodule
