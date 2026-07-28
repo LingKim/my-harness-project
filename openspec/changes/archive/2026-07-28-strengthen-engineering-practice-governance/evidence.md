@@ -6,7 +6,7 @@
 
 - Change：`strengthen-engineering-practice-governance`
 - 当前结论：`PASS_WITH_ISSUES`
-- 最后更新：`2026-07-27 17:00 +08:00`
+- 最后更新：`2026-07-28 09:08 +08:00`
 - 影响仓库：`root`、`frontend`、`backend`
 - 机器验证清单：`未生成`
 - 机器清单时效：`NOT_CHECKED`
@@ -37,6 +37,7 @@
 | `2026-07-27 17:00` | `root` | `main_agent` | `openspec validate strengthen-engineering-practice-governance --strict` | `PASS` | `Change 'strengthen-engineering-practice-governance' is valid` |
 | `2026-07-27 17:00` | `root` | `main_agent` | `git diff --check` | `PASS` | `exit 0`，无空白错误 |
 | `2026-07-27 17:00` | `root` | `main_agent` | `skill-creator/scripts/quick_validate.py .codex/skills/java-springboot` | `BLOCKED` | 系统 Python 与 Codex bundled Python 均缺少 `yaml` 模块，报 `ModuleNotFoundError: No module named 'yaml'` |
+| `2026-07-28 09:08` | `root` | `main_agent` | `/Users/lilin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 /Users/lilin/.codex/skills/.system/skill-creator/scripts/quick_validate.py .codex/skills/java-springboot` | `BLOCKED` | 归档前补跑仍因 bundled Python 缺少 `yaml` 失败；保留原 P3，不记为 Skill 内容失败 |
 
 ## 3. 手工或真实场景验证
 
@@ -93,8 +94,8 @@
 - Spec Review：`PASS_WITH_ISSUES`
 - Experience Review：`不适用`
 - 机器验证清单时效：`NOT_CHECKED`
-- 是否建议归档：暂不建议
-- 结论依据：14 项任务全部完成，治理、Harness、OpenSpec、Agent 合同测试、来源/锁测试和双向审查均通过，正向覆盖率 100%、反向超纲为 0；但专用 Skill validator 因缺少 `PyYAML` 保留一个 P3 `BLOCKED`，补跑前不主动归档。
+- 是否建议归档：是，带已知 P3 残余风险
+- 结论依据：14 项任务全部完成，治理、Harness、OpenSpec、Agent 合同测试、来源/锁测试和双向审查均通过，正向覆盖率 100%、反向超纲为 0；归档前补跑专用 Skill validator 仍因环境缺少 `PyYAML` 为 `BLOCKED`。该问题保持 P3 且不表示 Skill 内容失败，用户于 `2026-07-28` 明确授权归档、提交并推送，因此带此已知风险归档。
 
 ## 记录边界
 

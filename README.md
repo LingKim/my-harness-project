@@ -179,6 +179,7 @@ cd backend
 - 数据库结构只通过 `backend/src/main/resources/db/migration/` 中的 Flyway 脚本修改。
 - MyBatis-Plus XML 放在 `backend/src/main/resources/mapper/` 的业务子目录中。
 - 常规业务持久化默认通过所属业务模块的 MyBatis-Plus Mapper/适配器完成；真实 Mapper 可以按需继承 `BaseMapper<T>`，但数据库结构仍只能由 Flyway 修改。
+- 新增或实质修改的自定义 SQL 必须使用 Mapper XML；`BaseMapper<T>` 自动 CRUD 不重复编写 XML，存量注解 statement 在后续实质修改时迁入 XML。
 - 直接使用 Spring JDBC 必须有已确认 design 依据，限定在所属模块 `infrastructure`，说明替代方案取舍并提供等价测试。
 - 不使用 JPA/Hibernate 自动建表。
 

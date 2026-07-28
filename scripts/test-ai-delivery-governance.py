@@ -87,6 +87,22 @@ class AiDeliveryGovernanceTests(unittest.TestCase):
         self.assertEqual(project_skill_hash(java_skill_root), entry["computedHash"])
         self.assertEqual(project_skill_hash(java_skill_root), entry["contentHash"])
 
+    def test_custom_mybatis_sql_requires_mapper_xml(self) -> None:
+        database_rules = (PROJECT_ROOT / ".codex/rules/database-conventions.md").read_text(
+            encoding="utf-8"
+        )
+        java_skill = (PROJECT_ROOT / ".codex/skills/java-springboot/SKILL.md").read_text(
+            encoding="utf-8"
+        )
+        combined = "\n".join((database_rules, java_skill))
+
+        self.assertIn("新增或实质修改的自定义 SQL 必须使用 Mapper XML", database_rules)
+        self.assertIn("SQL 注解和 Provider 注解", database_rules)
+        self.assertIn("`BaseMapper<T>` 自动 CRUD", database_rules)
+        self.assertIn("自定义 SQL 必须写入 Mapper XML", java_skill)
+        self.assertIn("`BaseMapper<T>` 自动 CRUD", java_skill)
+        self.assertNotIn("XML 或注解 SQL", combined)
+
     def test_control_matrix_references_real_unique_rules(self) -> None:
         rule_ids = set(
             re.findall(

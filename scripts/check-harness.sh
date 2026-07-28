@@ -146,7 +146,11 @@ required_content=(
   'backend/pom.xml|<mybatis-plus.version>3.5.17</mybatis-plus.version>'
   'backend/pom.xml|<artifactId>mybatis-plus-spring-boot4-starter</artifactId>'
   '.codex/rules/backend-conventions.md|跨模块同步调用只能使用目标模块公开的 `application` 契约'
+  '.codex/rules/backend-conventions.md|RULE-BE-010'
   '.codex/rules/database-conventions.md|SQL 业务值必须使用 `#{}` 参数绑定'
+  '.codex/rules/database-conventions.md|新增或实质修改的自定义 SQL 必须使用 Mapper XML'
+  '.codex/rules/database-conventions.md|BaseMapper<T>` 自动 CRUD'
+  '.codex/skills/java-springboot/SKILL.md|自定义 SQL 必须写入 Mapper XML'
   'backend/docs/architecture.md|./mvnw -Dtest=ArchitectureRulesTests test'
   'backend/src/main/resources/application.yml|mybatis-plus:'
   'backend/src/main/resources/application.yml|enabled: ${AI_ENABLED:false}'
@@ -160,6 +164,11 @@ for check in "${required_content[@]}"; do
     exit 1
   fi
 done
+
+if rg -Fq 'XML 或注解 SQL' .codex/rules .codex/skills/java-springboot; then
+  echo "失败：后端 Rules 与 Java Skill 不得继续允许新增自定义 SQL 使用注解 SQL" >&2
+  exit 1
+fi
 
 if grep -Fq '<artifactId>mybatis-spring-boot-starter</artifactId>' backend/pom.xml; then
   echo "失败：backend/pom.xml 不得依赖原生 MyBatis Spring Boot starter" >&2

@@ -52,7 +52,9 @@
 
 ## RULE-DB-009：业务持久化默认使用 MyBatis-Plus
 
-- 业务表的常规 CRUD、条件查询和分页默认通过所属业务模块 `infrastructure` 中的 MyBatis-Plus Mapper 或适配器完成；Mapper 可以按需继承 `BaseMapper<T>`。
-- 多表查询、聚合、锁定读取和其他复杂 SQL 优先放在同一 Mapper 边界的 XML 或注解 SQL 中，继续遵守显式列、参数绑定和数据库对象不越过 application 边界的约束。
+- 业务表的常规 CRUD、条件查询和分页默认通过所属业务模块 `infrastructure` 中的 MyBatis-Plus Mapper 或适配器完成；Mapper 可以按需继承 `BaseMapper<T>`，`BaseMapper<T>` 自动 CRUD 无需重复编写 XML statement。
+- 新增或实质修改的自定义 SQL 必须使用 Mapper XML；Java Mapper 接口禁止 SQL 注解和 Provider 注解承载 SQL，包括 `@Select`、`@Insert`、`@Update`、`@Delete` 及其对应 Provider。`@Mapper`、`@Param` 等不承载 SQL 文本的注解继续允许。
+- Mapper XML 必须位于 `src/main/resources/mapper/<业务>/`，`namespace` 必须与 Java Mapper 接口全限定名一致，statement ID 必须与接口方法对应；SQL 继续遵守显式列、参数绑定和数据库对象不越过 application 边界的约束。
+- 后续 change 实质修改存量注解 statement 的 SQL 文本、参数、结果映射或数据库行为时，必须在同一 change 中迁入 Mapper XML；仅修改注释、格式或与 SQL 无关的 Java 内容不触发迁移。
 - 直接使用 `JdbcTemplate`、`NamedParameterJdbcTemplate` 或其他 Spring JDBC API 必须有已确认设计依据，限定在所属模块 `infrastructure`，说明 MyBatis-Plus 不适用的具体原因、替代方案取舍并提供等价测试。
 - 缺少上述依据的直接 JDBC 实现属于阻断级工程实践偏差；SQL 使用占位参数只能证明参数安全，不能证明整体持久化方案合规。

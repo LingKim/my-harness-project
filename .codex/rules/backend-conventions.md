@@ -60,3 +60,9 @@
 - 后端实现前必须识别任务适用的 Java、Spring Boot、事务、分层、持久化、Flyway、日志和安全约束，不得把只列出 Rule/Skill 路径视为已遵循。
 - 完成报告必须列出任务直接相关的工程实践检查结果、实际验证与未验证项；偏离默认技术路径时必须给出已确认设计依据、限定范围、替代方案取舍和验证结果。
 - QA 必须独立验证适用工程实践；Spec Reviewer 必须把代码对项目 Rules/技术基线的结论与业务 Spec 对账分开报告。
+
+## RULE-BE-010：自定义 SQL 统一使用 Mapper XML
+
+- 新增或实质修改的 MyBatis 自定义 SQL 必须遵循 `database-conventions.md` 的 Mapper XML 约束；Java Mapper 接口只保留方法签名和不承载 SQL 文本的注解，不新增 SQL 注解或 Provider 注解。
+- MyBatis-Plus `BaseMapper<T>` 自动 CRUD 继续允许，不得为了形式统一重复编写等价 XML statement。
+- 后续 change 修改存量注解 statement 的 SQL 文本、参数、结果映射或数据库行为时，必须同步迁入 XML；只修改注释、格式或与 SQL 无关的 Java 内容不触发迁移。

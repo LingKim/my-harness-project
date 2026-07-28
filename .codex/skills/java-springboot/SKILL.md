@@ -48,7 +48,9 @@ description: 为 ChinaMate 编写、评审或重构 Java 21 与 Spring Boot 4.1 
 ## MyBatis-Plus 与 Flyway
 
 - 业务表的常规 CRUD、条件查询和分页默认通过所属模块 `infrastructure` 中的 MyBatis-Plus Mapper 或适配器完成。
-- Mapper 可以按需继承 `BaseMapper<T>`；复杂查询优先放在同一 Mapper 边界的 XML 或注解 SQL 中，显式列出字段并安全绑定参数。
+- Mapper 可以按需继承 `BaseMapper<T>`；`BaseMapper<T>` 自动 CRUD 无需重复创建 XML statement。
+- 新增或实质修改的自定义 SQL 必须写入 Mapper XML，禁止在 Java Mapper 接口使用 SQL 注解或 Provider 注解承载 SQL；XML 必须按业务目录存放，保持 `namespace`、statement ID 与 Mapper 接口对应，并显式列出字段、安全绑定参数。
+- 后续 change 实质修改存量注解 statement 的 SQL 文本、参数、结果映射或数据库行为时，必须在同一 change 中迁入 Mapper XML；纯注释、格式或与 SQL 无关的 Java 修改不触发迁移。
 - Controller、domain、跨模块调用和公开 application 结果不得暴露 Mapper 或数据库持久化对象。
 - 数据库结构只通过新的受版本管理 Flyway migration 修改；Mapper、启动脚本和手工 DDL 不负责建表。
 - 直接使用 `JdbcTemplate` 或 `NamedParameterJdbcTemplate` 必须有已确认设计依据，限定在所属模块 `infrastructure`，说明 MyBatis-Plus 不适用原因、替代方案取舍，并提供等价测试；不得把内联 JDBC SQL 作为未记录的默认路径。
