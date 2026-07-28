@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -25,6 +26,7 @@ REQUIRED_SKILL_FILES = (
     "scripts/check_delivery_environment.py",
     "scripts/check_delivery_cleanup.py",
 )
+BLOCKER_ESCALATION_RULE_ID = "RULE-WF-006"
 
 
 def project_skill_hash(skill_root: Path) -> str:
@@ -48,7 +50,73 @@ def parse_markdown_rows(path: Path) -> list[list[str]]:
     return rows
 
 
+def validate_blocker_escalation_contract(project_root: Path) -> list[str]:
+    """使用稳定 Rule ID 校验阻塞即时升级合同的三个治理入口。"""
+    errors: list[str] = []
+    agents_text = (project_root / "AGENTS.md").read_text(encoding="utf-8")
+    workflow_text = (project_root / ".codex/rules/workflow.md").read_text(encoding="utf-8")
+    matrix_text = (
+        project_root
+        / ".codex/skills/chinamate-fullstack-delivery/references/control-matrix.md"
+    ).read_text(encoding="utf-8")
+
+    if BLOCKER_ESCALATION_RULE_ID not in agents_text:
+        errors.append(f"根 AGENTS.md 缺少 {BLOCKER_ESCALATION_RULE_ID} 入口")
+    if not re.search(
+        rf"^##\s+{re.escape(BLOCKER_ESCALATION_RULE_ID)}(?:：|:)",
+        workflow_text,
+        re.MULTILINE,
+    ):
+        errors.append(f"workflow.md 缺少 {BLOCKER_ESCALATION_RULE_ID} 定义")
+    if not re.search(
+        rf"^\|\s*{re.escape(BLOCKER_ESCALATION_RULE_ID)}\s*\|",
+        matrix_text,
+        re.MULTILINE,
+    ):
+        errors.append(f"控制矩阵缺少 {BLOCKER_ESCALATION_RULE_ID} 登记")
+    return errors
+
+
 class AiDeliveryGovernanceTests(unittest.TestCase):
+    def test_blocker_escalation_contract_is_registered(self) -> None:
+        self.assertEqual([], validate_blocker_escalation_contract(PROJECT_ROOT))
+
+    def test_blocker_escalation_contract_failure_fixtures(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="chinamate-blocker-governance-") as temp_dir:
+            fixture_root = Path(temp_dir)
+            agents_path = fixture_root / "AGENTS.md"
+            workflow_path = fixture_root / ".codex/rules/workflow.md"
+            matrix_path = (
+                fixture_root
+                / ".codex/skills/chinamate-fullstack-delivery/references/control-matrix.md"
+            )
+            workflow_path.parent.mkdir(parents=True)
+            matrix_path.parent.mkdir(parents=True)
+
+            valid_contents = {
+                agents_path: f"- 遵循 `{BLOCKER_ESCALATION_RULE_ID}`。\n",
+                workflow_path: f"## {BLOCKER_ESCALATION_RULE_ID}：阻塞即时升级\n",
+                matrix_path: f"| {BLOCKER_ESCALATION_RULE_ID} | 三仓库 |\n",
+            }
+            expected_errors = {
+                agents_path: f"根 AGENTS.md 缺少 {BLOCKER_ESCALATION_RULE_ID} 入口",
+                workflow_path: f"workflow.md 缺少 {BLOCKER_ESCALATION_RULE_ID} 定义",
+                matrix_path: f"控制矩阵缺少 {BLOCKER_ESCALATION_RULE_ID} 登记",
+            }
+
+            for path, content in valid_contents.items():
+                path.write_text(content, encoding="utf-8")
+            self.assertEqual([], validate_blocker_escalation_contract(fixture_root))
+
+            for missing_path, expected_error in expected_errors.items():
+                for path, content in valid_contents.items():
+                    path.write_text(content, encoding="utf-8")
+                missing_path.write_text("", encoding="utf-8")
+                self.assertIn(
+                    expected_error,
+                    validate_blocker_escalation_contract(fixture_root),
+                )
+
     def test_skill_contains_required_resources(self) -> None:
         missing = [name for name in REQUIRED_SKILL_FILES if not (SKILL_ROOT / name).is_file()]
         self.assertEqual([], missing, f"编排 Skill 缺少资源：{missing}")

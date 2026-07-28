@@ -18,7 +18,7 @@
 | 6 | `mysql-database-sql-best-practices-skill` ADDED | 常规持久化默认 MyBatis-Plus，Spring JDBC 仅为受控例外 | ✅ | `.codex/rules/database-conventions.md:53-58`、`.codex/skills/java-springboot/SKILL.md:48-54`、`backend/AGENTS.md` |
 | 7 | `tasks.md 1.1-1.2` | 先建立角色合同与第一方来源 RED 测试 | ✅ | 初始执行分别因未拒绝新夹具、Manifest 缺少 Java Skill 而失败；实现后相关测试 PASS |
 | 8 | `tasks.md 2-4` | Skill、Rules、角色、锁、入口和 evidence 同步 | ✅ | 对应文件均已修改；未修改任何业务源码或运行时依赖 |
-| 9 | `tasks.md 5.1-5.2` | 治理/Harness/OpenSpec/差异与旧建议搜索 | ✅ | 规定命令均 PASS；Skill 专用 `quick_validate.py` 另因缺少 `PyYAML` BLOCKED |
+| 9 | `tasks.md 5.1-5.2` | 治理/Harness/OpenSpec/差异与旧建议搜索 | ✅ | 规定命令均 PASS；Skill 专用 `quick_validate.py` 已使用 uv 隔离环境补齐 `PyYAML 6.0.3` 并输出 `Skill is valid!` |
 
 ## 二、反向对账表（代码 → Spec）
 
@@ -72,10 +72,8 @@
 
 ## 五、修复 Action Items
 
-| 优先级 | Action Item | 关联 Spec | 建议操作 |
-| --- | --- | --- | --- |
-| P3 | `skill-creator` 的 `quick_validate.py` 因两个可用 Python 均缺少 `PyYAML` 未执行 | Java Skill 验证 | 后续环境具备 `PyYAML` 时补跑；当前 Harness、frontmatter 人工检查和哈希测试均通过 |
+无。原 P3 已通过 `uv run --offline --no-project --with pyyaml==6.0.3` 补跑关闭，且未污染系统 Python、Codex bundled runtime 或项目依赖。
 
 ## 最终结论
 
-`PASS_WITH_ISSUES`：没有 P0/P1、阻断级 Spec 偏差或无依据超纲实现。唯一残余项是专用 Skill validator 的环境依赖缺失；不影响本 change 的治理/Harness/OpenSpec 验证结论，但必须在 evidence 中保留为 `BLOCKED`，不得写成 PASS。
+`PASS`：没有 P0/P1、阻断级 Spec 偏差或无依据超纲实现。专用 Skill validator 已取得 PASS，原环境依赖 P3 已关闭。

@@ -8,6 +8,7 @@
 | RULE-WF-003 | 三仓库 | CRITICAL | 主 Agent | MAIN_AGENT | 归档前复核 | tasks、验证或 specs 同步不完整 | evidence.md |
 | RULE-WF-004 | 重要 change | CRITICAL | 主 Agent | SCRIPT | check-agent-governance.sh | 适用 change 缺少 evidence | change evidence.md |
 | RULE-WF-005 | 单人全栈 | CRITICAL | 主 Agent | MAIN_AGENT | chinamate-fullstack-delivery | 未推导阶段即跨阶段执行 | OpenSpec、Git 与 evidence 恢复摘要 |
+| RULE-WF-006 | 三仓库 | CRITICAL | 主 Agent | USER_CONFIRMATION | 当前必需步骤的授权或决策请求 | 可由用户解除的阻塞被静默等待、绕过或跳过 | 审批请求、用户消息与 evidence.md |
 | RULE-QA-003 | 三仓库 | CRITICAL | QA | REVIEW | 完成声明检查 | 没有本轮新验证输出 | evidence.md 自动化验证表 |
 | RULE-QA-004 | 三仓库 | CRITICAL | QA | SCRIPT | collect_verification.py | 命令状态或摘要不可追溯 | reviews/verification-manifest.json |
 | RULE-REPO-003 | 三仓库 | CRITICAL | 主 Agent | SCRIPT | check-harness.sh | gitlink 指向不可复现状态 | submodule 与远端检查摘要 |
