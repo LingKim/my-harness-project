@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "control-plane-red-tests-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": ["1.4"],
+  "requestFingerprint": "sha256:835e1bffd47d0c0ae330dfaa69151aa921e43affceab65874faf4c6d52d07969",
+  "status": "PASS_WITH_ISSUES",
+  "modifiedFiles": [
+    "scripts/test-handoff-contracts.py",
+    "scripts/test-ai-delivery-governance.py"
+  ],
+  "outputReferences": [
+    "scripts/test-handoff-contracts.py",
+    "scripts/test-ai-delivery-governance.py"
+  ],
+  "verificationSummary": [
+    {
+      "command": "python3 scripts/test-handoff-contracts.py",
+      "status": "FAIL",
+      "summary": "Ran 20 tests；9 条预期 RED failure 来自控制面联合身份、gate、结果关联和 correction 闭环尚未实现，无语法或导入错误"
+    },
+    {
+      "command": "python3 scripts/test-ai-delivery-governance.py",
+      "status": "FAIL",
+      "summary": "Ran 14 tests；新增失败准确指出控制面路由和真实 Result 到 QA/Spec Review 链尚未接入，另有既存 Skill hash 漂移"
+    },
+    {
+      "command": "python3 -m py_compile scripts/test-handoff-contracts.py scripts/test-ai-delivery-governance.py",
+      "status": "PASS",
+      "summary": "两个测试文件均可编译"
+    },
+    {
+      "command": "git diff --check -- scripts/test-handoff-contracts.py scripts/test-ai-delivery-governance.py",
+      "status": "PASS",
+      "summary": "退出码为 0，无 whitespace 错误"
+    }
+  ],
+  "deviations": [],
+  "blockers": [],
+  "notRun": [],
+  "residualRisks": [
+    "RED 证据只证明失败夹具准确，控制面 schema/validator 与治理文档实现后必须重跑",
+    "Skill hash 漂移在本合同修改前已存在，不属于 QA 合同写入范围",
+    "机器测试不替代自然语言语义审查"
+  ],
+  "recommendations": [
+    "补齐控制面互斥分支、精确 allowlist、gate、request/result 一致性和 reviewer correction 闭环后重跑"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "scripts/test-handoff-contracts.py",
+      "scripts/test-ai-delivery-governance.py",
+      "main-agent-red-verification:2026-07-28",
+      "main-agent-reacceptance:tasks-1.4-checkbox-only",
+      "main-agent-reacceptance:final-task-checkboxes:2026-07-28"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

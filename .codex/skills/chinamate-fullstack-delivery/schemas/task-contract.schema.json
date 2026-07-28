@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chinamate.local/schemas/handoff/task-contract.schema.json",
+  "title": "TaskContract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "contractId", "change", "stage", "role", "taskIds", "executionMode", "authoritativeInputs", "dependencies", "allowedWritePaths", "forbiddenWritePaths", "expectedOutputs", "acceptanceCriteria", "verificationPlan", "userGates", "gitGates", "status", "persistedBy"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "contractId": {"type": "string", "minLength": 1},
+    "change": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["PRODUCT_SPEC", "INTERACTION_DESIGN", "FRONTEND_IMPLEMENTATION", "BACKEND_IMPLEMENTATION", "QA", "SPEC_REVIEW", "EXPERIENCE_REVIEW", "CONTROL_PLANE_IMPLEMENTATION"]},
+    "role": {"enum": ["product_manager", "interaction_designer", "frontend_engineer", "backend_engineer", "qa_engineer", "spec_reviewer", "experience_reviewer", "main_agent"]},
+    "taskIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "executionMode": {"enum": ["SUBAGENT", "SINGLE_AGENT_FAST_PATH", "DEGRADED", "CONTROL_PLANE"]},
+    "authoritativeInputs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["path", "fingerprint"], "properties": {"path": {"type": "string", "minLength": 1}, "fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}}},
+    "dependencies": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "allowedWritePaths": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "forbiddenWritePaths": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "expectedOutputs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "acceptanceCriteria": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "verificationPlan": {"type": "array", "items": {"type": "string"}},
+    "userGates": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/gate"}},
+    "gitGates": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/gate"}},
+    "status": {"enum": ["DRAFT", "ISSUED", "IN_PROGRESS", "RETURNED", "ACCEPTED", "STALE", "CLOSED"]},
+    "persistedBy": {"const": "main_agent"}
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "stage": {"const": "CONTROL_PLANE_IMPLEMENTATION"},
+        "role": {"const": "main_agent"},
+        "executionMode": {"const": "CONTROL_PLANE"}
+      }
+    },
+    {
+      "properties": {
+        "stage": {"enum": ["PRODUCT_SPEC", "INTERACTION_DESIGN", "FRONTEND_IMPLEMENTATION", "BACKEND_IMPLEMENTATION", "QA", "SPEC_REVIEW", "EXPERIENCE_REVIEW"]},
+        "role": {"enum": ["product_manager", "interaction_designer", "frontend_engineer", "backend_engineer", "qa_engineer", "spec_reviewer", "experience_reviewer"]},
+        "executionMode": {"enum": ["SUBAGENT", "SINGLE_AGENT_FAST_PATH", "DEGRADED"]}
+      }
+    }
+  ]
+}

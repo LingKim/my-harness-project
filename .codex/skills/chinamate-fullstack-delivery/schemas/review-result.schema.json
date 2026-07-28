@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chinamate.local/schemas/handoff/review-result.schema.json",
+  "title": "ReviewResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "contractId", "change", "stage", "role", "taskIds", "resultFingerprint", "reviewRole", "status", "findings", "verificationSummary", "blockers", "notRun", "residualRisks", "acceptance", "persistedBy"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "contractId": {"type": "string", "minLength": 1},
+    "change": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["QA", "SPEC_REVIEW", "EXPERIENCE_REVIEW"]},
+    "role": {"enum": ["qa_engineer", "spec_reviewer", "experience_reviewer"]},
+    "taskIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "resultFingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "reviewRole": {"enum": ["qa_engineer", "spec_reviewer", "experience_reviewer"]},
+    "status": {"enum": ["PASS", "PASS_WITH_ISSUES", "FAIL", "BLOCKED", "NOT_RUN"]},
+    "findings": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["findingId", "severity", "status", "evidenceRefs", "ownerRole", "requiredVerification"], "properties": {"findingId": {"type": "string", "minLength": 1}, "severity": {"enum": ["P0", "P1", "P2", "P3"]}, "status": {"enum": ["OPEN", "RESOLVED", "WAIVED"]}, "evidenceRefs": {"type": "array", "items": {"type": "string"}}, "ownerRole": {"enum": ["product_manager", "interaction_designer", "frontend_engineer", "backend_engineer", "qa_engineer", "spec_reviewer", "experience_reviewer", "main_agent"]}, "requiredVerification": {"type": "array", "items": {"type": "string"}}}}},
+    "verificationSummary": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/verification"}},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "notRun": {"type": "array", "items": {"type": "string"}},
+    "residualRisks": {"type": "array", "items": {"type": "string"}},
+    "acceptance": {"$ref": "common.schema.json#/$defs/acceptance"},
+    "persistedBy": {"const": "main_agent"}
+  }
+}

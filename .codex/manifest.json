@@ -22,6 +22,18 @@
       "source": "project-maintained"
     }
   ],
+  "projectSkillResources": {
+    "chinamate-fullstack-delivery": [
+      ".codex/skills/chinamate-fullstack-delivery/references/handoff-contracts.md",
+      ".codex/skills/chinamate-fullstack-delivery/references/role-routing.md",
+      ".codex/skills/chinamate-fullstack-delivery/schemas/common.schema.json",
+      ".codex/skills/chinamate-fullstack-delivery/schemas/task-contract.schema.json",
+      ".codex/skills/chinamate-fullstack-delivery/schemas/result-contract.schema.json",
+      ".codex/skills/chinamate-fullstack-delivery/schemas/review-result.schema.json",
+      ".codex/skills/chinamate-fullstack-delivery/schemas/correction-contract.schema.json",
+      ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py"
+    ]
+  },
   "customAgents": [
     {
       "name": "product_manager",

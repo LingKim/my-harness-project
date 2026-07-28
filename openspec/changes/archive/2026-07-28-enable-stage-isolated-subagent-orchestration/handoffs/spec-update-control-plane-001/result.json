@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "spec-update-control-plane-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": ["5.1"],
+  "requestFingerprint": "sha256:210e9a53f60498753ce082365b478aef70b8de7cae95994415e0283876b4e558",
+  "status": "PASS",
+  "modifiedFiles": [
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md"
+  ],
+  "outputReferences": [
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md"
+  ],
+  "verificationSummary": [
+    {
+      "command": "openspec validate enable-stage-isolated-subagent-orchestration --strict",
+      "status": "PASS",
+      "summary": "Change valid"
+    },
+    {
+      "command": "git diff --check -- openspec/changes/enable-stage-isolated-subagent-orchestration",
+      "status": "PASS",
+      "summary": "退出码为 0，无 whitespace 错误"
+    }
+  ],
+  "deviations": [],
+  "blockers": [],
+  "notRun": [
+    "本合同只更新规划 artifacts，未运行治理实现、QA 或 Spec Review"
+  ],
+  "residualRisks": [
+    "change 目录整体仍为 untracked，普通 git diff --check 不覆盖未跟踪文件内容",
+    "后续 schema/validator 仍需落实控制面三字段联合判别、精确文件 allowlist 和真实 Result 到 QA/Spec Review fingerprint 链"
+  ],
+  "recommendations": [
+    "用户确认后先补充控制面 RED 测试，再实现 schema/validator 并签发真实控制面实现合同"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "conversation:user-confirmation:2026-07-28",
+      "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

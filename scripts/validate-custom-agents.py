@@ -69,6 +69,26 @@ ENGINEERING_PRACTICE_REQUIRED_CONTENT = {
         ("代码 → 项目 Rules/技术基线", ".codex/skills/java-springboot/SKILL.md"),
     ),
 }
+HANDOFF_COMMON_REQUIRED_CONTENT = (
+    "`TaskContract`",
+    "已验收",
+    "`CorrectionContract`",
+    "`findingId`",
+    "禁止写入范围",
+    "不得生成用户确认",
+    "不得自行派工",
+    "不得直接写入 change 根 `handoffs/`",
+)
+HANDOFF_OUTPUT_REQUIRED_CONTENT = {
+    "product_manager": "`ResultContract`",
+    "interaction_designer": "`ResultContract`",
+    "frontend_engineer": "`ResultContract`",
+    "backend_engineer": "`ResultContract`",
+    "qa_engineer": "`ReviewResult`",
+    "spec_reviewer": "`ReviewResult`",
+    "experience_reviewer": "`ReviewResult`",
+}
+READ_ONLY_HANDOFF_REQUIRED_CONTENT = "不得因结构化交接扩大写权限"
 
 
 class ValidationError(Exception):
@@ -144,6 +164,21 @@ def validate_agent(
                 raise ValidationError(
                     f"{source} 缺少{contract_name}：{required_content}"
                 )
+
+    for required_content in HANDOFF_COMMON_REQUIRED_CONTENT:
+        if required_content not in instructions:
+            raise ValidationError(
+                f"{source} 的 {name} 缺少结构化交接合同：{required_content}"
+            )
+    output_contract = HANDOFF_OUTPUT_REQUIRED_CONTENT[name]
+    if output_contract not in instructions:
+        raise ValidationError(
+            f"{source} 的 {name} 缺少结构化交接输出：{output_contract}"
+        )
+    if name in READ_ONLY_AGENTS and READ_ONLY_HANDOFF_REQUIRED_CONTENT not in instructions:
+        raise ValidationError(
+            f"{source} 的 {name} 缺少只读交接边界：{READ_ONLY_HANDOFF_REQUIRED_CONTENT}"
+        )
 
     skill_names = set(SKILL_REFERENCE.findall(instructions))
     if not skill_names:

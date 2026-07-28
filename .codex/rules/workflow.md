@@ -28,7 +28,9 @@
 ## RULE-WF-005：单人全栈交付优先使用薄编排入口
 
 - 同一名开发者承担产品、交互、前后端、测试和验收时，业务、跨栈、实现、验证或跨会话续作优先使用 `chinamate-fullstack-delivery` Skill 推导当前阶段和最短安全路径。
-- 七个项目角色作为按交付物切换的职责视角，默认串行；不得为了形式完整启动全部角色，也不得由编排 Skill 复制 OpenSpec、Rules、Agent 合同或维护第二套状态。
+- 主 Agent作为控制面，按阶段或独立工作包签发`TaskContract`并创建最少必要的 fresh subagent；新合同使用fresh上下文，同一合同的`CorrectionContract`可复用原subagent。不得为了形式完整启动全部角色，也不得在适用specialist可用时由主Agent静默模拟非平凡角色交付。
+- 主 Agent是合同唯一签发、验收与change根`handoffs/`持久化主体；subagent只返回`ResultContract`或`ReviewResult`payload，不得生成用户确认、自行派工或扩大权限。handoffs只保存执行快照，不得替代OpenSpec、Git、测试或`evidence.md`。
+- 前后端仅在合同冻结、依赖满足且写入范围不冲突时并行；QA等待实现稳定，只读reviewer按适用性并行。简单任务可走fast path，能力不可用时明确`DEGRADED`或`BLOCKED`，不得伪造多Agent交付。
 - 编排不能扩大用户授权；规格确认、Git 写操作、质量阻断与归档建议继续执行既有硬门禁。
 
 ## RULE-WF-006：可由用户解除的流程阻塞必须立即升级

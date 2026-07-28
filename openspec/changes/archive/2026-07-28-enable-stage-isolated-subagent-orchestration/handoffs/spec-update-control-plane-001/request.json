@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "spec-update-control-plane-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": ["5.1"],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/proposal.md",
+      "fingerprint": "sha256:0fade0196d8deebd4064e25b14f184b299583ea677315edd1eeaf4748b046cb5"
+    },
+    {
+      "path": "openspec/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:12dd9d94ebb8d8ac75700477191254e05d4524c2bf016a22cb6fd0ecbabb2600"
+    }
+  ],
+  "dependencies": [],
+  "allowedWritePaths": [
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/"
+  ],
+  "forbiddenWritePaths": [
+    ".codex/",
+    "scripts/",
+    "README.md",
+    "AGENTS.md",
+    "frontend/",
+    "backend/",
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/"
+  ],
+  "expectedOutputs": [
+    "修正delta spec、design和tasks中的控制面self-hosting合同边界"
+  ],
+  "acceptanceCriteria": [
+    "不新增第八custom agent",
+    "能够真实表达无specialist归属的根治理实现及其QA/Spec Review输入",
+    "不允许主Agent借控制面例外实现业务、前端、后端、测试或review工作",
+    "OpenSpec strict validate和scoped diff check通过"
+  ],
+  "verificationPlan": [
+    "openspec validate enable-stage-isolated-subagent-orchestration --strict",
+    "git diff --check -- openspec/changes/enable-stage-isolated-subagent-orchestration"
+  ],
+  "userGates": [
+    {
+      "name": "UPDATED_SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "conversation:user-confirmation:2026-07-28"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "CLOSED",
+  "persistedBy": "main_agent"
+}

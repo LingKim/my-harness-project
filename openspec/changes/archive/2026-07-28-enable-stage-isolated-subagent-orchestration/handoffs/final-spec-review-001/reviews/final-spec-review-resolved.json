@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-findings-recheck-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": [
+    "6.3"
+  ],
+  "resultFingerprint": "sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4",
+  "reviewRole": "spec_reviewer",
+  "status": "PASS_WITH_ISSUES",
+  "findings": [
+    {
+      "findingId": "FINAL-SPEC-ROLE-BOUNDARY-001",
+      "severity": "P1",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py:221",
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py:369",
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py:378",
+        "scripts/test-handoff-contracts.py:667",
+        "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/result.json:21",
+        "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/reviews/final-fix-qa-001.json:26"
+      ],
+      "ownerRole": "main_agent",
+      "requiredVerification": [
+        "已满足：specialist ResultContract.modifiedFiles 受 request allowlist、forbiddenWritePaths 与角色写入根三重约束",
+        "已满足：三个失败夹具由 RED 转为 GREEN，fresh QA 记录合同测试 22/22 通过"
+      ]
+    },
+    {
+      "findingId": "FINAL-SPEC-FINDING-LINK-002",
+      "severity": "P1",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py:478",
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py:483",
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py:503",
+        "scripts/test-handoff-contracts.py:725",
+        "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/result.json:21",
+        "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/reviews/final-fix-qa-001.json:31"
+      ],
+      "ownerRole": "main_agent",
+      "requiredVerification": [
+        "已满足：CorrectionContract.findingIds 必须属于 reviewFingerprint 指向的 ReviewResult 且状态为 OPEN",
+        "已满足：RESOLVED 复核必须保持原 reviewRole 与原 resultFingerprint，不能跨 review 或跨结果借用",
+        "已满足：三个 finding 绑定失败夹具由 RED 转为 GREEN"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "保持原 resultFingerprint 与 spec_reviewer 身份复核两个 OPEN finding",
+      "status": "PASS",
+      "summary": "resultFingerprint 已由主 Agent对 task checkbox-only 变化显式重新验收为 sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4；两个 P1 均有生产修复、6 个夹具与 fresh QA 证据，现复核为 RESOLVED。"
+    },
+    {
+      "command": "复核修复链 freshness 与独立 QA",
+      "status": "PASS",
+      "summary": "修复 ResultContract 已由主 Agent对 tasks/evidence-only 变化显式重新验收；fresh QA ReviewResult 精确引用当前 fingerprint。"
+    },
+    {
+      "command": "复核历史 STALE 与当前结论边界",
+      "status": "PASS_WITH_ISSUES",
+      "summary": "两个历史 RED 快照因后续受控修改而按设计 STALE；当前修复、QA 与本复核输入均 FRESH。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "本 reviewer 未重新执行测试、Harness、OpenSpec CLI 或写入型操作；使用 fresh QA 实际输出并完成目标代码和夹具的只读语义复核。",
+    "未更新 tasks 6.3、evidence.md、领域 spec 或任何 handoff 文件。"
+  ],
+  "residualRisks": [
+    "主 Agent仍需更新 tasks/evidence 并重新检查由这些更新造成的 freshness。",
+    "历史 RED 快照继续保持 STALE，须在 evidence 中区分历史失败证据与当前修复结论。",
+    "sync、archive、commit 或 push 均不属于本复核授权。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "reviewer-agent:/root/final_change_spec_review",
+      "main-agent-acceptance:2026-07-28",
+      "main-agent-reacceptance:result-acceptance-only:2026-07-28"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

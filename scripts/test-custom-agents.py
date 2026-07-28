@@ -88,7 +88,8 @@ def main() -> int:
     baseline = run_validator(SOURCE_AGENTS, PROJECT_ROOT)
     if baseline.returncode != 0:
         print(baseline.stderr, file=sys.stderr)
-        raise AssertionError("正式 custom agents 基线必须先通过")
+        print("失败：正式 custom agents 尚未接入结构化交接稳定标记", file=sys.stderr)
+        return 1
 
     cases: tuple[tuple[str, Callable[[Path, Path], None], str], ...] = (
         (
@@ -234,6 +235,60 @@ def main() -> int:
                 agents / "spec_reviewer.toml", "代码 → 项目 Rules/技术基线"
             ),
             "缺少Spec Reviewer 工程实践合同：代码 → 项目 Rules/技术基线",
+        ),
+        (
+            "specialist 缺少已验收 TaskContract 输入",
+            lambda agents, _: replace_all(
+                agents / "product_manager.toml",
+                "`TaskContract`",
+                "任务说明",
+            ),
+            "product_manager 缺少结构化交接合同：`TaskContract`",
+        ),
+        (
+            "执行角色缺少 ResultContract 输出",
+            lambda agents, _: replace_all(
+                agents / "frontend_engineer.toml",
+                "`ResultContract`",
+                "执行结果",
+            ),
+            "frontend_engineer 缺少结构化交接输出：`ResultContract`",
+        ),
+        (
+            "审查角色缺少 ReviewResult 输出",
+            lambda agents, _: replace_all(
+                agents / "qa_engineer.toml",
+                "`ReviewResult`",
+                "审查结果",
+            ),
+            "qa_engineer 缺少结构化交接输出：`ReviewResult`",
+        ),
+        (
+            "角色试图生成用户确认",
+            lambda agents, _: replace_all(
+                agents / "backend_engineer.toml",
+                "不得生成用户确认",
+                "可以生成用户确认",
+            ),
+            "backend_engineer 缺少结构化交接合同：不得生成用户确认",
+        ),
+        (
+            "角色试图自行派工",
+            lambda agents, _: replace_all(
+                agents / "interaction_designer.toml",
+                "不得自行派工",
+                "可以自行派工",
+            ),
+            "interaction_designer 缺少结构化交接合同：不得自行派工",
+        ),
+        (
+            "只读 reviewer 交接扩权",
+            lambda agents, _: replace_all(
+                agents / "spec_reviewer.toml",
+                "不得因结构化交接扩大写权限",
+                "可因结构化交接扩大写权限",
+            ),
+            "spec_reviewer 缺少只读交接边界：不得因结构化交接扩大写权限",
         ),
         (
             "子仓库重复 Agent",

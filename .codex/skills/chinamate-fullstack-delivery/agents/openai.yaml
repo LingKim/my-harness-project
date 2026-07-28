@@ -1,4 +1,4 @@
 interface:
-  display_name: "ChinaMate 单人全栈交付"
-  short_description: "编排产品、交互、前后端、测试与验收的单人全栈交付流程"
-  default_prompt: "Use $chinamate-fullstack-delivery to continue this ChinaMate change through the smallest safe delivery path."
+  display_name: "ChinaMate 阶段隔离全栈交付"
+  short_description: "用结构化合同编排最少必要 fresh subagent 完成全栈交付"
+  default_prompt: "Use $chinamate-fullstack-delivery to route this ChinaMate change through fresh specialist subagents with structured handoff contracts."

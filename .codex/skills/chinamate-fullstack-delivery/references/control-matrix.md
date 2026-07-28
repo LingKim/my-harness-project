@@ -7,16 +7,18 @@
 | RULE-WF-001 | 三仓库 | CRITICAL | 主 Agent | USER_CONFIRMATION | OpenSpec 当前版本确认 | 规格未确认即准备实现 | 用户消息与 change artifacts |
 | RULE-WF-003 | 三仓库 | CRITICAL | 主 Agent | MAIN_AGENT | 归档前复核 | tasks、验证或 specs 同步不完整 | evidence.md |
 | RULE-WF-004 | 重要 change | CRITICAL | 主 Agent | SCRIPT | check-agent-governance.sh | 适用 change 缺少 evidence | change evidence.md |
-| RULE-WF-005 | 单人全栈 | CRITICAL | 主 Agent | MAIN_AGENT | chinamate-fullstack-delivery | 未推导阶段即跨阶段执行 | OpenSpec、Git 与 evidence 恢复摘要 |
+| RULE-WF-005 | 单人全栈 | CRITICAL | 主 Agent | MAIN_AGENT | chinamate-fullstack-delivery | 未推导阶段、未由主 Agent唯一签发合同或唯一验收结果即跨阶段执行 | OpenSpec、Git、handoffs 与 evidence 恢复摘要 |
 | RULE-WF-006 | 三仓库 | CRITICAL | 主 Agent | USER_CONFIRMATION | 当前必需步骤的授权或决策请求 | 可由用户解除的阻塞被静默等待、绕过或跳过 | 审批请求、用户消息与 evidence.md |
 | RULE-QA-003 | 三仓库 | CRITICAL | QA | REVIEW | 完成声明检查 | 没有本轮新验证输出 | evidence.md 自动化验证表 |
 | RULE-QA-004 | 三仓库 | CRITICAL | QA | SCRIPT | collect_verification.py | 命令状态或摘要不可追溯 | reviews/verification-manifest.json |
 | RULE-REPO-003 | 三仓库 | CRITICAL | 主 Agent | SCRIPT | check-harness.sh | gitlink 指向不可复现状态 | submodule 与远端检查摘要 |
 | RULE-GIT-001 | 三仓库 | CRITICAL | 用户 | USER_CONFIRMATION | Git 写操作前 | 缺少当前范围明确授权 | 当前用户消息 |
 | RULE-DOC-003 | 主仓库 | CRITICAL | 主 Agent | REVIEW | evidence 复核 | 证据含敏感或完整原始日志 | evidence.md 与 reviews |
-| RULE-FE-007 | frontend | CRITICAL | 前端职责视角 | TEST | frontend-static profile | 客户端读取非公开配置 | 前端测试结果 |
-| RULE-BE-006 | backend | CRITICAL | 后端职责视角 | REVIEW | 后端安全审查 | 配置、日志或异常泄露敏感信息 | 后端测试与 Spec Review |
-| RULE-DB-002 | backend | CRITICAL | 后端职责视角 | REVIEW | 数据库变更审查 | schema 变化不来自 Flyway | migration 与 Spec Review |
-| RULE-DB-009 | backend | CRITICAL | 后端职责视角 | REVIEW | 工程实践责任链 | 无依据直接使用 Spring JDBC 或绕过 MyBatis-Plus 默认路径 | 后端完成报告、QA 与 Spec Review |
+| RULE-FE-007 | frontend | CRITICAL | frontend_engineer | TEST | frontend-static profile | 客户端读取非公开配置 | 前端测试结果 |
+| RULE-BE-006 | backend | CRITICAL | backend_engineer | REVIEW | 后端安全审查 | 配置、日志或异常泄露敏感信息 | 后端测试与 Spec Review |
+| RULE-DB-002 | backend | CRITICAL | backend_engineer | REVIEW | 数据库变更审查 | schema 变化不来自 Flyway | migration 与 Spec Review |
+| RULE-DB-009 | backend | CRITICAL | backend_engineer | REVIEW | 工程实践责任链 | 无依据直接使用 Spring JDBC 或绕过 MyBatis-Plus 默认路径 | 后端完成报告、QA 与 Spec Review |
 
 控制类型只允许 `SCRIPT`、`TEST`、`REVIEW`、`MAIN_AGENT`、`USER_CONFIRMATION`。脚本只校验稳定字段和引用，不解释 Rule 自然语言。
+
+受限self-hosting不新增Rule或角色：`CONTROL_PLANE_IMPLEMENTATION + main_agent + CONTROL_PLANE`只在已确认治理change、精确文件allowlist和`UPDATED_SPEC_CONFIRMATION = SATISFIED`同时成立时执行。控制面Result必须由既有`QA/qa_engineer`和`SPEC_REVIEW/spec_reviewer`通过`resultFingerprint`独立复核；`EXPERIENCE_REVIEW`、业务实现和Git写操作不得使用该身份。

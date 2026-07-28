@@ -33,16 +33,25 @@ required_files=(
   ".codex/skills/chinamate-fullstack-delivery/references/control-matrix.md"
   ".codex/skills/chinamate-fullstack-delivery/references/knowledge-routing.md"
   ".codex/skills/chinamate-fullstack-delivery/references/verification-profiles.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/handoff-contracts.md"
+  ".codex/skills/chinamate-fullstack-delivery/references/role-routing.md"
+  ".codex/skills/chinamate-fullstack-delivery/schemas/common.schema.json"
+  ".codex/skills/chinamate-fullstack-delivery/schemas/task-contract.schema.json"
+  ".codex/skills/chinamate-fullstack-delivery/schemas/result-contract.schema.json"
+  ".codex/skills/chinamate-fullstack-delivery/schemas/review-result.schema.json"
+  ".codex/skills/chinamate-fullstack-delivery/schemas/correction-contract.schema.json"
   ".codex/skills/chinamate-fullstack-delivery/scripts/collect_verification.py"
   ".codex/skills/chinamate-fullstack-delivery/scripts/check_verification_freshness.py"
   ".codex/skills/chinamate-fullstack-delivery/scripts/check_delivery_environment.py"
   ".codex/skills/chinamate-fullstack-delivery/scripts/check_delivery_cleanup.py"
+  ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py"
   ".codex/skills-lock.json"
   ".codex/manifest.json"
   "docs/architecture/system-map.md"
   "docs/standards/domain-glossary.md"
   "docs/templates/openspec-change-evidence.md"
   "scripts/test-ai-delivery-governance.py"
+  "scripts/test-handoff-contracts.py"
   "scripts/test-verification-collector.py"
   "scripts/test-delivery-safety.py"
   "frontend/scripts/check-agent-governance.sh"
@@ -121,6 +130,7 @@ if [[ -n "$duplicate_rule_ids" ]]; then
 fi
 
 python3 scripts/validate-custom-agents.py
+python3 scripts/test-handoff-contracts.py
 python3 scripts/test-ai-delivery-governance.py
 python3 scripts/test-verification-collector.py
 python3 scripts/test-delivery-safety.py

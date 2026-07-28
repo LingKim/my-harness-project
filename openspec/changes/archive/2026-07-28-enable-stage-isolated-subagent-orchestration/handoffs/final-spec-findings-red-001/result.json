@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-findings-red-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": ["6.3"],
+  "requestFingerprint": "sha256:f729dc2fba04af9d9c86af7514cac7c5c901a437d39f67f3dd696573269749f8",
+  "status": "PASS_WITH_ISSUES",
+  "modifiedFiles": [
+    "scripts/test-handoff-contracts.py"
+  ],
+  "outputReferences": [
+    "scripts/test-handoff-contracts.py",
+    "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-review-001/reviews/final-spec-review-open.json"
+  ],
+  "verificationSummary": [
+    {
+      "command": "python3 -B scripts/test-handoff-contracts.py",
+      "status": "FAIL",
+      "summary": "22 tests；两个新增测试方法产生 6 个预期 RED subtest failures，其余既有测试通过"
+    },
+    {
+      "command": "git diff --check -- scripts/test-handoff-contracts.py",
+      "status": "PASS",
+      "summary": "退出码为 0，无 whitespace 错误"
+    }
+  ],
+  "deviations": [],
+  "blockers": [],
+  "notRun": [],
+  "residualRisks": [
+    "生产 validator 尚未关闭两个 P1 finding，合同测试保持预期 RED",
+    "目标测试文件为未跟踪文件，普通 git diff 不展示内容"
+  ],
+  "recommendations": [
+    "由 main_agent 签发新的受限控制面实现合同修复 validator 并同步 Skill hash"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "fresh-agent:/root/final_spec_finding_red_tests",
+      "main-agent-red-verification:22-tests-6-expected-failures",
+      "main-agent-reacceptance:target-test-fingerprint:2026-07-28"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

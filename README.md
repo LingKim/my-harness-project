@@ -207,7 +207,11 @@ AI_MODEL=gpt-4.1-mini
 
 其中 `java-springboot` 是与 ChinaMate Java 21、Spring Boot 4.1、模块化单体、MyBatis-Plus 和 Flyway 对齐的项目维护 Skill；Vercel React 与 MySQL Skills 保持第三方来源并由项目 Rules 提供覆盖和例外。
 
-同一名开发者承担产品、交互、前端、后端、测试和验收时，统一从 [ChinaMate 单人全栈交付 Skill](.codex/skills/chinamate-fullstack-delivery/SKILL.md) 进入。它从 OpenSpec、Git、测试与 `evidence.md` 推导阶段，按任务选择最短安全路径，并把七个角色作为串行职责视角；不会建立第二套状态，也不会自动 commit、push、更新 gitlink 或归档。
+同一名开发者承担产品、交互、前端、后端、测试和验收时，统一从[ChinaMate阶段隔离全栈交付Skill](.codex/skills/chinamate-fullstack-delivery/SKILL.md)进入。它从OpenSpec、Git、测试与`evidence.md`推导阶段，由主Agent签发`TaskContract`并按阶段或独立工作包创建最少必要的 fresh subagent；新合同使用fresh上下文，同一合同修复可复用原subagent，不要求七角色常驻或全部启动。
+
+Agent之间不依赖口头交代：specialist只消费已验收合同并返回`ResultContract`或`ReviewResult`payload，主Agent负责校验和持久化。重要change的`handoffs/`只保存执行快照，不替代OpenSpec、Git、测试或`evidence.md`。前后端仅在合同冻结且写入根不冲突时并行；QA等待稳定实现，只读reviewer按适用性并行。简单任务可走fast path，subagent能力不可用时必须明确`DEGRADED`或`BLOCKED`。
+
+无现有specialist归属的已确认根治理实现可使用受限的`CONTROL_PLANE_IMPLEMENTATION + main_agent + CONTROL_PLANE` self-hosting合同，但只能写validator allowlist内逐项声明的精确文件。它不是第八个custom agent，也不能替代业务specialist、QA或review；控制面`ResultContract`必须通过`resultFingerprint`分别交给既有`QA/qa_engineer`与`SPEC_REVIEW/spec_reviewer`独立复核，`EXPERIENCE_REVIEW`不适用。
 
 配套入口：
 

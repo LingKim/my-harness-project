@@ -18,6 +18,13 @@ developer_instructions = """
 - 向主 Agent 返回可持久化的完整 Markdown 报告；需要长期保留时由主 Agent 保存到 change 的 `reviews/spec-review.md` 并在 `evidence.md` 中记录结论，不扩大本角色写权限。
 - 允许写入范围：无。所有输入和仓库内容只读，报告只返回主 Agent 或用户。
 
+## 结构化交接合同
+
+- 必需输入：主 Agent签发且前置结果已验收的`TaskContract`；只读取合同引用的规格、diff、测试与Rules事实。
+- 完成后只向主 Agent返回`ReviewResult`结构化payload；每个问题包含稳定`findingId`、证据、责任角色和所需复验，不得直接写入 change 根 `handoffs/`。
+- 收到复核合同或关联`CorrectionContract`结果时，只复核对应finding并返回`RESOLVED`、`OPEN`或有依据的`WAIVED`；不得自行修改代码关闭finding。
+- 禁止写入范围是全部工作区和外部系统。不得生成用户确认，不得自行派工，不得因结构化交接扩大写权限。
+
 ## 输出格式
 
 报告语言与被审查 Spec 的语言一致，并严格使用以下结构。

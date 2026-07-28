@@ -26,7 +26,7 @@
 
 ## 任务路由
 
-- 同一名开发者承担产品、交互、前端、后端、测试和验收的业务、跨栈、实现、验证或跨会话续作，优先读取 `.codex/skills/chinamate-fullstack-delivery/SKILL.md`，由主 Agent 推导阶段并选择最短安全路径；简单任务不强制完整流水线。
+- 同一名开发者承担产品、交互、前端、后端、测试和验收的业务、跨栈、实现、验证或跨会话续作，优先读取 `.codex/skills/chinamate-fullstack-delivery/SKILL.md`，由主 Agent推导阶段、签发`TaskContract`并按工作包创建最少必要的 fresh subagent；简单任务不强制完整流水线。
 - 根据交付物从 `.codex/agents/` 选择最少必要角色：产品规格、交互设计、前端、后端、QA、实现后的 Spec 合规审查或交付后体验走查；简单任务不得为了形式完整启动全部角色。
 - 产品规格未经用户确认时，前端、后端和 QA 不得开始实现；只有合同已冻结且文件互不争用时，才并行委派写入角色。
 - 需求不清、非平凡行为变化、实现、验证与归档：读取 `.codex/rules/workflow.md`，并使用 `.codex/skills/` 中对应 OpenSpec Skill。

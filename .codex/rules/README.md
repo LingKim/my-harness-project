@@ -23,5 +23,5 @@ Rules 是长期稳定、可审查的项目约束；`AGENTS.md` 负责启动路�
 
 ## 控制与编排入口
 
-- 单人全栈阶段路由：[`chinamate-fullstack-delivery`](../skills/chinamate-fullstack-delivery/SKILL.md)。
+- 阶段隔离多Agent路由：[`chinamate-fullstack-delivery`](../skills/chinamate-fullstack-delivery/SKILL.md)、[`role-routing.md`](../skills/chinamate-fullstack-delivery/references/role-routing.md)与[`handoff-contracts.md`](../skills/chinamate-fullstack-delivery/references/handoff-contracts.md)。
 - Critical Rule 的责任、控制类型、阻断条件和证据位置：[`control-matrix.md`](../skills/chinamate-fullstack-delivery/references/control-matrix.md)。矩阵只引用 Rule ID，不复制规则正文。

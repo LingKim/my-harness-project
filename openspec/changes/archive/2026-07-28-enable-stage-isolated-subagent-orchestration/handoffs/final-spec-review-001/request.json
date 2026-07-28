@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-review-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": ["6.3"],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/proposal.md",
+      "fingerprint": "sha256:0fade0196d8deebd4064e25b14f184b299583ea677315edd1eeaf4748b046cb5"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "fingerprint": "sha256:842e117b614ebd9f4aa251f86480ba3381f138beda5390bd54b1bd282be22156"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:39ef4891e1e1d29b9ae10a2453fba2c00e8caae507f565ab923f88d4a9673b1f"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md",
+      "fingerprint": "sha256:a92ed8cb99704afeaa685a0e63fd7f7bc0815048977e897bdd64d22856e8cfc2"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/evidence.md",
+      "fingerprint": "sha256:fb1cb40e77d0e898a2a25c6eef6f492e7493d8bf679dd8726c2c94635a86fd45"
+    },
+    {
+      "path": "openspec/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:12dd9d94ebb8d8ac75700477191254e05d4524c2bf016a22cb6fd0ecbabb2600"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/control-plane-implementation-001/result.json",
+      "fingerprint": "sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4"
+    }
+  ],
+  "dependencies": [
+    "control-plane-implementation-001",
+    "control-plane-qa-001",
+    "control-plane-spec-review-001"
+  ],
+  "allowedWritePaths": [],
+  "forbiddenWritePaths": [
+    ".codex/",
+    "scripts/",
+    "openspec/",
+    "frontend/",
+    "backend/",
+    ".git/"
+  ],
+  "expectedOutputs": [
+    "全 change 的 Spec 到实现与实现到 Spec 双向对账 ReviewResult",
+    "OPEN finding、freshness、用户/Git gate、残余风险和归档建议"
+  ],
+  "acceptanceCriteria": [
+    "使用 SPEC_REVIEW/spec_reviewer 身份且引用已验收控制面 ResultContract fingerprint",
+    "覆盖全部 planning artifacts、tasks、evidence、handoffs 和真实 diff",
+    "明确机器门禁不能替代自然语言语义审查",
+    "未经授权只提出 Git 或归档建议，不执行任何写操作"
+  ],
+  "verificationPlan": [
+    "只读执行 Spec 到实现与实现到 Spec 双向对账",
+    "复核 handoff validator、治理/Harness、OpenSpec strict 与 diff 证据",
+    "检查 frontend/backend submodule 无业务修改"
+  ],
+  "userGates": [
+    {
+      "name": "UPDATED_SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": ["conversation:user-confirmation:2026-07-28"]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "PENDING",
+      "evidenceRefs": []
+    },
+    {
+      "name": "ARCHIVE",
+      "status": "PENDING",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

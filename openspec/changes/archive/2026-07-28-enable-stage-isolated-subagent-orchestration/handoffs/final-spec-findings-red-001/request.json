@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-findings-red-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": ["6.3"],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "fingerprint": "sha256:842e117b614ebd9f4aa251f86480ba3381f138beda5390bd54b1bd282be22156"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:39ef4891e1e1d29b9ae10a2453fba2c00e8caae507f565ab923f88d4a9673b1f"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md",
+      "fingerprint": "sha256:a92ed8cb99704afeaa685a0e63fd7f7bc0815048977e897bdd64d22856e8cfc2"
+    },
+    {
+      "path": ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py",
+      "fingerprint": "sha256:5e63c4d63e4c04f4198c4422e890638595a7c1521f0892e04a4b65ea7ae265c0"
+    },
+    {
+      "path": "scripts/test-handoff-contracts.py",
+      "fingerprint": "sha256:b17e05f124a1d2cf7023b925507e949feab8d074144c02c236729300efb07948"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-review-001/reviews/final-spec-review-open.json",
+      "fingerprint": "sha256:33c2de8b2c99fdd3c4c00e53a8af352eeff46b62958a340394e24d228343a4fd"
+    }
+  ],
+  "dependencies": [
+    "final-spec-review-001",
+    "FINAL-SPEC-ROLE-BOUNDARY-001",
+    "FINAL-SPEC-FINDING-LINK-002"
+  ],
+  "allowedWritePaths": [
+    "scripts/test-handoff-contracts.py"
+  ],
+  "forbiddenWritePaths": [
+    ".codex/",
+    "openspec/",
+    "frontend/",
+    "backend/",
+    ".git/"
+  ],
+  "expectedOutputs": [
+    "两个 P1 finding 的最小 RED 失败夹具",
+    "符合 ResultContract schema 的结构化返回 payload"
+  ],
+  "acceptanceCriteria": [
+    "覆盖 specialist modifiedFiles 超出 request allowlist、命中 forbiddenWritePaths 和超出角色根",
+    "覆盖 reviewFingerprint 指向错误 review、finding 不属于被引用 review 和同名 finding 借用 RESOLVED",
+    "失败来自 validator 缺口而不是测试语法、导入或夹具自身错误"
+  ],
+  "verificationPlan": [
+    "python3 -B scripts/test-handoff-contracts.py",
+    "git diff --check -- scripts/test-handoff-contracts.py"
+  ],
+  "userGates": [
+    {
+      "name": "UPDATED_SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": ["conversation:user-confirmation:2026-07-28"]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

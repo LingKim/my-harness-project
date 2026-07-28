@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "control-plane-qa-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": ["5.1"],
+  "resultFingerprint": "sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4",
+  "reviewRole": "qa_engineer",
+  "status": "PASS",
+  "findings": [],
+  "verificationSummary": [
+    {
+      "command": "python3 -B scripts/test-handoff-contracts.py",
+      "status": "PASS",
+      "summary": "fresh QA 独立复跑 20/20 tests passed"
+    },
+    {
+      "command": "python3 -B scripts/test-ai-delivery-governance.py",
+      "status": "PASS",
+      "summary": "fresh QA 独立复跑 14/14 tests passed"
+    },
+    {
+      "command": "python3 -B .codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py --change enable-stage-isolated-subagent-orchestration --all",
+      "status": "PASS",
+      "summary": "复核时 8 个阶段交接合同结构、路径、fingerprint 与引用有效"
+    }
+  ],
+  "blockers": [],
+  "notRun": [],
+  "residualRisks": [
+    "机器门禁不替代完整自然语言语义审查",
+    "本 ReviewResult 不代表 tasks 6.1、6.2、6.3 或归档门禁已完成",
+    "resultFingerprint 已由主 Agent按 acceptance-only 变更显式重新验收"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "fresh-agent:/root/control_plane_qa_review",
+      "main-agent-reacceptance:acceptance-only:2026-07-28",
+      "main-agent-reacceptance:final-task-checkboxes:2026-07-28"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-review-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": ["6.3"],
+  "resultFingerprint": "sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4",
+  "reviewRole": "spec_reviewer",
+  "status": "FAIL",
+  "findings": [
+    {
+      "findingId": "FINAL-SPEC-ROLE-BOUNDARY-001",
+      "severity": "P1",
+      "status": "OPEN",
+      "evidenceRefs": [
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py",
+        "scripts/test-handoff-contracts.py"
+      ],
+      "ownerRole": "main_agent",
+      "requiredVerification": [
+        "普通 specialist ResultContract.modifiedFiles 必须受 request allowlist、forbiddenWritePaths 和角色写入根约束",
+        "增加三类越界失败夹具并重跑合同、治理、Harness、OpenSpec 与 diff 检查"
+      ]
+    },
+    {
+      "findingId": "FINAL-SPEC-FINDING-LINK-002",
+      "severity": "P1",
+      "status": "OPEN",
+      "evidenceRefs": [
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py",
+        "scripts/test-handoff-contracts.py"
+      ],
+      "ownerRole": "main_agent",
+      "requiredVerification": [
+        "CorrectionContract.reviewFingerprint 指向的 ReviewResult 本身必须包含对应 OPEN findingId",
+        "按原 reviewRole 与 resultFingerprint 校验复核闭环并增加错配失败夹具"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "复算 final-spec-review-001 的 7 个 authoritativeInputs SHA-256",
+      "status": "PASS",
+      "summary": "全部输入与 TaskContract fingerprint 一致，未发现 STALE"
+    },
+    {
+      "command": "proposal/design/tasks/specs 到实现的逐条正向对账",
+      "status": "FAIL",
+      "summary": "完整覆盖 50/61，两个 P1 validator/失败夹具缺口传播为 11 项部分覆盖"
+    },
+    {
+      "command": "当前真实 diff 到 Spec 的反向对账",
+      "status": "PASS_WITH_ISSUES",
+      "summary": "未发现业务超纲；docs/plans/README.md 为可追溯的合理治理导航增强"
+    },
+    {
+      "command": "根仓库与 frontend/backend submodule 只读范围检查",
+      "status": "PASS",
+      "summary": "根 diff 仅含治理、OpenSpec、文档和测试；两个 submodule clean 且 gitlink 未变"
+    }
+  ],
+  "blockers": [
+    "两个 OPEN P1 未关闭前不得声明完成或建议归档",
+    "GIT_WRITE 与 ARCHIVE gate 均为 PENDING"
+  ],
+  "notRun": [
+    "reviewer 未重新执行测试、Harness、OpenSpec CLI 或 Git 写操作"
+  ],
+  "residualRisks": [
+    "现有 PASS 机器结果未覆盖两个 P1 反例",
+    "原控制面 request 不包含 validator/test 文件，直接 CorrectionContract 会扩大历史精确范围；修复必须使用新的独立结构化工作包",
+    "主领域 spec 只能在 finding 关闭、tasks/evidence 更新并重验后建议 sync"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "fresh-agent:/root/final_change_spec_review",
+      "main-agent-scope-decision:new-contract-instead-of-expanded-correction"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

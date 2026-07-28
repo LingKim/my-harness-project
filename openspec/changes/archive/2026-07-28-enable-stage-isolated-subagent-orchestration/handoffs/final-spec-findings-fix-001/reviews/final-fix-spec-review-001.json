@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-findings-recheck-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": [
+    "6.3"
+  ],
+  "resultFingerprint": "sha256:aa0c3947dcea49c3696265de8db1efbf4f355b2e5676bb944e2acad25357027e",
+  "reviewRole": "spec_reviewer",
+  "status": "PASS_WITH_ISSUES",
+  "findings": [],
+  "verificationSummary": [
+    {
+      "command": "复算 final-spec-findings-recheck-001 全部 authoritativeInputs SHA-256",
+      "status": "PASS",
+      "summary": "14 项输入全部与 TaskContract 一致；修复 ResultContract、原 OPEN ReviewResult、fresh QA ReviewResult、validator、合同测试和 Skill lock 均为 FRESH。"
+    },
+    {
+      "command": "只读核对 final-spec-findings-fix-001 request/result 身份与修改范围",
+      "status": "PASS",
+      "summary": "ResultContract.requestFingerprint 已由主 Agent对 tasks/evidence-only 变化显式重新验收并匹配当前 request；modifiedFiles 仅包含 request 允许的 validator 与 Skill lock。"
+    },
+    {
+      "command": "逐行检查 specialist ResultContract 三重写入边界修复",
+      "status": "PASS",
+      "summary": "validator 对所有 ResultContract 检查 modifiedFiles 属于 request.allowedWritePaths、不命中 forbiddenWritePaths，并在非控制面结果中符合角色写入根。"
+    },
+    {
+      "command": "逐行检查 correction finding 与原 ReviewResult/复核结果绑定修复",
+      "status": "PASS",
+      "summary": "validator 要求 findingId 存在于 reviewFingerprint 指向的 ReviewResult 且状态为 OPEN，并要求 RESOLVED 复核同时保持相同 reviewRole 与 resultFingerprint。"
+    },
+    {
+      "command": "只读核对两个目标测试方法的 6 个失败夹具及 fresh QA 结果",
+      "status": "PASS",
+      "summary": "三重写入边界和 finding 绑定各有三个反例；RED 结果记录 6 个预期失败，fresh QA 记录修复后合同测试 22/22 通过。"
+    },
+    {
+      "command": "区分当前修复与历史 RED 快照 freshness",
+      "status": "PASS_WITH_ISSUES",
+      "summary": "当前修复及复核输入 FRESH；两个历史 RED 快照因后续受控修改成为预期 STALE，不构成本次修复失败。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "本 spec_reviewer 按只读边界未重新执行 Python 测试、OpenSpec CLI、Harness 或 handoff validator；测试结论来自已验收 fresh QA ReviewResult，并已逐行核对目标生产逻辑和 6 个夹具。",
+    "未修改 tasks、evidence、handoffs、规格、源码、测试或 Git 状态。"
+  ],
+  "residualRisks": [
+    "两个历史 RED 合同保持 STALE，仅需主 Agent按当前事实显式记录处理，不应改写历史快照。",
+    "机器门禁只证明结构、路径、fingerprint 与引用约束，不能替代自然语言语义审查。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "reviewer-agent:/root/final_change_spec_review",
+      "main-agent-acceptance:2026-07-28",
+      "main-agent-reacceptance:result-acceptance-only:2026-07-28"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

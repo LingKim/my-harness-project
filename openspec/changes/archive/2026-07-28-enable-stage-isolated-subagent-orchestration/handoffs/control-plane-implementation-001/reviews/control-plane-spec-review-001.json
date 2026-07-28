@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "control-plane-spec-review-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": ["5.1"],
+  "resultFingerprint": "sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4",
+  "reviewRole": "spec_reviewer",
+  "status": "PASS",
+  "findings": [],
+  "verificationSummary": [
+    {
+      "command": "只读检查 proposal/design/tasks/delta spec、控制面 request/result 与当前真实 git diff",
+      "status": "PASS",
+      "summary": "taskIds 2.3、3.1、3.2、4.1、4.2 均有实现证据；7 个 modifiedFiles 全部位于 request 精确 allowedWritePaths 内"
+    },
+    {
+      "command": "控制面 ResultContract 与当前全量 diff 边界对账",
+      "status": "PASS",
+      "summary": "Result 未把合同签发前 schema/validator、Agents、Rules、manifest 或治理测试改动追溯归因"
+    },
+    {
+      "command": "openspec validate enable-stage-isolated-subagent-orchestration --strict",
+      "status": "PASS",
+      "summary": "Change valid"
+    },
+    {
+      "command": "git diff --check -- 控制面 ResultContract 声明的 7 个精确文件",
+      "status": "PASS",
+      "summary": "退出码为 0，无 whitespace 错误"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "未重新执行 ResultContract 已记录的治理测试套件",
+    "未扩展执行 tasks 6.3 的最终全 change 审查、evidence、归档或 Git 操作"
+  ],
+  "residualRisks": [
+    "proposal.md 未作为本 reviewer TaskContract 的 fingerprint 输入",
+    "签约前自举改动不属于被审查 ResultContract.modifiedFiles",
+    "scripts/__pycache__/ 不在控制面结果范围且尚未清理",
+    "resultFingerprint 已由主 Agent按 acceptance-only 变更显式重新验收"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "fresh-agent:/root/control_plane_spec_review",
+      "main-agent-reacceptance:acceptance-only:2026-07-28",
+      "main-agent-reacceptance:final-task-checkboxes:2026-07-28"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

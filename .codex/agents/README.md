@@ -1,6 +1,6 @@
 # ChinaMate 项目级 Agents
 
-本目录保存 Codex 可发现的项目级 custom agents。七个角色按交付物切分，主 Agent 应根据当前任务选择最少必要角色；只有契约已经确认且文件互不争用时，才并行委派写入任务。
+本目录保存Codex可发现的项目级custom agents。七个角色按交付物切分，主Agent根据当前阶段签发`TaskContract`并创建最少必要的 fresh subagent；只有契约已经确认、依赖满足且文件互不争用时，才并行委派写入任务。
 
 | Agent | 何时使用 | 主要交付物 | 写入边界 |
 | --- | --- | --- | --- |
@@ -14,13 +14,14 @@
 
 ## 使用原则
 
-- 单人承担完整交付时，由主 Agent 使用 `../skills/chinamate-fullstack-delivery/SKILL.md` 串行切换角色视角并维护交接；角色不是必须并行启动的虚拟团队。
+- 单人承担完整交付时，由主Agent使用`../skills/chinamate-fullstack-delivery/SKILL.md`作为控制面；新工作包使用fresh subagent，同一合同的`CorrectionContract`可复用原subagent，合同关闭后不得继承旧上下文。
 - 已确认 OpenSpec、当前源码与真实验证结果优先于角色示例和通用 Skill。
 - Skills 与 Rules 只从根 `.codex/skills/` 和 `.codex/rules/` 加载，不在子仓库复制。
 - 产品规格未经用户确认时，写入型开发角色不得开始实现。
 - Agent 的 `sandbox_mode` 和正文授权不能扩大当前会话、用户授权或审批边界。
 - 未经用户明确授权，不执行 commit、push、merge、分支删除或外部系统写入。
 - 所有角色完成时必须报告实际文件、验证结果、未验证项、风险和下一交接建议。
+- 所有角色只消费已验收`TaskContract`，按职责返回`ResultContract`或`ReviewResult`结构化payload；主Agent是合同唯一签发、验收与`handoffs/`持久化主体。角色不得生成用户确认、自行派工或因交接扩大写权限。
 - 后端或数据库交付按 `backend_engineer` 实现自检 → `qa_engineer` 独立验证 → `spec_reviewer` 只读对账串行交接；业务 Spec 未重复稳定 Rule 不代表可以跳过技术基线检查。
 - 对需要持久化交付证据的 change，各角色返回结构化真实结果，主 Agent 使用 `docs/templates/openspec-change-evidence.md` 汇总到 change 根 `evidence.md`；只读 Reviewer 的长报告按需由主 Agent 保存到 `reviews/`。
 

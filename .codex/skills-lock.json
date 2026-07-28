@@ -5,8 +5,18 @@
       "source": "ChinaMate project",
       "sourceType": "project",
       "skillPath": ".codex/skills/chinamate-fullstack-delivery/SKILL.md",
-      "computedHash": "2c2f1758222f82d2edc59ad447e5983671465ee0945255831de611731602db74",
-      "contentHash": "2c2f1758222f82d2edc59ad447e5983671465ee0945255831de611731602db74"
+      "resources": [
+        ".codex/skills/chinamate-fullstack-delivery/references/handoff-contracts.md",
+        ".codex/skills/chinamate-fullstack-delivery/references/role-routing.md",
+        ".codex/skills/chinamate-fullstack-delivery/schemas/common.schema.json",
+        ".codex/skills/chinamate-fullstack-delivery/schemas/task-contract.schema.json",
+        ".codex/skills/chinamate-fullstack-delivery/schemas/result-contract.schema.json",
+        ".codex/skills/chinamate-fullstack-delivery/schemas/review-result.schema.json",
+        ".codex/skills/chinamate-fullstack-delivery/schemas/correction-contract.schema.json",
+        ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py"
+      ],
+      "computedHash": "d0ab5ab1e14c37837bb3697cd716f3f67c1a97ff220126e71bae6f7238f47053",
+      "contentHash": "d0ab5ab1e14c37837bb3697cd716f3f67c1a97ff220126e71bae6f7238f47053"
     },
     "java-springboot": {
       "source": "ChinaMate project",

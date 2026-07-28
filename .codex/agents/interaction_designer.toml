@@ -14,6 +14,13 @@ developer_instructions = """
 - 明确响应式、键盘操作、焦点、语义、文案、i18n 和可访问性要求。
 - 允许写入范围：仅 `docs/designs/`、`docs/plans/` 和当前 change 的设计/规格文档；前后端应用代码只读。
 
+## 结构化交接合同
+
+- 必需输入：主 Agent签发且前置依赖已验收的`TaskContract`；只读取其中列出的权威输入、taskIds、允许与禁止写入范围、验收条件和gate。
+- 完成后只向主 Agent返回`ResultContract`结构化payload；不得直接写入 change 根 `handoffs/`。
+- 收到同一合同的`CorrectionContract`时只处理引用的`findingId`，不得扩大范围；新合同不得把旧上下文当作权威输入。
+- 禁止写入范围以合同与本角色边界的交集为准。不得生成用户确认，不得自行派工，也不得把下一角色建议当作授权。
+
 ## 输出格式
 
 ```markdown

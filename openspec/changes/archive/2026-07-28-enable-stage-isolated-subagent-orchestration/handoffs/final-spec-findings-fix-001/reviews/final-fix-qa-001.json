@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-fix-qa-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": [
+    "6.3"
+  ],
+  "resultFingerprint": "sha256:aa0c3947dcea49c3696265de8db1efbf4f355b2e5676bb944e2acad25357027e",
+  "reviewRole": "qa_engineer",
+  "status": "PASS_WITH_ISSUES",
+  "findings": [],
+  "verificationSummary": [
+    {
+      "command": "shasum -a 256 <final-fix-qa-001 authoritativeInputs>",
+      "status": "PASS",
+      "summary": "2026-07-28T19:26:36+0800 前后两次复算 7 项 authoritativeInputs，全部与 TaskContract fingerprint 一致。"
+    },
+    {
+      "command": "shasum -a 256 openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/request.json openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/result.json",
+      "status": "PASS",
+      "summary": "上游 request 已由主 Agent对 tasks/evidence-only 变化显式重新验收；ResultContract.requestFingerprint 与当前 request 一致，身份字段一致，modifiedFiles 精确落在两个 allowedWritePaths 内且未命中 forbiddenWritePaths。"
+    },
+    {
+      "command": "python3 -B scripts/test-handoff-contracts.py",
+      "status": "PASS",
+      "summary": "22/22 tests passed。两个目标测试方法均通过，包含 FINAL-SPEC-ROLE-BOUNDARY-001 与 FINAL-SPEC-FINDING-LINK-002 的 6 个反例。"
+    },
+    {
+      "command": "人工逐案复核 scripts/test-handoff-contracts.py 中两个 P1 的 6 个反例及 validator 对应分支",
+      "status": "PASS",
+      "summary": "三重写入边界分别覆盖 request allowlist 外 modifiedFiles、命中 forbiddenWritePaths、超出 backend_engineer 角色写入根；finding 绑定分别覆盖 reviewFingerprint 指向非 OPEN review、源 ReviewResult 不含目标 findingId、从不同 resultFingerprint 借用 RESOLVED 复核。"
+    },
+    {
+      "command": "python3 -B scripts/test-ai-delivery-governance.py",
+      "status": "PASS",
+      "summary": "14/14 tests passed；chinamate-fullstack-delivery 的 computedHash 与 contentHash 均为 d0ab5ab1e14c37837bb3697cd716f3f67c1a97ff220126e71bae6f7238f47053。"
+    },
+    {
+      "command": "python3 -B scripts/test-custom-agents.py",
+      "status": "PASS",
+      "summary": "25 个 custom-agent 失败夹具全部生效。"
+    },
+    {
+      "command": "python3 -B scripts/validate-custom-agents.py",
+      "status": "PASS",
+      "summary": "七个 Codex custom agents 的结构、引用与权限边界有效。"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "summary": "退出码 0，无 whitespace 错误。"
+    },
+    {
+      "command": "python3 -B .codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py --change enable-stage-isolated-subagent-orchestration --all",
+      "status": "PASS_WITH_ISSUES",
+      "summary": "退出码 2，仅报告两条预期历史 STALE；未报告当前 final-spec-findings-fix-001 或 final-fix-qa-001 的结构、关联、范围或 freshness 失败。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [],
+  "residualRisks": [
+    "两条历史 RED 合同快照仍为 STALE，须由主 Agent基于当前事实显式处理；这不构成本次修复失败。",
+    "原 OPEN finding 由 spec_reviewer 产生，只能由相同 reviewRole、相同 resultFingerprint 的后续 Spec Review 复核为 RESOLVED。",
+    "机器门禁只证明结构、路径、fingerprint 与引用约束，不替代自然语言语义审查。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "fresh-agent:/root/final_fix_qa",
+      "main-agent-acceptance:2026-07-28",
+      "main-agent-reacceptance:result-acceptance-only:2026-07-28"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

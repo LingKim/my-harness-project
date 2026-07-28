@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "control-plane-red-tests-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": ["1.4"],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "fingerprint": "sha256:842e117b614ebd9f4aa251f86480ba3381f138beda5390bd54b1bd282be22156"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:39ef4891e1e1d29b9ae10a2453fba2c00e8caae507f565ab923f88d4a9673b1f"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md",
+      "fingerprint": "sha256:a92ed8cb99704afeaa685a0e63fd7f7bc0815048977e897bdd64d22856e8cfc2"
+    },
+    {
+      "path": "scripts/test-handoff-contracts.py",
+      "fingerprint": "sha256:35760fc1f68e7a9b79ae4c5cffe31edd641009d24245755590f19c8e0777d433"
+    },
+    {
+      "path": "scripts/test-ai-delivery-governance.py",
+      "fingerprint": "sha256:a65fd388ff4dfbe766da63a2428764877d950a18222266f672f93c90842f25bd"
+    }
+  ],
+  "dependencies": [
+    "spec-update-control-plane-001"
+  ],
+  "allowedWritePaths": [
+    "scripts/test-handoff-contracts.py",
+    "scripts/test-ai-delivery-governance.py"
+  ],
+  "forbiddenWritePaths": [
+    ".codex/",
+    "openspec/",
+    "frontend/",
+    "backend/",
+    "README.md",
+    "AGENTS.md"
+  ],
+  "expectedOutputs": [
+    "控制面 self-hosting 的有效链与失败夹具",
+    "在控制面 schema/validator 实现前准确失败的 RED 证据",
+    "符合 ResultContract 字段的结构化返回 payload"
+  ],
+  "acceptanceCriteria": [
+    "覆盖 CONTROL_PLANE_IMPLEMENTATION + main_agent + CONTROL_PLANE 联合身份",
+    "覆盖精确 allowlist、已满足规格 gate、request/result 身份及 modifiedFiles 子集",
+    "覆盖控制面 Result 到 QA/Spec Review 的 fingerprint 链与 correction 闭环",
+    "继续断言只有七个 custom agents",
+    "失败必须来自尚未实现的控制面能力而不是测试语法或导入错误"
+  ],
+  "verificationPlan": [
+    "python3 scripts/test-handoff-contracts.py",
+    "python3 scripts/test-ai-delivery-governance.py",
+    "python3 -m py_compile scripts/test-handoff-contracts.py scripts/test-ai-delivery-governance.py"
+  ],
+  "userGates": [
+    {
+      "name": "UPDATED_SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "conversation:user-confirmation:2026-07-28"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

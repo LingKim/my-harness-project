@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-fix-qa-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": [
+    "6.3"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "fingerprint": "sha256:842e117b614ebd9f4aa251f86480ba3381f138beda5390bd54b1bd282be22156"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:39ef4891e1e1d29b9ae10a2453fba2c00e8caae507f565ab923f88d4a9673b1f"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md",
+      "fingerprint": "sha256:a92ed8cb99704afeaa685a0e63fd7f7bc0815048977e897bdd64d22856e8cfc2"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/result.json",
+      "fingerprint": "sha256:aa0c3947dcea49c3696265de8db1efbf4f355b2e5676bb944e2acad25357027e"
+    },
+    {
+      "path": ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py",
+      "fingerprint": "sha256:eb2ab80ecbf9ae6114d7f947b77d7be33feff286d0dbd5db388e35a130ddf22b"
+    },
+    {
+      "path": ".codex/skills-lock.json",
+      "fingerprint": "sha256:103f195fdcbe1fcb120539ca5d9aa695ca094199d814a7eb238e82fa169f14f2"
+    },
+    {
+      "path": "scripts/test-handoff-contracts.py",
+      "fingerprint": "sha256:b17e05f124a1d2cf7023b925507e949feab8d074144c02c236729300efb07948"
+    }
+  ],
+  "dependencies": [
+    "final-spec-findings-fix-001"
+  ],
+  "allowedWritePaths": [],
+  "forbiddenWritePaths": [
+    ".codex/",
+    "openspec/",
+    "scripts/",
+    "frontend/",
+    "backend/",
+    ".git/"
+  ],
+  "expectedOutputs": [
+    "引用 final-spec-findings-fix-001 ResultContract fingerprint 的 QA ReviewResult payload",
+    "两个 P1 对应 6 个反例转绿及回归门禁的独立验证结论"
+  ],
+  "acceptanceCriteria": [
+    "ResultContract 身份、requestFingerprint 与 modifiedFiles 范围有效",
+    "合同测试 22/22 且治理测试 14/14",
+    "新增 6 个反例确实覆盖两个 P1，不以机器门禁替代语义判断",
+    "如实区分后续工作包导致的历史 STALE 快照与当前修复失败"
+  ],
+  "verificationPlan": [
+    "python3 -B scripts/test-handoff-contracts.py",
+    "python3 -B scripts/test-ai-delivery-governance.py",
+    "python3 -B scripts/test-custom-agents.py",
+    "python3 -B scripts/validate-custom-agents.py",
+    "git diff --check"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "conversation:user-confirmation:2026-07-28"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

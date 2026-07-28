@@ -15,7 +15,9 @@
 ## 治理参考
 
 - [OpenSpec Change 交付证据模板](../templates/openspec-change-evidence.md)：业务、行为、跨仓库、API、数据库、安全、架构和治理 change 的验证与审查证据入口；纯文案、机械格式化和只读探索可以豁免并说明原因。
-- [单人全栈交付 Skill](../../.codex/skills/chinamate-fullstack-delivery/SKILL.md)：产品、交互、前后端、测试与验收由一人承担时的阶段恢复和最短路径入口。
+- [阶段隔离全栈交付 Skill](../../.codex/skills/chinamate-fullstack-delivery/SKILL.md)：由主Agent签发结构化合同、创建最少必要 fresh subagent并控制硬关卡的阶段恢复与最短路径入口。
+- [角色路由矩阵](../../.codex/skills/chinamate-fullstack-delivery/references/role-routing.md)：七个可委派阶段、并行边界和写入根。
+- [阶段交接合同](../../.codex/skills/chinamate-fullstack-delivery/references/handoff-contracts.md)：`TaskContract`、结果、review与correction的持久化和freshness边界。
 - [Rule 控制矩阵](../../.codex/skills/chinamate-fullstack-delivery/references/control-matrix.md)：Critical Rule 的责任、硬关卡与证据位置。
 - [跨栈系统地图](../architecture/system-map.md)与[领域术语桥](../standards/domain-glossary.md)：业务到页面、API、模块、数据和测试的轻量知识入口。
 - [验证 Profiles](../../.codex/skills/chinamate-fullstack-delivery/references/verification-profiles.md)：固定命令采集 machine manifest 并检查输入时效；机器结果不替代 QA、Spec Review 或体验验收。

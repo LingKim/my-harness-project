@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-findings-recheck-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": [
+    "6.3"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/proposal.md",
+      "fingerprint": "sha256:0fade0196d8deebd4064e25b14f184b299583ea677315edd1eeaf4748b046cb5"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "fingerprint": "sha256:842e117b614ebd9f4aa251f86480ba3381f138beda5390bd54b1bd282be22156"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:39ef4891e1e1d29b9ae10a2453fba2c00e8caae507f565ab923f88d4a9673b1f"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md",
+      "fingerprint": "sha256:a92ed8cb99704afeaa685a0e63fd7f7bc0815048977e897bdd64d22856e8cfc2"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/evidence.md",
+      "fingerprint": "sha256:fb1cb40e77d0e898a2a25c6eef6f492e7493d8bf679dd8726c2c94635a86fd45"
+    },
+    {
+      "path": "openspec/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:12dd9d94ebb8d8ac75700477191254e05d4524c2bf016a22cb6fd0ecbabb2600"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/control-plane-implementation-001/result.json",
+      "fingerprint": "sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-review-001/reviews/final-spec-review-open.json",
+      "fingerprint": "sha256:33c2de8b2c99fdd3c4c00e53a8af352eeff46b62958a340394e24d228343a4fd"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/request.json",
+      "fingerprint": "sha256:f5279259a74ad8440d9c8cd11116a78805f946053fb4c970f635b89a1f8baaad"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/result.json",
+      "fingerprint": "sha256:aa0c3947dcea49c3696265de8db1efbf4f355b2e5676bb944e2acad25357027e"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-fix-001/reviews/final-fix-qa-001.json",
+      "fingerprint": "sha256:267cbab77021b636fe9f795c950882142580d37313fa0875bef1507ecc7f2458"
+    },
+    {
+      "path": ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py",
+      "fingerprint": "sha256:eb2ab80ecbf9ae6114d7f947b77d7be33feff286d0dbd5db388e35a130ddf22b"
+    },
+    {
+      "path": "scripts/test-handoff-contracts.py",
+      "fingerprint": "sha256:b17e05f124a1d2cf7023b925507e949feab8d074144c02c236729300efb07948"
+    },
+    {
+      "path": ".codex/skills-lock.json",
+      "fingerprint": "sha256:103f195fdcbe1fcb120539ca5d9aa695ca094199d814a7eb238e82fa169f14f2"
+    }
+  ],
+  "dependencies": [
+    "final-spec-review-001",
+    "final-spec-findings-fix-001",
+    "final-fix-qa-001",
+    "FINAL-SPEC-ROLE-BOUNDARY-001",
+    "FINAL-SPEC-FINDING-LINK-002"
+  ],
+  "allowedWritePaths": [],
+  "forbiddenWritePaths": [
+    ".codex/",
+    "openspec/",
+    "scripts/",
+    "docs/",
+    "frontend/",
+    "backend/",
+    ".git/"
+  ],
+  "expectedOutputs": [
+    "引用 final-spec-findings-fix-001 ResultContract fingerprint 的只读 Spec ReviewResult payload",
+    "引用原 control-plane-implementation-001 resultFingerprint 且以相同 reviewRole 对两个 finding 给出 RESOLVED 或继续 OPEN 的复核 ReviewResult payload"
+  ],
+  "acceptanceCriteria": [
+    "逐条核对两个 P1 的生产修复、6 个失败夹具、Skill hash 与当前实际 diff",
+    "修复结果的 ReviewResult.resultFingerprint 精确引用主 Agent验收后的 ResultContract fingerprint",
+    "finding 关闭复核的 ReviewResult.resultFingerprint 保持原控制面结果经 checkbox-only 重新验收后的 fingerprint，reviewRole 保持 spec_reviewer",
+    "如果任何 P1 未满足则保持 OPEN 并返回 FAIL，不得自行修改代码、规格或 evidence",
+    "明确历史 RED 快照 STALE、当前实现结论与主 Agent后续 tasks/evidence 更新的时效边界"
+  ],
+  "verificationPlan": [
+    "复算全部 authoritativeInputs SHA-256",
+    "逐行检查 validate_handoff_contract.py 与 scripts/test-handoff-contracts.py 的两个 P1 闭环",
+    "python3 -B scripts/test-handoff-contracts.py",
+    "python3 -B scripts/test-ai-delivery-governance.py",
+    "openspec validate enable-stage-isolated-subagent-orchestration --strict",
+    "git diff --check",
+    "git status --short --branch && git -C frontend status --short --branch && git -C backend status --short --branch"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "conversation:user-confirmation:2026-07-28"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

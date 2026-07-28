@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "control-plane-spec-review-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": ["5.1"],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "fingerprint": "sha256:842e117b614ebd9f4aa251f86480ba3381f138beda5390bd54b1bd282be22156"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:39ef4891e1e1d29b9ae10a2453fba2c00e8caae507f565ab923f88d4a9673b1f"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md",
+      "fingerprint": "sha256:a92ed8cb99704afeaa685a0e63fd7f7bc0815048977e897bdd64d22856e8cfc2"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/control-plane-implementation-001/result.json",
+      "fingerprint": "sha256:52514c0709839c43b854b626db4fff71caf2ef5dfd6c89ad1e7c4b67122f1cf4"
+    }
+  ],
+  "dependencies": [
+    "control-plane-implementation-001"
+  ],
+  "allowedWritePaths": [],
+  "forbiddenWritePaths": [
+    ".codex/",
+    "scripts/",
+    "openspec/",
+    "frontend/",
+    "backend/",
+    ".git/"
+  ],
+  "expectedOutputs": [
+    "proposal/design/tasks/spec 与控制面真实 diff 双向对账的 ReviewResult JSON payload"
+  ],
+  "acceptanceCriteria": [
+    "ReviewResult 引用控制面 resultFingerprint 且保持 SPEC_REVIEW/spec_reviewer 身份",
+    "识别合同签发前自举改动与本 ResultContract 声明范围的边界",
+    "finding 使用稳定 findingId，不修改任何文件或 handoffs"
+  ],
+  "verificationPlan": [
+    "只读检查 OpenSpec artifacts、控制面 ResultContract、git diff 和真实测试证据",
+    "openspec validate enable-stage-isolated-subagent-orchestration --strict"
+  ],
+  "userGates": [
+    {
+      "name": "UPDATED_SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": ["conversation:user-confirmation:2026-07-28"]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

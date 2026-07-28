@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "final-spec-findings-fix-001",
+  "change": "enable-stage-isolated-subagent-orchestration",
+  "stage": "CONTROL_PLANE_IMPLEMENTATION",
+  "role": "main_agent",
+  "taskIds": ["6.3"],
+  "executionMode": "CONTROL_PLANE",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/design.md",
+      "fingerprint": "sha256:842e117b614ebd9f4aa251f86480ba3381f138beda5390bd54b1bd282be22156"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/specs/solo-fullstack-ai-delivery/spec.md",
+      "fingerprint": "sha256:39ef4891e1e1d29b9ae10a2453fba2c00e8caae507f565ab923f88d4a9673b1f"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/tasks.md",
+      "fingerprint": "sha256:a92ed8cb99704afeaa685a0e63fd7f7bc0815048977e897bdd64d22856e8cfc2"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-review-001/reviews/final-spec-review-open.json",
+      "fingerprint": "sha256:33c2de8b2c99fdd3c4c00e53a8af352eeff46b62958a340394e24d228343a4fd"
+    },
+    {
+      "path": "openspec/changes/enable-stage-isolated-subagent-orchestration/handoffs/final-spec-findings-red-001/result.json",
+      "fingerprint": "sha256:cbe3f4ae6d6b9491c1c35470d56bbf6b3ce09eb38784984af20330448cbd544e"
+    },
+    {
+      "path": "scripts/test-handoff-contracts.py",
+      "fingerprint": "sha256:b17e05f124a1d2cf7023b925507e949feab8d074144c02c236729300efb07948"
+    }
+  ],
+  "dependencies": [
+    "final-spec-review-001",
+    "final-spec-findings-red-001",
+    "FINAL-SPEC-ROLE-BOUNDARY-001",
+    "FINAL-SPEC-FINDING-LINK-002"
+  ],
+  "allowedWritePaths": [
+    ".codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py",
+    ".codex/skills-lock.json"
+  ],
+  "forbiddenWritePaths": [
+    "openspec/",
+    "scripts/test-handoff-contracts.py",
+    "frontend/",
+    "backend/",
+    ".git/"
+  ],
+  "expectedOutputs": [
+    "关闭两个 P1 finding 的 validator 最小修复",
+    "与最终 Skill 内容一致的 computedHash/contentHash",
+    "引用 request fingerprint 的控制面 ResultContract"
+  ],
+  "acceptanceCriteria": [
+    "specialist ResultContract.modifiedFiles 同时满足 request allowlist、forbiddenWritePaths 与角色写入根",
+    "CorrectionContract findingIds 必须存在于 reviewFingerprint 指向的 ReviewResult 且为 OPEN",
+    "RESOLVED 必须来自同 reviewRole、同 resultFingerprint 的复核结果",
+    "合同测试 22/22、治理与 Skill hash 门禁通过"
+  ],
+  "verificationPlan": [
+    "python3 -B scripts/test-handoff-contracts.py",
+    "python3 -B scripts/test-ai-delivery-governance.py",
+    "python3 -B .codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py --change enable-stage-isolated-subagent-orchestration --all",
+    "git diff --check -- .codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py .codex/skills-lock.json"
+  ],
+  "userGates": [
+    {
+      "name": "UPDATED_SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": ["conversation:user-confirmation:2026-07-28"]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}
