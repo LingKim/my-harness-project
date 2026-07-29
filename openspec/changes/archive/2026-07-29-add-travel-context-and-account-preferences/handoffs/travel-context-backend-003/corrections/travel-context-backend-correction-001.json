@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-backend-correction-001",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "BACKEND_IMPLEMENTATION",
+  "role": "backend_engineer",
+  "taskIds": [
+    "2.1",
+    "2.4",
+    "3.2",
+    "3.4",
+    "4.1",
+    "4.4"
+  ],
+  "parentContractId": "travel-context-backend-003",
+  "reviewFingerprint": "sha256:7f54b49cfc4cff9dc564c09209140919f7a6362f9573c37baf270931823708d3",
+  "findingIds": [
+    "SPEC-BE-DELETE-BODY-CHUNKED-001",
+    "SPEC-BE-UNICODE-CASEFOLD-001",
+    "SPEC-BE-INTERNAL-ERROR-CODE-001",
+    "SPEC-BE-SAFE-LOG-BOUNDARY-001"
+  ],
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-spec-review-007/reviews/travel-context-spec-review-001.json",
+      "fingerprint": "sha256:7f54b49cfc4cff9dc564c09209140919f7a6362f9573c37baf270931823708d3"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-error-contract-009/result.json",
+      "fingerprint": "sha256:6c739b8d75e158a14f0f245bbe776de9c13fe2ef10181ca209ed9bcb80f4ba05"
+    }
+  ],
+  "allowedWritePaths": [
+    "backend/src/main/java/com/heness/project/account/api/AccountPreferencesController.java",
+    "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java",
+    "backend/src/main/java/com/heness/project/account/domain/",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/MybatisAccountPreferencesRepository.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/AccountPreferencesMapper.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/TravelContextMapper.java",
+    "backend/src/main/resources/mapper/account/AccountPreferencesMapper.xml",
+    "backend/src/main/resources/mapper/account/TravelContextMapper.xml",
+    "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java",
+    "backend/src/test/java/com/heness/project/account/api/AccountApiTests.java",
+    "backend/src/test/java/com/heness/project/account/domain/",
+    "backend/src/test/java/com/heness/project/account/infrastructure/persistence/MySqlAccountPreferencesTests.java"
+  ],
+  "forbiddenWritePaths": [
+    "frontend/",
+    "openspec/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/",
+    "backend/src/main/resources/db/migration/"
+  ],
+  "expectedFixes": [
+    "拒绝 Content-Length 未知或 Transfer-Encoding chunked 的 DELETE JSON body，并在调用 service 前返回 400 VALIDATION_FAILED",
+    "实现与冻结 Unicode case folding 一致的饮食限制规范化，保证应用键与 normalized_text 一致，并覆盖 Straße/STRASSE",
+    "按产品收口后的唯一合同复验账号偏好和改密未预期错误均返回 INTERNAL_SERVER_ERROR",
+    "账号偏好未预期系统错误仅记录 traceId、稳定 code 和不可逆主体键，不记录 stackTrace/message/旅行内容/请求体/SQL/凭据",
+    "补充 API、领域、MySQL 和 OutputCapture 测试"
+  ],
+  "acceptanceCriteria": [
+    "四个 finding 的 requiredVerification 全部具备代码与测试证据",
+    "正常 DELETE query version、乐观并发和既有响应合同不回归",
+    "不引入 Spring JDBC、新依赖、SQL 注解或 schema 变更",
+    "目标测试、ArchitectureRulesTests、完整后端测试与适用 MySQL 8.4 测试通过"
+  ],
+  "retestPlan": [
+    "cd backend && ./mvnw -Dtest=AccountPreferencesApiTests,TravelContextTests test",
+    "cd backend && ./mvnw -Dtest=ArchitectureRulesTests test",
+    "cd backend && ./mvnw test",
+    "加载根 .env 后运行 MySqlAccountPreferencesTests",
+    "由原 spec_reviewer 复核四个 finding"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

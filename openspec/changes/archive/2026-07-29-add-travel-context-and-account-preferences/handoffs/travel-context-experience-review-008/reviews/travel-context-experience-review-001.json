@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-experience-review-008",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "EXPERIENCE_REVIEW",
+  "role": "experience_reviewer",
+  "taskIds": [
+    "7.4"
+  ],
+  "resultFingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64",
+  "reviewRole": "experience_reviewer",
+  "status": "BLOCKED",
+  "findings": [],
+  "verificationSummary": [
+    {
+      "command": "shasum -a 256 <7 authoritativeInputs> <request.json>",
+      "status": "PASS",
+      "summary": "合同 requestFingerprint 与全部权威输入指纹匹配。"
+    },
+    {
+      "command": "Pencil MCP get_editor_state/get_screenshot：六个新增节点",
+      "status": "PASS",
+      "summary": "实际读取六个设计节点视觉基线。"
+    },
+    {
+      "command": "ego-browser → http://127.0.0.1:8080/api/health",
+      "status": "PASS",
+      "summary": "真实浏览器返回 backend UP。"
+    },
+    {
+      "command": "ego-browser → http://127.0.0.1:3000/zh-CN/account/settings/travel-context",
+      "status": "BLOCKED",
+      "summary": "初次走查时前端尚未由主 Agent启动。"
+    },
+    {
+      "command": "真实页面双语、错误恢复、键盘及 320/767/1920 走查",
+      "status": "NOT_RUN",
+      "summary": "初次走查缺少前端 listener 与专用账号。"
+    }
+  ],
+  "blockers": [
+    "初次快照时前端未运行。",
+    "初次快照时未提供专用测试账号。"
+  ],
+  "notRun": [
+    "初次快照未验证六个 Pencil 状态与真实页面一致性。",
+    "初次快照未验证双语、键盘、错误恢复与三个视口。"
+  ],
+  "residualRisks": [
+    "该 BLOCKED 快照不构成体验结论；主 Agent解除环境 blocker 后已要求同一 reviewer 复验。"
+  ],
+  "acceptance": {
+    "status": "REJECTED",
+    "evidenceRefs": [
+      "Pencil six-node baseline:PASS",
+      "backend health:PASS",
+      "frontend initial route:ERR_CONNECTION_REFUSED",
+      "live experience review:NOT_RUN"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

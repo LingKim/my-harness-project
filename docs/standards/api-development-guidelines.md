@@ -491,7 +491,10 @@ final class CommunityQuestionController {
 | 登录 | `POST /api/v1/sessions` | 创建会话资源 |
 | 退出当前会话 | `DELETE /api/v1/sessions/current` | 删除当前会话 |
 | 查询当前账号 | `GET /api/v1/accounts/me` | 认证上下文解析当前账号 |
-| 修改个人资料 | `PATCH /api/v1/accounts/me` | 只开放普通可编辑字段 |
+| 更新账号偏好 | `PATCH /api/v1/accounts/me` | 当前只开放 `preferredLanguage` |
+| 查询旅行上下文 | `GET /api/v1/accounts/me/travel-context` | 尚未保存或清空后仍返回稳定空表示 |
+| 替换旅行上下文 | `PUT /api/v1/accounts/me/travel-context` | 携带 `version` 完整替换当前账号资源 |
+| 清空旅行上下文 | `DELETE /api/v1/accounts/me/travel-context?version=N` | 版本使用查询参数且不发送 JSON 请求体 |
 | 修改密码 | `POST /api/v1/accounts/me:change-password` | 需要校验旧密码并产生安全副作用 |
 | 攻略列表 | `GET /api/v1/guides?page=1&size=20` | 分页、筛选、搜索 |
 | 收藏攻略 | `PUT /api/v1/accounts/me/favorite-guides/{guideId}` | 收藏关系幂等创建 |

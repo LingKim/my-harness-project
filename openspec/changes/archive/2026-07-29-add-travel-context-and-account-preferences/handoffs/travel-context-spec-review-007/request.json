@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-spec-review-007",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": [
+    "7.3"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+      "fingerprint": "sha256:855b00e5f0df032f15a2ade03d60fcb0f5102087ae277488de7f5b019be27762"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/design.md",
+      "fingerprint": "sha256:757829f1f7843588e60d6e2373ae2090951f8096ecd4d405413fb2acef5086c7"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md",
+      "fingerprint": "sha256:afd3cf558f7e9da0e85fc65dec461d1bffd93885b1f4a69efae6377d0b038ce8"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md",
+      "fingerprint": "sha256:11c1a56ee51ac71dac33ffc66ee1bcbfb0681dd83214714e3a29b13a6454fb83"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+      "fingerprint": "sha256:4e3833f76cb5eadc9e9c15d7e95d1a6ae53caab2cc1c51232ff77cd86a3ef2e8"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+      "fingerprint": "sha256:6addb662be926e9d484fd347a9c86ffdac14aa46d4a31bfcf8a8dc1b1e54618f"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-backend-003/result.json",
+      "fingerprint": "sha256:1cf4468cbb59500b203166321ed814b519893ec24496e3addf917d475fbdd4b0"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-frontend-004/result.json",
+      "fingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-frontend-004/corrections/travel-context-frontend-correction-001.json",
+      "fingerprint": "sha256:de8f55b4d55c87f5b1d339b3dad35dacab7714a54aac382a3c55cb1bf86e2c83"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-qa-006/reviews/travel-context-qa-review-002.json",
+      "fingerprint": "sha256:1f8c0f9d7d574455f0432952d5f7def2835f0c7466686c2fc1a8338f8085ac17"
+    }
+  ],
+  "dependencies": [
+    "travel-context-backend-003",
+    "travel-context-frontend-004",
+    "travel-context-qa-006"
+  ],
+  "allowedWritePaths": [],
+  "forbiddenWritePaths": [
+    "frontend/",
+    "backend/",
+    "openspec/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/"
+  ],
+  "expectedOutputs": [
+    "4 份 delta specs 到实现/测试的逐条正向对账与覆盖率",
+    "代码到 specs 的反向超纲检查",
+    "Java 21、Spring Boot 4.1、MyBatis-Plus、Mapper XML-only、Flyway-only、事务、安全日志和前端 Rules 的独立结论",
+    "带稳定 findingId 的只读 ReviewResult"
+  ],
+  "acceptanceCriteria": [
+    "逐条区分业务 Spec 覆盖与工程技术基线，不把测试绿灯等同于规则合规",
+    "检查 API DELETE query/latestVersion、会话轮换/绝对期限和前后端 fieldErrors 契约",
+    "任何阻断偏差或超纲行为使用 OPEN finding 并给出文件证据与修复动作",
+    "不修改任何文件，不 commit/push/归档"
+  ],
+  "verificationPlan": [
+    "只读检索 OpenSpec、前后端源码、migration、Mapper XML、测试和 QA resolved review",
+    "按 requirement/scenario 逐条计算正向覆盖率并执行代码到 Spec 反向检查",
+    "运行必要的只读差异与静态核查，不重复无关完整测试"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

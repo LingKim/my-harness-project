@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-qa-006",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": [
+    "6.5",
+    "7.1",
+    "7.2"
+  ],
+  "resultFingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64",
+  "reviewRole": "qa_engineer",
+  "status": "FAIL",
+  "findings": [
+    {
+      "findingId": "QA-FE-RESPONSIVE-320-001",
+      "severity": "P1",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "真实 Chromium E2E：320px viewport 的 document.documentElement.scrollWidth 为 365",
+        "frontend/src/app/globals.css:518",
+        "frontend/src/app/globals.css:279",
+        "frontend/src/app/globals.css:303"
+      ],
+      "ownerRole": "frontend_engineer",
+      "requiredVerification": [
+        "修复登录账号名称、语言入口及退出操作在 320px header 中的收缩或收拢策略",
+        "复跑 320、767、1920 三个真实 viewport",
+        "验证设置页面及 header 均无水平滚动，且账号、语言、退出操作仍可键盘访问"
+      ]
+    },
+    {
+      "findingId": "QA-FE-FIELD-ERROR-CONTRACT-001",
+      "severity": "P2",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "backend AccountPreferencesExceptionHandler 将 fieldErrors 输出为 List<Map<String,String>>",
+        "frontend auth-client 将 fieldErrors 声明并读取为 Record<string,string>",
+        "frontend/src/components/account/auth-client.ts:8",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:43"
+      ],
+      "ownerRole": "frontend_engineer",
+      "requiredVerification": [
+        "按实际 ProblemDetail fieldErrors 数组合同解析并按 field 建立映射",
+        "增加使用真实后端响应形状的客户端测试",
+        "验证服务端字段错误显示本地化文案、聚焦首个无效字段且不展示原始 detail"
+      ]
+    },
+    {
+      "findingId": "QA-E2E-FIXTURE-ISOLATION-001",
+      "severity": "P2",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "account-settings.spec.ts 的改密场景在恢复密码前执行 expiry 断言，断言失败会遗留新密码并级联后续登录失败",
+        "原 signIn 未等待初始认证恢复结束，存在旧 refresh 响应清除新 Cookie 的竞态",
+        "原 English 与 New password locator 存在 strict-mode 多匹配"
+      ],
+      "ownerRole": "qa_engineer",
+      "requiredVerification": [
+        "改密场景使用独立一次性账号或以 finally 保证恢复",
+        "使用不延长且允许 Cookie 秒级舍入的绝对期限断言",
+        "在全新动态账号上单 worker 复跑 6/6，确认无 fixture 级联"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "python3 .codex/skills/chinamate-fullstack-delivery/scripts/check_delivery_environment.py --repo-root /Users/lilin/Desktop/java/my-heness-project",
+      "status": "PASS",
+      "summary": "本地 frontend dependencies 与 Java 21 backend test runtime 均就绪。"
+    },
+    {
+      "command": "cd frontend && pnpm lint",
+      "status": "PASS",
+      "summary": "ESLint exit 0。"
+    },
+    {
+      "command": "cd frontend && pnpm typecheck",
+      "status": "PASS",
+      "summary": "Next route typegen 与 tsc --noEmit 通过。"
+    },
+    {
+      "command": "cd frontend && pnpm test",
+      "status": "PASS",
+      "summary": "11 个测试文件、44 个测试全部通过。"
+    },
+    {
+      "command": "cd frontend && pnpm test:e2e",
+      "status": "PASS_WITH_ISSUES",
+      "summary": "Chromium 21 passed、6 skipped；初始环境没有专用账号变量。"
+    },
+    {
+      "command": "动态注册两组本轮唯一账号；pnpm exec playwright test e2e/account-settings.spec.ts --workers=1 --trace=off",
+      "status": "FAIL",
+      "summary": "账号隔离、保存/清空、767px、1920px及键盘路径通过；320px 实测横向溢出，其余失败包含已定位的 E2E fixture 问题。"
+    },
+    {
+      "command": "cd backend && ./mvnw -Dtest=ArchitectureRulesTests test",
+      "status": "PASS",
+      "summary": "10 tests，0 failures/errors/skipped。"
+    },
+    {
+      "command": "cd backend && ./mvnw test",
+      "status": "PASS",
+      "summary": "103 tests，0 failures/errors，18 个数据库条件测试 skipped。"
+    },
+    {
+      "command": "加载根 .env 后运行 MySQL 8.4 三个专项测试类",
+      "status": "PASS",
+      "summary": "授权环境复跑 18/18，通过 Flyway、事务回滚、乐观并发、账号隔离及改密会话副作用验证。"
+    },
+    {
+      "command": "xmllint --noout backend/src/main/resources/mapper/account/*.xml",
+      "status": "PASS",
+      "summary": "6 个 Mapper XML 语法通过。"
+    },
+    {
+      "command": "源码审计 MyBatis-Plus、Mapper XML、Flyway、事务、参数绑定、Spring JDBC 与日志",
+      "status": "PASS",
+      "summary": "自定义 SQL 位于 Mapper XML，无 ${}；无新增 Spring JDBC；事务和敏感日志边界符合规则。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "未在修正最终 E2E fixture 后再次执行完整 6/6；发现确定的生产 P1 后停止重复运行。",
+    "未通过真实浏览器注入服务端字段错误响应形状；该问题通过前后端源码合同对账确定。",
+    "未做 Experience Reviewer 的 Pencil 像素级视觉审查。"
+  ],
+  "residualRisks": [
+    "动态注册留下若干本地 MySQL QA 账号；未获破坏性清理授权，未删除，也不声称零残留。",
+    "一次失败的改密 E2E 在一次性账号上保留了新密码；密码仅存在于已结束进程内，未写入仓库或报告。",
+    "真实跨栈改密已证明三类 Cookie 值发生轮换；最终浏览器 6/6 仍需修复后重跑。"
+  ],
+  "acceptance": {
+    "status": "REJECTED",
+    "evidenceRefs": [
+      "QA-FE-RESPONSIVE-320-001:OPEN",
+      "QA-FE-FIELD-ERROR-CONTRACT-001:OPEN",
+      "QA-E2E-FIXTURE-ISOLATION-001:OPEN",
+      "frontend lint/typecheck/Vitest:PASS",
+      "backend architecture/full/MySQL:PASS"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

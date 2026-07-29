@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-frontend-004",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "FRONTEND_IMPLEMENTATION",
+  "role": "frontend_engineer",
+  "taskIds": [
+    "5.1",
+    "5.2",
+    "5.3",
+    "5.4",
+    "6.1",
+    "6.2",
+    "6.3",
+    "6.4",
+    "6.5"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+      "fingerprint": "sha256:855b00e5f0df032f15a2ade03d60fcb0f5102087ae277488de7f5b019be27762"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/design.md",
+      "fingerprint": "sha256:757829f1f7843588e60d6e2373ae2090951f8096ecd4d405413fb2acef5086c7"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+      "fingerprint": "sha256:6addb662be926e9d484fd347a9c86ffdac14aa46d4a31bfcf8a8dc1b1e54618f"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+      "fingerprint": "sha256:4e3833f76cb5eadc9e9c15d7e95d1a6ae53caab2cc1c51232ff77cd86a3ef2e8"
+    },
+    {
+      "path": "docs/designs/chinamate-auth.pen",
+      "fingerprint": "sha256:1c9ed7e6b2e3b4a2a426a9a976d6a5e08dce2af3c379ba21c104ddefb98c7b62"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-spec-confirmation-002/result.json",
+      "fingerprint": "sha256:87c4ff412d317ba004a2b6be8f556414ed441a7c98090025c330336a3f06161c"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-api-clarification-005/result.json",
+      "fingerprint": "sha256:eedc262ddaf1f609ef1a1c648cf5cead7fce31f5fa09a6519c353351a423463b"
+    }
+  ],
+  "dependencies": [
+    "travel-context-spec-confirmation-002",
+    "travel-context-api-clarification-005"
+  ],
+  "allowedWritePaths": [
+    "frontend/"
+  ],
+  "forbiddenWritePaths": [
+    "backend/",
+    "openspec/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/"
+  ],
+  "expectedOutputs": [
+    "六个 Pencil 节点对应的账号设置与修改密码页面",
+    "旅行上下文、语言同步和修改密码的 RED 测试及前端实现",
+    "中英文、键盘、窄屏和网络/版本冲突状态验证结果"
+  ],
+  "acceptanceCriteria": [
+    "实现 tasks 5.1-6.5 且只修改 frontend/",
+    "Server/Client 边界最小，不把密码、Token 或旅行草稿持久化到浏览器存储",
+    "语言切换保持路由、Query、hash、搜索条件和未提交表单",
+    "页面忠实消费确认后的 API/会话策略并覆盖统一错误和可访问焦点",
+    "lint、typecheck、Vitest 与适用 E2E 有真实结果"
+  ],
+  "verificationPlan": [
+    "pnpm lint",
+    "pnpm typecheck",
+    "pnpm test",
+    "pnpm test:e2e"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现",
+        "travel-context-api-clarification-005:ACCEPTED"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-qa-006",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": [
+    "6.5",
+    "7.1",
+    "7.2"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+      "fingerprint": "sha256:855b00e5f0df032f15a2ade03d60fcb0f5102087ae277488de7f5b019be27762"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/design.md",
+      "fingerprint": "sha256:757829f1f7843588e60d6e2373ae2090951f8096ecd4d405413fb2acef5086c7"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md",
+      "fingerprint": "sha256:afd3cf558f7e9da0e85fc65dec461d1bffd93885b1f4a69efae6377d0b038ce8"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md",
+      "fingerprint": "sha256:11c1a56ee51ac71dac33ffc66ee1bcbfb0681dd83214714e3a29b13a6454fb83"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+      "fingerprint": "sha256:4e3833f76cb5eadc9e9c15d7e95d1a6ae53caab2cc1c51232ff77cd86a3ef2e8"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+      "fingerprint": "sha256:6addb662be926e9d484fd347a9c86ffdac14aa46d4a31bfcf8a8dc1b1e54618f"
+    },
+    {
+      "path": "docs/designs/chinamate-auth.pen",
+      "fingerprint": "sha256:1c9ed7e6b2e3b4a2a426a9a976d6a5e08dce2af3c379ba21c104ddefb98c7b62"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-backend-003/result.json",
+      "fingerprint": "sha256:1cf4468cbb59500b203166321ed814b519893ec24496e3addf917d475fbdd4b0"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-frontend-004/result.json",
+      "fingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64"
+    }
+  ],
+  "dependencies": [
+    "travel-context-backend-003",
+    "travel-context-frontend-004"
+  ],
+  "allowedWritePaths": [
+    "frontend/e2e/",
+    "frontend/src/",
+    "backend/src/test/"
+  ],
+  "forbiddenWritePaths": [
+    "frontend/src/app/",
+    "frontend/src/components/",
+    "frontend/src/i18n/",
+    "frontend/src/app/globals.css",
+    "backend/src/main/",
+    "openspec/changes/add-travel-context-and-account-preferences/handoffs/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/"
+  ],
+  "expectedOutputs": [
+    "规格场景与测试矩阵，以及独立执行的前端静态、单元、后端架构/完整/MySQL 和跨栈 E2E 证据",
+    "账号 A/B 隔离、乐观并发、CSRF、统一异常和敏感日志排除的真实结果",
+    "修改密码后其他会话撤销、当前三类凭据轮换、旧 Token 作废及原 7 天绝对期限不延长的真实结果",
+    "中英文、键盘、320/767/1920 视口、网络失败、草稿与语言状态恢复的真实结果",
+    "带稳定 findingId 的 ReviewResult"
+  ],
+  "acceptanceCriteria": [
+    "不修改生产实现或根 OpenSpec，只可补充/修正测试、夹具和测试配置",
+    "明确区分 PASS、FAIL、BLOCKED 和 NOT_RUN，不能把测试发现或实现方结果当作独立 QA 通过",
+    "后端工程实践独立核验 MyBatis-Plus、Mapper XML-only、Flyway-only、事务原子性和敏感日志边界",
+    "跨栈 E2E 若环境可用必须真实执行；若受阻必须给出可复现 blocker 和已完成的等价分层验证",
+    "所有 OPEN finding 都包含稳定 findingId、严重度、证据、ownerRole 和复验范围"
+  ],
+  "verificationPlan": [
+    "python3 .codex/skills/chinamate-fullstack-delivery/scripts/check_delivery_environment.py --repo-root /Users/lilin/Desktop/java/my-heness-project",
+    "cd frontend && pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e",
+    "cd backend && ./mvnw -Dtest=ArchitectureRulesTests test && ./mvnw test",
+    "加载根 .env 后运行 MySQL 8.4 账号偏好与认证专项测试",
+    "检查 Mapper XML、Flyway、事务、日志和浏览器凭据/会话副作用"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现",
+        "travel-context-api-clarification-005:ACCEPTED"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

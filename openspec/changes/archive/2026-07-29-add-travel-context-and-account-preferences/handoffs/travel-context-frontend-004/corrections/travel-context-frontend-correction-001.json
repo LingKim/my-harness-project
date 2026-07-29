@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-frontend-correction-001",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "FRONTEND_IMPLEMENTATION",
+  "role": "frontend_engineer",
+  "taskIds": [
+    "6.2",
+    "6.4"
+  ],
+  "parentContractId": "travel-context-frontend-004",
+  "reviewFingerprint": "sha256:866b2051acb9061a1ade8b0ff0c68d257789115a4f484db6da65b6cf2b95ed8d",
+  "findingIds": [
+    "QA-FE-RESPONSIVE-320-001",
+    "QA-FE-FIELD-ERROR-CONTRACT-001"
+  ],
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-qa-006/reviews/travel-context-qa-review-001.json",
+      "fingerprint": "sha256:866b2051acb9061a1ade8b0ff0c68d257789115a4f484db6da65b6cf2b95ed8d"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+      "fingerprint": "sha256:6addb662be926e9d484fd347a9c86ffdac14aa46d4a31bfcf8a8dc1b1e54618f"
+    }
+  ],
+  "allowedWritePaths": [
+    "frontend/src/app/globals.css",
+    "frontend/src/components/account/auth-client.ts",
+    "frontend/src/components/account/auth-client.test.ts",
+    "frontend/src/components/account/travel-context-form.tsx",
+    "frontend/src/components/account/travel-context-form.test.tsx",
+    "frontend/src/components/account/change-password-form.tsx",
+    "frontend/src/components/account/security-settings.test.tsx"
+  ],
+  "forbiddenWritePaths": [
+    "backend/",
+    "openspec/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/",
+    "frontend/e2e/"
+  ],
+  "expectedFixes": [
+    "消除登录态 header 在 320px viewport 的水平溢出，同时保持账号、语言和退出操作键盘可达",
+    "按后端实际 List<{field,message}> 形状解析 fieldErrors，并保持安全本地化映射与首个无效字段聚焦",
+    "为真实 fieldErrors 响应形状补充前端测试"
+  ],
+  "acceptanceCriteria": [
+    "QA-FE-RESPONSIVE-320-001 的 requiredVerification 全部可复验",
+    "QA-FE-FIELD-ERROR-CONTRACT-001 的 requiredVerification 全部可复验",
+    "不展示后端原始 detail，不修改后端或 E2E fixture",
+    "lint、typecheck、Vitest 通过"
+  ],
+  "retestPlan": [
+    "cd frontend && pnpm lint",
+    "cd frontend && pnpm typecheck",
+    "cd frontend && pnpm test",
+    "由原 QA 复跑 320/767/1920 与真实 fieldErrors 场景"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

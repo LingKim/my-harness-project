@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-experience-review-008",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "EXPERIENCE_REVIEW",
+  "role": "experience_reviewer",
+  "taskIds": [
+    "7.4"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/design.md",
+      "fingerprint": "sha256:757829f1f7843588e60d6e2373ae2090951f8096ecd4d405413fb2acef5086c7"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+      "fingerprint": "sha256:4e3833f76cb5eadc9e9c15d7e95d1a6ae53caab2cc1c51232ff77cd86a3ef2e8"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+      "fingerprint": "sha256:6addb662be926e9d484fd347a9c86ffdac14aa46d4a31bfcf8a8dc1b1e54618f"
+    },
+    {
+      "path": "docs/designs/chinamate-auth.pen",
+      "fingerprint": "sha256:1c9ed7e6b2e3b4a2a426a9a976d6a5e08dce2af3c379ba21c104ddefb98c7b62"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-frontend-004/result.json",
+      "fingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-frontend-004/corrections/travel-context-frontend-correction-001.json",
+      "fingerprint": "sha256:de8f55b4d55c87f5b1d339b3dad35dacab7714a54aac382a3c55cb1bf86e2c83"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-qa-006/reviews/travel-context-qa-review-002.json",
+      "fingerprint": "sha256:1f8c0f9d7d574455f0432952d5f7def2835f0c7466686c2fc1a8338f8085ac17"
+    }
+  ],
+  "dependencies": [
+    "travel-context-frontend-004",
+    "travel-context-qa-006"
+  ],
+  "allowedWritePaths": [],
+  "forbiddenWritePaths": [
+    "frontend/",
+    "backend/",
+    "openspec/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/"
+  ],
+  "expectedOutputs": [
+    "在可运行页面上对六个 Pencil 节点对应流程的真实走查",
+    "中文/英文、320/767/1920、键盘焦点、文案、错误恢复和水平溢出的分级结论",
+    "截图或可复现步骤引用与带稳定 findingId 的只读 ReviewResult"
+  ],
+  "acceptanceCriteria": [
+    "实际启动并走查页面，不以源码或测试结果替代真实体验",
+    "覆盖旅行上下文、账号安全、修改密码及中英文/错误态/窄屏状态",
+    "P0/P1 或阻断问题保持 OPEN 并给出最小复现与建议",
+    "不修改任何文件，不 commit/push/归档"
+  ],
+  "verificationPlan": [
+    "使用可运行前后端和真实浏览器走查六个 Pencil 节点对应路径",
+    "检查 320、767、1920 视口、键盘、焦点、文案和错误恢复",
+    "只读记录可复核截图或页面证据"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

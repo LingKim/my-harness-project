@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-backend-003",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "BACKEND_IMPLEMENTATION",
+  "role": "backend_engineer",
+  "taskIds": [
+    "2.1",
+    "2.2",
+    "2.3",
+    "2.4",
+    "3.1",
+    "3.2",
+    "3.3",
+    "3.4",
+    "4.1",
+    "4.2",
+    "4.3",
+    "4.4",
+    "4.5"
+  ],
+  "requestFingerprint": "sha256:a2fdb4da4eb4098d04c5ca8af1cef50001ce99889f6314530448e9a56ab0d2ac",
+  "status": "PASS",
+  "modifiedFiles": [
+    "backend/src/main/java/com/heness/project/account/api/AccountAuthExceptionHandler.java",
+    "backend/src/main/java/com/heness/project/account/api/AccountResponse.java",
+    "backend/src/main/java/com/heness/project/account/api/AuthCookieWriter.java",
+    "backend/src/main/java/com/heness/project/account/api/AuthCsrfFilter.java",
+    "backend/src/main/java/com/heness/project/account/api/AccountPreferencesController.java",
+    "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java",
+    "backend/src/main/java/com/heness/project/account/api/ChangePasswordController.java",
+    "backend/src/main/java/com/heness/project/account/api/ChangePasswordRequest.java",
+    "backend/src/main/java/com/heness/project/account/api/TravelContextRequest.java",
+    "backend/src/main/java/com/heness/project/account/api/TravelContextResponse.java",
+    "backend/src/main/java/com/heness/project/account/api/UpdateAccountRequest.java",
+    "backend/src/main/java/com/heness/project/account/application/AccountAuthenticationService.java",
+    "backend/src/main/java/com/heness/project/account/application/AccountRecord.java",
+    "backend/src/main/java/com/heness/project/account/application/AccountView.java",
+    "backend/src/main/java/com/heness/project/account/application/AuthFailureReason.java",
+    "backend/src/main/java/com/heness/project/account/application/AuthenticationRepository.java",
+    "backend/src/main/java/com/heness/project/account/application/AccountPreferencesRepository.java",
+    "backend/src/main/java/com/heness/project/account/application/AccountPreferencesService.java",
+    "backend/src/main/java/com/heness/project/account/application/ChangedPasswordAuthentication.java",
+    "backend/src/main/java/com/heness/project/account/application/CurrentSessionRecord.java",
+    "backend/src/main/java/com/heness/project/account/application/TravelContextVersionConflict.java",
+    "backend/src/main/java/com/heness/project/account/domain/PreferredLanguage.java",
+    "backend/src/main/java/com/heness/project/account/domain/TravelContext.java",
+    "backend/src/main/java/com/heness/project/account/domain/TravelContextViolation.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/AccountAccessProjection.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/AccountMapper.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/AuthSessionMapper.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/MybatisAuthenticationRepository.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/RefreshTokenMapper.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/AccountPreferencesMapper.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/AccountPreferencesRow.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/CurrentSessionProjection.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/DietaryRestrictionMapper.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/DietaryRestrictionRow.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/MybatisAccountPreferencesRepository.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/TravelContextMapper.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/TravelContextRow.java",
+    "backend/src/main/java/com/heness/project/config/SecurityConfiguration.java",
+    "backend/src/main/resources/application.yml",
+    "backend/src/main/resources/db/migration/V3__add_account_preferences_and_travel_context.sql",
+    "backend/src/main/resources/mapper/account/AccountMapper.xml",
+    "backend/src/main/resources/mapper/account/AccountPreferencesMapper.xml",
+    "backend/src/main/resources/mapper/account/AuthSessionMapper.xml",
+    "backend/src/main/resources/mapper/account/DietaryRestrictionMapper.xml",
+    "backend/src/main/resources/mapper/account/RefreshTokenMapper.xml",
+    "backend/src/main/resources/mapper/account/TravelContextMapper.xml",
+    "backend/src/test/java/com/heness/project/account/api/AccountApiTests.java",
+    "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java",
+    "backend/src/test/java/com/heness/project/account/application/AccountAuthenticationServiceTests.java",
+    "backend/src/test/java/com/heness/project/account/application/AccountPreferencesServiceTests.java",
+    "backend/src/test/java/com/heness/project/account/domain/PreferredLanguageTests.java",
+    "backend/src/test/java/com/heness/project/account/domain/TravelContextTests.java",
+    "backend/src/test/java/com/heness/project/account/infrastructure/persistence/MySqlAccountPreferencesTests.java",
+    "backend/src/test/java/com/heness/project/account/infrastructure/persistence/MySqlAuthenticationPersistenceTests.java"
+  ],
+  "outputReferences": [
+    "backend/src/main/java/com/heness/project/account/api/AccountPreferencesController.java",
+    "backend/src/main/java/com/heness/project/account/api/ChangePasswordController.java",
+    "backend/src/main/java/com/heness/project/account/application/AccountPreferencesService.java",
+    "backend/src/main/java/com/heness/project/account/application/AccountAuthenticationService.java",
+    "backend/src/main/java/com/heness/project/account/infrastructure/persistence/MybatisAccountPreferencesRepository.java",
+    "backend/src/main/resources/db/migration/V3__add_account_preferences_and_travel_context.sql",
+    "backend/src/main/resources/mapper/account/",
+    "backend/src/test/java/com/heness/project/account/"
+  ],
+  "verificationSummary": [
+    {
+      "command": "./mvnw -Dtest=ArchitectureRulesTests test",
+      "status": "PASS",
+      "summary": "架构测试 10 项，0 failures、0 errors、0 skipped。"
+    },
+    {
+      "command": "./mvnw test",
+      "status": "PASS",
+      "summary": "单元及非条件测试 103 项通过，0 failures、0 errors；18 个 MySQL 条件测试在未加载数据库环境时 skipped。"
+    },
+    {
+      "command": "加载根 .env 后 ./mvnw -Dtest=MySqlAccountPreferencesTests,MySqlAuthenticationServiceTests,MySqlAuthenticationPersistenceTests test",
+      "status": "PASS",
+      "summary": "真实 MySQL 8.4 专项 18 项通过，0 failures、0 errors、0 skipped；Flyway schema version 3 和 3 个 migration 校验通过。"
+    },
+    {
+      "command": "xmllint --noout src/main/resources/mapper/account/*.xml",
+      "status": "PASS",
+      "summary": "6 个 Mapper XML 均通过语法校验。"
+    },
+    {
+      "command": "检查 src/main/resources/mapper/account/*.xml 中的 ${} 插值",
+      "status": "PASS",
+      "summary": "未发现 ${}；业务值均通过 MyBatis 参数绑定。"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "summary": "backend 差异无空白错误。"
+    },
+    {
+      "command": "工程实践合规审计：源码、配置、migration、Mapper XML 与测试",
+      "status": "PASS",
+      "summary": "分层、短事务、MyBatis-Plus、Flyway-only、Mapper XML-only、参数绑定和敏感日志边界符合项目规则；未直接使用 Spring JDBC。"
+    }
+  ],
+  "deviations": [
+    "未更新 OpenSpec tasks 或 evidence：合同仅允许写入 backend/，由主 Agent维护。"
+  ],
+  "blockers": [],
+  "notRun": [
+    "未启动独立 Spring Boot 服务执行真实 HTTP 请求。",
+    "未运行浏览器端跨栈 E2E。",
+    "尚未由 qa_engineer 执行独立 QA。",
+    "尚未由 spec_reviewer 执行实现后规格合规审查。"
+  ],
+  "residualRisks": [
+    "真实浏览器与 HTTP 联调仍需覆盖 DELETE query version、冲突恢复、Cookie 三凭据轮换、其他会话撤销和 7 天绝对期限不延长。",
+    "测试夹具使用已 deprecated 的 MappingJackson2HttpMessageConverter，当前仅产生编译 warning。"
+  ],
+  "recommendations": [
+    "签发 fresh QA 合同，运行后端与前端跨栈测试。",
+    "QA 重点验证账号隔离、latestVersion、DELETE 无 JSON body、旧 Token 失效及绝对期限保持。",
+    "QA 通过后签发 SPEC_REVIEW 合同。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "requestFingerprint:sha256:0fd6f2af6a789e426c482ef2e89a3a1c11c840ea40b6469d5599bac37ae87f9e",
+      "./mvnw -Dtest=ArchitectureRulesTests test:10 tests PASS",
+      "./mvnw test:103 tests PASS,18 skipped",
+      "MySQL 8.4专项测试:18 tests PASS",
+      "Flyway schema version 3:PASS",
+      "xmllint Mapper XML:PASS",
+      "git diff --check:PASS"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

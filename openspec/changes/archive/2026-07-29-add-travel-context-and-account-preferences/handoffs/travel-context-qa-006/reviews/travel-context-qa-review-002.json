@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-qa-006",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": [
+    "6.5",
+    "7.1",
+    "7.2"
+  ],
+  "resultFingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64",
+  "reviewRole": "qa_engineer",
+  "status": "PASS",
+  "findings": [
+    {
+      "findingId": "QA-FE-RESPONSIVE-320-001",
+      "severity": "P1",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "2026-07-29T16:55:25+08:00 最终真实 Chromium 单 worker 复跑 6/6 PASS",
+        "320px、767px、1920px 均断言 document.documentElement.scrollWidth <= viewport width",
+        "三个视口均通过 Current or planned city → Tab → Trip start 键盘焦点路径"
+      ],
+      "ownerRole": "frontend_engineer",
+      "requiredVerification": [
+        "已复验登录态 header 在 320px 下无水平溢出",
+        "已复跑 320、767、1920 三个真实 viewport",
+        "已验证设置页面、账号、语言与退出区域保持可见和键盘可达"
+      ]
+    },
+    {
+      "findingId": "QA-FE-FIELD-ERROR-CONTRACT-001",
+      "severity": "P2",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "targeted Vitest 2 files、13 tests PASS",
+        "auth-client.test.ts 使用真实后端 List<{field,code,message}> 响应形状并验证顺序解析",
+        "travel-context-form.test.tsx 验证本地化字段文案、首个无效字段聚焦和原始 message/detail 不展示"
+      ],
+      "ownerRole": "frontend_engineer",
+      "requiredVerification": [
+        "已按实际 ProblemDetail fieldErrors 数组合同解析",
+        "已使用真实后端响应形状补充并执行客户端测试",
+        "已验证本地化显示、首字段聚焦且不展示原始 detail"
+      ]
+    },
+    {
+      "findingId": "QA-E2E-FIXTURE-ISOLATION-001",
+      "severity": "P2",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "仅修改 frontend/e2e/account-settings.spec.ts",
+        "改密使用独立 E2E_PASSWORD_ACCOUNT，并通过 finally 恢复",
+        "最终全新三账号注册 201/201/201，单 worker 6/6 PASS，57.1s",
+        "三类 Cookie 全部轮换；旧 access、旧 refresh 均返回 401；其他会话撤销；当前会话保持登录；密码恢复返回 204"
+      ],
+      "ownerRole": "qa_engineer",
+      "requiredVerification": [
+        "已使用独立一次性改密账号并以 finally 保证恢复尝试",
+        "已采用不延长且容纳浏览器整秒换算的绝对期限断言",
+        "已在全新动态账号上单 worker 复跑 6/6，无 fixture 级联"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "cd frontend && pnpm exec eslint e2e/account-settings.spec.ts",
+      "status": "PASS",
+      "summary": "最终测试文件 ESLint exit 0。"
+    },
+    {
+      "command": "cd frontend && pnpm typecheck",
+      "status": "PASS",
+      "summary": "Next route typegen 与 tsc --noEmit 通过。"
+    },
+    {
+      "command": "cd frontend && pnpm exec vitest run src/components/account/auth-client.test.ts src/components/account/travel-context-form.test.tsx",
+      "status": "PASS",
+      "summary": "2 个测试文件、13 个测试通过，覆盖数组 fieldErrors、本地化映射、焦点和原始错误隐藏。"
+    },
+    {
+      "command": "隔离后端 8180 + MySQL 8.4；动态注册三账号；pnpm exec playwright test e2e/account-settings.spec.ts --workers=1 --trace=off",
+      "status": "PASS",
+      "summary": "注册 201/201/201；Chromium 6/6 PASS，57.1s。"
+    },
+    {
+      "command": "同一 Playwright 命令的中间诊断复跑",
+      "status": "FAIL",
+      "summary": "先后 4/6 与 5/6；定位为 fixture 导航竞态、locale 假设和 Cookie 小数 expiry 换算，最小修正后最终 6/6。"
+    },
+    {
+      "command": "沙箱内启动 BACKEND_PORT=8180 的 Spring Boot/MySQL 环境",
+      "status": "BLOCKED",
+      "summary": "回环 MySQL 被沙箱阻止；获最小授权后在授权环境成功复验。"
+    },
+    {
+      "command": "cd frontend && git diff --check -- e2e/account-settings.spec.ts",
+      "status": "PASS",
+      "summary": "无空白错误；QA 未修改生产实现。"
+    },
+    {
+      "command": "lsof 检查 8180/3100；只读检查隔离后端日志",
+      "status": "PASS",
+      "summary": "8180 与 3100 listener 均为 0；日志未泄露动态账号、密码、Cookie、Token 或旅行字段原文。"
+    },
+    {
+      "command": "只读检查 OpenSpec、CorrectionContract、实现与测试",
+      "status": "PASS",
+      "summary": "相关 specs、rules、skills 与修复结果完成对账。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "未重跑完整 pnpm lint 与完整 pnpm test；前端修复角色已有本轮完整 lint/typecheck/Vitest 45/45，QA 对受影响文件执行了 ESLint、typecheck 和 13 项专项测试。",
+    "未重跑 backend 完整与 MySQL 专项；correction 未修改后端，原 QA 已有 103、架构 10 及 MySQL 18/18 证据，并以真实 MySQL 跨栈 E2E 复验会话行为。",
+    "未执行 Experience Reviewer 的 Pencil 像素级审查。"
+  ],
+  "residualRisks": [
+    "correction 成功注册共留下 9 个本地 MySQL QA 账号；未获破坏性清理授权，未删除。",
+    "第一次成功注册批次中的独立改密账号保留了新密码；账号不再复用，密码未写入仓库、报告或日志。",
+    "未执行 commit、push、归档或外部数据写入。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "QA-FE-RESPONSIVE-320-001:RESOLVED",
+      "QA-FE-FIELD-ERROR-CONTRACT-001:RESOLVED",
+      "QA-E2E-FIXTURE-ISOLATION-001:RESOLVED",
+      "final Chromium account-settings E2E:6/6 PASS",
+      "fieldErrors targeted Vitest:13/13 PASS",
+      "eslint/typecheck/diff-check:PASS",
+      "isolated backend and frontend stopped"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

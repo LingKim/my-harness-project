@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-product-spec-001",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": [
+    "BOOTSTRAP-PRODUCT-SPEC"
+  ],
+  "requestFingerprint": "sha256:3ab91066c66bbd45ccd5c9b988539f28715d0b4ab56a89acfa3abb9203b3c3ba",
+  "status": "PASS_WITH_ISSUES",
+  "modifiedFiles": [
+    "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/tasks.md"
+  ],
+  "outputReferences": [
+    "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/tasks.md"
+  ],
+  "verificationSummary": [
+    {
+      "command": "openspec status --change add-travel-context-and-account-preferences",
+      "status": "PASS",
+      "summary": "proposal、design、specs、tasks 共 4/4 artifacts 完成。"
+    },
+    {
+      "command": "openspec validate add-travel-context-and-account-preferences --strict",
+      "status": "PASS",
+      "summary": "change 严格校验通过。"
+    },
+    {
+      "command": "python3 .codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py --change add-travel-context-and-account-preferences --all",
+      "status": "PASS",
+      "summary": "产品规格 request 的结构、路径、fingerprint 与引用有效。"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "summary": "无空白错误。"
+    }
+  ],
+  "deviations": [],
+  "blockers": [],
+  "notRun": [
+    "未运行 frontend/backend build、测试或实现验证；PRODUCT_SPEC 阶段未授权应用实现。"
+  ],
+  "residualRisks": [
+    "SPEC_CONFIRMATION 仍为 PENDING，任何前端、后端或 QA 写入不得开始。",
+    "修改密码成功后的当前与其他会话策略等待用户明确确认。",
+    "docs/designs/chinamate-auth.pen 是进入本合同前已有的未提交设计改动，不属于 product_manager modifiedFiles。"
+  ],
+  "recommendations": [
+    "请用户确认完整规格和修改密码会话策略后再签发实现合同。",
+    "确认后更新 gate 与相关 artifacts fingerprint，再按后端、前端、QA 和只读审查阶段推进。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "main-agent:semantic-review",
+      "openspec validate add-travel-context-and-account-preferences --strict:PASS",
+      "git diff --check:PASS"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

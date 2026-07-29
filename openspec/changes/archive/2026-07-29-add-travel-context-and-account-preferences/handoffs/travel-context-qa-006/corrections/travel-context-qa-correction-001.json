@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-qa-correction-001",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "QA",
+  "role": "qa_engineer",
+  "taskIds": [
+    "6.5",
+    "7.1",
+    "7.2"
+  ],
+  "parentContractId": "travel-context-qa-006",
+  "reviewFingerprint": "sha256:866b2051acb9061a1ade8b0ff0c68d257789115a4f484db6da65b6cf2b95ed8d",
+  "findingIds": [
+    "QA-E2E-FIXTURE-ISOLATION-001"
+  ],
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-qa-006/reviews/travel-context-qa-review-001.json",
+      "fingerprint": "sha256:866b2051acb9061a1ade8b0ff0c68d257789115a4f484db6da65b6cf2b95ed8d"
+    }
+  ],
+  "allowedWritePaths": [
+    "frontend/e2e/account-settings.spec.ts"
+  ],
+  "forbiddenWritePaths": [
+    "frontend/src/",
+    "backend/",
+    "openspec/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/"
+  ],
+  "expectedFixes": [
+    "让改密场景使用独立一次性账号或 finally 恢复，避免失败后污染其他场景",
+    "认证等待、locator 和 Cookie expiry 断言稳定且不弱化会话安全要求",
+    "在全新动态账号上单 worker 复跑 6/6"
+  ],
+  "acceptanceCriteria": [
+    "QA-E2E-FIXTURE-ISOLATION-001 的 requiredVerification 全部满足",
+    "测试不写入凭据到仓库、报告或日志，不修改生产实现",
+    "生产修复完成后对三个 finding 统一复验并仅由 QA 更新状态"
+  ],
+  "retestPlan": [
+    "动态注册全新本地一次性账号",
+    "cd frontend && pnpm exec playwright test e2e/account-settings.spec.ts --workers=1 --trace=off",
+    "复跑 fieldErrors、320/767/1920、账号隔离和改密会话场景"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

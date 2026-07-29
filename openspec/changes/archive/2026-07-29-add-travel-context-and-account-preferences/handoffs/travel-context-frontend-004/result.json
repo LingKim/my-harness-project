@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-frontend-004",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "FRONTEND_IMPLEMENTATION",
+  "role": "frontend_engineer",
+  "taskIds": [
+    "5.1",
+    "5.2",
+    "5.3",
+    "5.4",
+    "6.1",
+    "6.2",
+    "6.3",
+    "6.4",
+    "6.5"
+  ],
+  "requestFingerprint": "sha256:448a48b11fc45cf610d4515f82def59ac544a4833a4b3fc405285dc4a0a20e66",
+  "status": "PASS_WITH_ISSUES",
+  "modifiedFiles": [
+    "frontend/e2e/account-settings.spec.ts",
+    "frontend/e2e/auth.spec.ts",
+    "frontend/src/app/[locale]/account/settings/security/change-password/page.tsx",
+    "frontend/src/app/[locale]/account/settings/security/page.tsx",
+    "frontend/src/app/[locale]/account/settings/travel-context/page.tsx",
+    "frontend/src/app/globals.css",
+    "frontend/src/components/account/account-navigation.test.tsx",
+    "frontend/src/components/account/account-navigation.tsx",
+    "frontend/src/components/account/account-preferences-client.test.ts",
+    "frontend/src/components/account/account-preferences-client.ts",
+    "frontend/src/components/account/auth-client.test.ts",
+    "frontend/src/components/account/auth-client.ts",
+    "frontend/src/components/account/auth-forms.test.tsx",
+    "frontend/src/components/account/change-password-form.tsx",
+    "frontend/src/components/account/change-password-settings.tsx",
+    "frontend/src/components/account/language-sync-state.ts",
+    "frontend/src/components/account/login-form.tsx",
+    "frontend/src/components/account/password-field.tsx",
+    "frontend/src/components/account/security-settings.test.tsx",
+    "frontend/src/components/account/security-settings.tsx",
+    "frontend/src/components/account/settings-auth-state.tsx",
+    "frontend/src/components/account/settings-draft.ts",
+    "frontend/src/components/account/settings-shell.tsx",
+    "frontend/src/components/account/travel-context-form.test.tsx",
+    "frontend/src/components/account/travel-context-form.tsx",
+    "frontend/src/components/language-switcher.test.tsx",
+    "frontend/src/components/language-switcher.tsx",
+    "frontend/src/components/site-header.tsx",
+    "frontend/src/i18n/dictionaries/en.ts",
+    "frontend/src/i18n/dictionaries/zh-CN.ts",
+    "frontend/src/i18n/dictionary.ts"
+  ],
+  "outputReferences": [
+    "frontend/src/app/[locale]/account/settings/",
+    "frontend/src/components/account/travel-context-form.tsx",
+    "frontend/src/components/account/security-settings.tsx",
+    "frontend/src/components/account/change-password-form.tsx",
+    "frontend/src/components/account/account-preferences-client.ts",
+    "frontend/src/components/language-switcher.tsx",
+    "frontend/src/i18n/dictionaries/",
+    "frontend/e2e/account-settings.spec.ts"
+  ],
+  "verificationSummary": [
+    {
+      "command": "pnpm test -- src/components/account/account-preferences-client.test.ts src/components/account/travel-context-form.test.tsx src/components/account/security-settings.test.tsx",
+      "status": "PASS",
+      "summary": "RED 阶段因三个待实现模块不存在而失败；已有 23 个测试保持通过，失败原因与新增行为直接相关。"
+    },
+    {
+      "command": "pnpm lint",
+      "status": "PASS",
+      "summary": "ESLint 退出码 0，无错误或警告。"
+    },
+    {
+      "command": "pnpm typecheck",
+      "status": "PASS",
+      "summary": "Next.js 16 route typegen 成功，tsc --noEmit 退出码 0。"
+    },
+    {
+      "command": "pnpm test",
+      "status": "PASS",
+      "summary": "Vitest 11 个测试文件、44 个测试全部通过。"
+    },
+    {
+      "command": "pnpm exec playwright test --list",
+      "status": "PASS",
+      "summary": "Playwright 成功发现 5 个文件中的 27 个场景，其中新增 6 个账号偏好跨栈场景。"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "summary": "frontend 已跟踪差异无空白错误；工作区改动均位于 frontend/。"
+    }
+  ],
+  "deviations": [
+    "未更新根 OpenSpec tasks checkbox：合同只允许写 frontend/，由主 Agent依据本结果同步 tasks。",
+    "node_modules/next/dist/docs/ 在当前 Next.js 16.2.10 安装中不存在；实现以项目规则、已安装类型和源码行为为准。"
+  ],
+  "blockers": [],
+  "notRun": [
+    "未运行 pnpm test:e2e：新增跨栈场景依赖并行后端、MySQL 和两组隔离测试账号，留待 QA 在稳定环境统一执行。",
+    "未运行 build：项目规则未要求，lint、typecheck 和业务测试已覆盖本实现阶段。"
+  ],
+  "residualRisks": [
+    "尚无真实浏览器和后端联调证据；布局、Cookie 三凭据轮换、其他会话撤销及绝对期限不延长仍需 QA 执行新增 E2E。",
+    "六个 Pencil 节点尚未经过 Experience Reviewer 的真实页面视觉走查。",
+    "跨栈改密 E2E 使用可重复恢复密码的专用测试账号；执行中途失败时需确认夹具密码状态。"
+  ],
+  "recommendations": [
+    "后端稳定后签发 QA 合同运行 pnpm test:e2e。",
+    "QA 重点核验 DELETE query version 且无 JSON body、latestVersion 冲突恢复、账号隔离、语言草稿保持和改密会话副作用。",
+    "Experience Reviewer 在 1920×1080、320px 和 767px 走查六个 Pencil 状态、键盘焦点与水平溢出。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "requestFingerprint:sha256:64487495a9e2b3747aacb0c64ac543a2ad924bf3156880eb5f77fc8f470bf94a",
+      "pnpm lint:PASS",
+      "pnpm typecheck:PASS",
+      "pnpm test:11 files 44 tests PASS",
+      "pnpm exec playwright test --list:27 tests discovered",
+      "git diff --check:PASS",
+      "main-agent:E2E remains NOT_RUN and task 6.5 remains open"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

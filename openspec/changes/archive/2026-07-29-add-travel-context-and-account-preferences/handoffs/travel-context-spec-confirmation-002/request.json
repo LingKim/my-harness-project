@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-spec-confirmation-002",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": [
+    "1.1",
+    "1.2"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "docs/product/chinamate-mvp-prd.md",
+      "fingerprint": "sha256:9413081eecee15819b52a48ee80d695134fd2805f306a62a3da08ba759957b71"
+    },
+    {
+      "path": "docs/designs/chinamate-auth.pen",
+      "fingerprint": "sha256:1c9ed7e6b2e3b4a2a426a9a976d6a5e08dce2af3c379ba21c104ddefb98c7b62"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-product-spec-001/result.json",
+      "fingerprint": "sha256:5f240975c279271bca36e05d2e2b68d2b4d19524119f01a3a22e6bb9751844c0"
+    }
+  ],
+  "dependencies": [
+    "travel-context-product-spec-001"
+  ],
+  "allowedWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/tasks.md"
+  ],
+  "forbiddenWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/handoffs/",
+    "docs/designs/chinamate-auth.pen",
+    "frontend/",
+    "backend/"
+  ],
+  "expectedOutputs": [
+    "将已确认会话策略同步到所有相关 planning artifacts",
+    "清除待确认、建议方案和实现阻塞表述",
+    "完成 tasks 1.1 与 1.2 并保持 change 严格有效"
+  ],
+  "acceptanceCriteria": [
+    "明确规定修改密码成功后撤销其他会话、轮换并保留当前会话且不延长原 7 天绝对期限",
+    "proposal、design、两个认证 delta specs 与 tasks 表述一致",
+    "不改变其他已确认范围，不修改代码、Pen 或 handoffs",
+    "OpenSpec strict validate 与 git diff --check 通过"
+  ],
+  "verificationPlan": [
+    "openspec validate add-travel-context-and-account-preferences --strict",
+    "git diff --check"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

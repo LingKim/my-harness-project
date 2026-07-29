@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-error-contract-009",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": [
+    "7.3"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "docs/standards/api-development-guidelines.md",
+      "fingerprint": "sha256:8b0c043e99eb96e43cf8877c1b39d0887f6c370c50e67b449f50ce6142ff99eb"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-spec-review-007/reviews/travel-context-spec-review-001.json",
+      "fingerprint": "sha256:7f54b49cfc4cff9dc564c09209140919f7a6362f9573c37baf270931823708d3"
+    }
+  ],
+  "dependencies": [
+    "travel-context-spec-review-007"
+  ],
+  "allowedWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md"
+  ],
+  "forbiddenWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/handoffs/",
+    "frontend/",
+    "backend/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/"
+  ],
+  "expectedOutputs": [
+    "依据现有 API 规范和当前 main specs 决定 INTERNAL_ERROR 或 INTERNAL_SERVER_ERROR 的唯一权威 code",
+    "只在必要 artifacts 中消除隐式例外并保持其他确认范围不变",
+    "OpenSpec strict validate 与差异检查结果"
+  ],
+  "acceptanceCriteria": [
+    "结论可追溯到 API guideline 与现有稳定错误合同，不以当前实现单独反推规格",
+    "设计与适用 delta specs 对未预期错误使用唯一 code",
+    "不改变用户可观察的其他业务范围或会话策略",
+    "OpenSpec strict validate 与 git diff --check 通过"
+  ],
+  "verificationPlan": [
+    "只读对账 API guideline、当前 main specs、delta specs、ApiErrorCode 与 finding",
+    "openspec validate add-travel-context-and-account-preferences --strict",
+    "git diff --check"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现",
+        "main-agent:spec-review-reconciliation-in-scope"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

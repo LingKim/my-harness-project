@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-spec-confirmation-002",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": [
+    "1.1",
+    "1.2"
+  ],
+  "requestFingerprint": "sha256:5a31cd6a50323f4d0835bf63d2f009b920586f00a82a60c76ab5549d06874129",
+  "status": "PASS",
+  "modifiedFiles": [
+    "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/tasks.md"
+  ],
+  "outputReferences": [
+    "openspec/changes/add-travel-context-and-account-preferences/proposal.md",
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-authentication/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/tasks.md"
+  ],
+  "verificationSummary": [
+    {
+      "command": "openspec validate add-travel-context-and-account-preferences --strict",
+      "status": "PASS",
+      "summary": "确认后的 change 严格校验通过。"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "summary": "已跟踪文件无空白错误。"
+    },
+    {
+      "command": "rg -n 待决表述 <五个允许文件>",
+      "status": "PASS",
+      "summary": "已清除会话策略待确认、建议或实现阻塞表述。"
+    }
+  ],
+  "deviations": [],
+  "blockers": [],
+  "notRun": [
+    "未运行 frontend/backend build、测试或实现验证；本合同只更新 planning artifacts。"
+  ],
+  "residualRisks": [
+    "应用代码尚未实现，需由新的 frontend/backend 合同消费更新后 fingerprint。",
+    "未跟踪 change 文件不由普通 git diff --check 覆盖，但 OpenSpec strict validate 已检查 artifacts。"
+  ],
+  "recommendations": [
+    "基于更新后的 artifacts 签发后端、前端和后续 QA 合同。",
+    "实现和验收必须证明其他会话撤销、当前三类凭据轮换、旧 Token 作废和原 7 天绝对期限不延长。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "user-message:确认采用建议的会话策略并继续实现",
+      "main-agent:coherence-review",
+      "openspec validate add-travel-context-and-account-preferences --strict:PASS"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

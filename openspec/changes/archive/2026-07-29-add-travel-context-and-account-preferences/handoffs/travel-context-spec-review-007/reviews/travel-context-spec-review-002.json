@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-spec-review-007",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": [
+    "7.3"
+  ],
+  "resultFingerprint": "sha256:1cf4468cbb59500b203166321ed814b519893ec24496e3addf917d475fbdd4b0",
+  "reviewRole": "spec_reviewer",
+  "status": "PASS",
+  "findings": [
+    {
+      "findingId": "SPEC-BE-DELETE-BODY-CHUNKED-001",
+      "severity": "P2",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "openspec/changes/add-travel-context-and-account-preferences/design.md:35",
+        "openspec/changes/add-travel-context-and-account-preferences/design.md:38",
+        "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md:57",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesController.java:44",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesController.java:51",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesController.java:54",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesController.java:68",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:123",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:133",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:140"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "RESOLVED：Transfer-Encoding 存在时在 service 调用前判定请求体非法",
+        "RESOLVED：chunked JSON DELETE 返回 400 VALIDATION_FAILED，且 verifyNoInteractions 证明未调用 service",
+        "RESOLVED：正常 DELETE 继续使用必需 query version，并由 controller 返回 204 No Content"
+      ]
+    },
+    {
+      "findingId": "SPEC-BE-UNICODE-CASEFOLD-001",
+      "severity": "P2",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "openspec/changes/add-travel-context-and-account-preferences/design.md:60",
+        "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md:48",
+        "backend/src/main/java/com/heness/project/account/domain/UnicodeCaseFold.java:15",
+        "backend/src/main/java/com/heness/project/account/domain/TravelContext.java:64",
+        "backend/src/main/java/com/heness/project/account/domain/TravelContext.java:86",
+        "backend/src/main/java/com/heness/project/account/infrastructure/persistence/MybatisAccountPreferencesRepository.java:50",
+        "backend/src/main/java/com/heness/project/account/infrastructure/persistence/MybatisAccountPreferencesRepository.java:56",
+        "backend/src/test/java/com/heness/project/account/domain/TravelContextTests.java:24",
+        "backend/src/test/java/com/heness/project/account/domain/TravelContextTests.java:29",
+        "backend/src/test/java/com/heness/project/account/infrastructure/persistence/MySqlAccountPreferencesTests.java:109",
+        "backend/src/test/java/com/heness/project/account/infrastructure/persistence/MySqlAccountPreferencesTests.java:116"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "RESOLVED：领域去重键与数据库 normalized_text 统一调用 TravelContext.restrictionKey",
+        "RESOLVED：Straße 与 STRASSE 均折叠为 strasse，并保留首次出现的 Straße",
+        "RESOLVED：MySQL 测试验证单键持久化、首次顺序及 normalized key 唯一约束"
+      ]
+    },
+    {
+      "findingId": "SPEC-BE-INTERNAL-ERROR-CODE-001",
+      "severity": "P2",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "openspec/changes/add-travel-context-and-account-preferences/design.md:117",
+        "openspec/changes/add-travel-context-and-account-preferences/design.md:145",
+        "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md:33",
+        "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md:111",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:75",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:77",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:143",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:155",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:172",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:221"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "RESOLVED：已确认规格将 INTERNAL_SERVER_ERROR 冻结为唯一未预期错误码",
+        "RESOLVED：偏好 GET、PUT、DELETE 的普通 RuntimeException 均返回 500 INTERNAL_SERVER_ERROR",
+        "RESOLVED：修改密码未预期 RuntimeException 使用相同稳定错误码"
+      ]
+    },
+    {
+      "findingId": "SPEC-BE-SAFE-LOG-BOUNDARY-001",
+      "severity": "P2",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "openspec/changes/add-travel-context-and-account-preferences/design.md:147",
+        "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md:116",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:30",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:31",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:41",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:44",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:75",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:79",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:115",
+        "backend/src/main/java/com/heness/project/account/api/AccountPreferencesExceptionHandler.java:119",
+        "backend/src/main/java/com/heness/project/account/api/AccountAuthExceptionHandler.java:32",
+        "backend/src/main/java/com/heness/project/account/api/AccountAuthExceptionHandler.java:75",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:143",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:155",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:172",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:205",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:221",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:265",
+        "backend/src/test/java/com/heness/project/account/api/AccountPreferencesApiTests.java:270"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "RESOLVED：最高优先级专属 advice 覆盖 AccountPreferencesController 与 ChangePasswordController 的普通 RuntimeException，不再落入记录 exceptionType/stackTrace 的全局 handler",
+        "RESOLVED：未预期错误日志仅写入 traceId、INTERNAL_SERVER_ERROR 和 SHA-256 subjectKey，不传入异常对象、原始 message 或 stackTrace",
+        "RESOLVED：GET、PUT、DELETE、修改密码均有 IllegalStateException OutputCapture 测试，断言响应安全且日志排除 SQL、异常类型、堆栈、旅行原文、密码、Cookie、Token 和原始账号 UUID",
+        "RESOLVED：AuthFailure 由更具体 handler 精确委托既有 AccountAuthExceptionHandler，PASSWORD_CHANGE_REJECTED 的状态、code 与公开合同保持不变"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "只读检查 backend 工作区状态、增量 diff、规格、生产代码和测试源码",
+      "status": "PASS",
+      "summary": "四个 finding 均有真实 com/heness/project 路径的实现与测试证据；上轮无效的 com/chinamate 路径已全部移除。"
+    },
+    {
+      "command": "复核 SAFE-LOG 异常分派与日志参数边界",
+      "status": "PASS",
+      "summary": "普通 RuntimeException 由专属最高优先级 advice 处理；AuthFailure 由具体 handler 委托；系统错误日志参数仅为 traceId、code、SHA-256 subjectKey。"
+    },
+    {
+      "command": "引用 backend correction RED/GREEN 验证结果",
+      "status": "PASS",
+      "summary": "RED AccountPreferencesApiTests 12 项中 4 项失败；GREEN 目标测试 16/16、Architecture 10/10、完整后端 113（22 项因无数据库条件跳过）、diff-check PASS。验证结果由主 Agent 提供，reviewer 未重复执行。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "只读 reviewer 未执行 Maven、MySQL、服务、测试或任何会写入缓存和报告的命令。",
+    "本次仅复核 CorrectionContract 关联的四个 backend finding，未重新执行完整 77 条 Spec 总审查。",
+    "travel-context-backend-correction-002 的体验 finding 不在本次复核范围。"
+  ],
+  "residualRisks": [
+    "backend 当前仍为 dirty/uncommitted worktree，本结论不证明远端 commit、submodule SHA 或根 gitlink 可复现。",
+    "完整后端验证中的 22 项数据库条件测试被跳过；MySQL 专项证据沿用前序已提供的 MySQL 8.4 19/19 结果。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "SPEC-BE-DELETE-BODY-CHUNKED-001:RESOLVED",
+      "SPEC-BE-UNICODE-CASEFOLD-001:RESOLVED",
+      "SPEC-BE-INTERNAL-ERROR-CODE-001:RESOLVED",
+      "SPEC-BE-SAFE-LOG-BOUNDARY-001:RESOLVED"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

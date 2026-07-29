@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-spec-review-007",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "SPEC_REVIEW",
+  "role": "spec_reviewer",
+  "taskIds": [
+    "7.3"
+  ],
+  "resultFingerprint": "sha256:1cf4468cbb59500b203166321ed814b519893ec24496e3addf917d475fbdd4b0",
+  "reviewRole": "spec_reviewer",
+  "status": "PASS_WITH_ISSUES",
+  "findings": [
+    {
+      "findingId": "SPEC-BE-DELETE-BODY-CHUNKED-001",
+      "severity": "P2",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "design.md:35",
+        "backend-account-preferences/spec.md:58",
+        "AccountPreferencesController.java:44",
+        "AccountPreferencesApiTests.java:120"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "chunked JSON body DELETE 返回 400 VALIDATION_FAILED",
+        "正常 DELETE 仍仅使用 query version 并返回 204",
+        "拒绝请求体发生在调用 service 前"
+      ]
+    },
+    {
+      "findingId": "SPEC-BE-UNICODE-CASEFOLD-001",
+      "severity": "P2",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "design.md:60",
+        "backend-account-preferences/spec.md:48",
+        "TravelContext.java:65",
+        "MybatisAccountPreferencesRepository.java:58"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "应用键与数据库 normalized_text 使用完整 Unicode case folding",
+        "增加 Straße 与 STRASSE 用例",
+        "领域与 MySQL 测试验证去重、首次顺序和唯一约束"
+      ]
+    },
+    {
+      "findingId": "SPEC-BE-INTERNAL-ERROR-CODE-001",
+      "severity": "P2",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "design.md:138",
+        "ApiErrorCode.java:19",
+        "GlobalExceptionHandler.java:104",
+        "GlobalExceptionHandlerTests.java:167"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "product_manager 先确认 INTERNAL_ERROR 或既有 INTERNAL_SERVER_ERROR 为权威合同",
+        "按唯一合同修正实现或 OpenSpec",
+        "复验偏好与改密未预期错误使用同一稳定 code"
+      ]
+    },
+    {
+      "findingId": "SPEC-BE-SAFE-LOG-BOUNDARY-001",
+      "severity": "P2",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "design.md:147",
+        "backend-account-preferences/spec.md:111",
+        "AccountPreferencesExceptionHandler.java:87",
+        "GlobalExceptionHandler.java:104"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "偏好系统错误日志仅保留 traceId、稳定结果码和不可逆主体键",
+        "不记录 stackTrace、原始 message、旅行字段、请求体、SQL、密码、Cookie 或 Token",
+        "增加查询、替换、清空持久化异常的 OutputCapture 响应与日志测试"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "shasum -a 256 <TaskContract 及 10 个 authoritativeInputs>",
+      "status": "PASS",
+      "summary": "合同和全部权威输入指纹匹配。"
+    },
+    {
+      "command": "只读检查 4 份 delta specs、proposal、design、前后端源码、migration、Mapper XML 和测试",
+      "status": "PASS_WITH_ISSUES",
+      "summary": "77 个 requirement/scenario 条目中 74 个完整覆盖、3 个部分覆盖；另发现 INTERNAL_ERROR 偏差。"
+    },
+    {
+      "command": "只读扫描 JdbcTemplate、SQL 注解、Provider、Mapper XML 插值、事务和敏感日志",
+      "status": "PASS_WITH_ISSUES",
+      "summary": "MyBatis-Plus、Mapper XML-only、Flyway-only 和参数绑定合规；系统错误日志边界存在偏差。"
+    },
+    {
+      "command": "复核 backend ResultContract 与 QA ReviewResult",
+      "status": "PASS",
+      "summary": "架构 10/10、后端 103、MySQL 18/18、前端 45/45、Chromium 6/6；reviewer 未重复运行测试。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "只读角色未重复运行 Maven、Vitest、Playwright、服务或数据库。",
+    "tasks.md 与领域 main specs 不在 authoritativeInputs，未纳入覆盖率分母。",
+    "未执行 Pencil 体验审查。"
+  ],
+  "residualRisks": [
+    "当前实现与测试处于未提交 dirty worktree，本结论不证明远端或 gitlink 可复现。",
+    "现有测试未覆盖 chunked DELETE body 和完整 Unicode case folding。",
+    "QA 日志证据未注入账号偏好持久化系统异常验证专属日志白名单。",
+    "本地 QA 账号残余未清理。"
+  ],
+  "acceptance": {
+    "status": "REJECTED",
+    "evidenceRefs": [
+      "delta specs:74/77 complete,3 partial",
+      "SPEC-BE-DELETE-BODY-CHUNKED-001:OPEN",
+      "SPEC-BE-UNICODE-CASEFOLD-001:OPEN",
+      "SPEC-BE-INTERNAL-ERROR-CODE-001:OPEN",
+      "SPEC-BE-SAFE-LOG-BOUNDARY-001:OPEN"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

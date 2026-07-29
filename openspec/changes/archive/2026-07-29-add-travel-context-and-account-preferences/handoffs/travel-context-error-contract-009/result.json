@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-error-contract-009",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": [
+    "7.3"
+  ],
+  "requestFingerprint": "sha256:4791613df3873b30439caf3136d17f79a6386db55f05579345fd3e0e54d9a82f",
+  "status": "PASS",
+  "modifiedFiles": [
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md"
+  ],
+  "outputReferences": [
+    "openspec/changes/add-travel-context-and-account-preferences/design.md:145",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md:111",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-authentication/spec.md:33"
+  ],
+  "verificationSummary": [
+    {
+      "command": "shasum -a 256 <authoritativeInputs>",
+      "status": "PASS",
+      "summary": "稳定权威输入与重签合同匹配。"
+    },
+    {
+      "command": "只读对账 API guideline、main api-error-handling-validation spec、ApiErrorCode 与 finding",
+      "status": "PASS",
+      "summary": "稳定错误合同与 ApiErrorCode 均使用 INTERNAL_SERVER_ERROR；INTERNAL_ERROR 是本 change 隐式例外，唯一权威 code 确认为 INTERNAL_SERVER_ERROR。"
+    },
+    {
+      "command": "openspec validate add-travel-context-and-account-preferences --strict",
+      "status": "PASS",
+      "summary": "Change strictly valid。"
+    },
+    {
+      "command": "git diff --check 及未跟踪目标 artifact no-index check",
+      "status": "PASS",
+      "summary": "无空白错误。"
+    }
+  ],
+  "deviations": [],
+  "blockers": [],
+  "notRun": [
+    "未运行前后端测试；本合同仅修订 planning artifacts。"
+  ],
+  "residualRisks": [
+    "SPEC-BE-INTERNAL-ERROR-CODE-001 仍需下游验证偏好与改密未预期错误均返回 INTERNAL_SERVER_ERROR。"
+  ],
+  "recommendations": [
+    "将唯一错误码合同交给后端/QA 目标复验，再由 Spec Reviewer 关闭 finding。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "openspec/specs/api-error-handling-validation/spec.md:70",
+      "ApiErrorCode.INTERNAL_SERVER_ERROR",
+      "openspec strict validate:PASS",
+      "git diff --check:PASS"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

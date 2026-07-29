@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-experience-review-008",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "EXPERIENCE_REVIEW",
+  "role": "experience_reviewer",
+  "taskIds": [
+    "7.4"
+  ],
+  "resultFingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64",
+  "reviewRole": "experience_reviewer",
+  "status": "FAIL",
+  "findings": [
+    {
+      "findingId": "EXP-BE-NEW-ACCOUNT-PREFERENCES-001",
+      "severity": "P1",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "专用新账号登录 201 且三类认证 Cookie 被 Chromium 接受",
+        "GET /api/v1/accounts/me/travel-context 返回 500 INTERNAL_SERVER_ERROR",
+        "旅行页无法加载空上下文，安全页因 Promise.all 失败将有效登录用户呈现为去登录",
+        "后端日志定位 MybatisAccountPreferencesRepository.requireRow 对新账号缺 preferences row 抛 IllegalStateException"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "新注册账号旅行 GET 返回 200 和稳定空表示",
+        "安全页显示账号、脱敏标识、创建时间、语言、旅行摘要和当前会话",
+        "旅行加载失败不会把有效会话误呈现为匿名",
+        "复跑真实 MySQL 新账号初始化、旅行上下文和安全页跨栈场景"
+      ]
+    },
+    {
+      "findingId": "EXP-FE-LANGUAGE-SYNC-FAILURE-001",
+      "severity": "P1",
+      "status": "OPEN",
+      "evidenceRefs": [
+        "输入 Canada、Shanghai、Wheelchair access 后拦截 PATCH /accounts/me 为网络失败",
+        "点击 English 后 URL 保持 zh-CN、界面仍中文且三个草稿字段清空",
+        "账号 preferredLanguage 仍 zh-CN，PATCH 无写入",
+        "改密页同样停留中文但提示语言已切换"
+      ],
+      "ownerRole": "frontend_engineer",
+      "requiredVerification": [
+        "PATCH 失败时 URL 和文案仍切到目标 locale",
+        "国家、城市、日期、饮食限制和帮助需求草稿完整保留",
+        "失败提示与实际语言一致且重试可达",
+        "旅行与改密页分别复验双向 locale 切换"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "Pencil MCP 读取六个节点",
+      "status": "PASS",
+      "summary": "建立双语内容/错误态视觉基线。"
+    },
+    {
+      "command": "ego-browser 登录专用账号并检查 Cookie",
+      "status": "PASS",
+      "summary": "CSRF 204、登录 201；三类 Cookie 均被 Chromium 接受。"
+    },
+    {
+      "command": "旅行页 320、767、1920 布局测量",
+      "status": "PASS",
+      "summary": "三个视口 scrollWidth 等于 viewport，无控件越界。"
+    },
+    {
+      "command": "结束日期早于开始日期客户端校验",
+      "status": "PASS",
+      "summary": "本地化错误、aria 关联、焦点和草稿保留正确，未发送请求。"
+    },
+    {
+      "command": "修改密码客户端校验与统一拒绝",
+      "status": "PASS",
+      "summary": "错误关联、首字段聚焦、统一安全文案、清空密码且不展示原始 detail。"
+    },
+    {
+      "command": "拦截语言 PATCH 网络失败并切换 English",
+      "status": "FAIL",
+      "summary": "界面/URL 未切换且旅行草稿被清空。"
+    },
+    {
+      "command": "旅行上下文与安全页真实加载",
+      "status": "FAIL",
+      "summary": "新账号旅行 GET 500，安全页连带降级匿名。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "未重复保存、清空、冲突和改密成功，采用已通过 QA 证据。",
+    "退出网络错误态和完整纯键盘遍历待修复后复验。",
+    "修改密码页 320/767 最终测量未完成。"
+  ],
+  "residualRisks": [
+    "P1 缺行阻断旅行和安全两条核心流程。",
+    "语言同步失败会丢失可能包含过敏原和无障碍需求的草稿。",
+    "登录页曾受 dev/hydration 环境干扰，未形成稳定 finding。"
+  ],
+  "acceptance": {
+    "status": "REJECTED",
+    "evidenceRefs": [
+      "EXP-BE-NEW-ACCOUNT-PREFERENCES-001:OPEN:P1",
+      "EXP-FE-LANGUAGE-SYNC-FAILURE-001:OPEN:P1",
+      "Pencil baseline:PASS",
+      "travel responsive 320/767/1920:PASS",
+      "change-password client and rejection feedback:PASS"
+    ]
+  },
+  "persistedBy": "main_agent"
+}

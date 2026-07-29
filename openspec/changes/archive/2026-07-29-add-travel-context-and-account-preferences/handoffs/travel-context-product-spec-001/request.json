@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-product-spec-001",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": [
+    "BOOTSTRAP-PRODUCT-SPEC"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "docs/product/chinamate-mvp-prd.md",
+      "fingerprint": "sha256:9413081eecee15819b52a48ee80d695134fd2805f306a62a3da08ba759957b71"
+    },
+    {
+      "path": "docs/designs/chinamate-auth.pen",
+      "fingerprint": "sha256:1c9ed7e6b2e3b4a2a426a9a976d6a5e08dce2af3c379ba21c104ddefb98c7b62"
+    },
+    {
+      "path": "docs/standards/api-development-guidelines.md",
+      "fingerprint": "sha256:8b0c043e99eb96e43cf8877c1b39d0887f6c370c50e67b449f50ce6142ff99eb"
+    },
+    {
+      "path": "docs/architecture/system-map.md",
+      "fingerprint": "sha256:5dae7581f5872fbda95f6dc0c99964d094e14971e33b1c7ef0cc7ba2b68c927a"
+    },
+    {
+      "path": "docs/standards/domain-glossary.md",
+      "fingerprint": "sha256:f967420612a0896444bc51c3a6e47339f6de72e4b350f03323cccdba8206f9a6"
+    },
+    {
+      "path": "openspec/specs/backend-account-authentication/spec.md",
+      "fingerprint": "sha256:5182dcc5fc0a633adbfb4b98860d0a4cf2f75cea52e57806aafb3f98d2b435a5"
+    },
+    {
+      "path": "openspec/specs/frontend-account-authentication/spec.md",
+      "fingerprint": "sha256:914bd7def4161dbc68eb38b28b9b9b02aea22757fc5f593013c09511f4f36732"
+    }
+  ],
+  "dependencies": [],
+  "allowedWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/"
+  ],
+  "forbiddenWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/handoffs/",
+    "docs/designs/chinamate-auth.pen",
+    "frontend/",
+    "backend/"
+  ],
+  "expectedOutputs": [
+    "proposal.md、design.md、delta specs 和 tasks.md",
+    "旅行上下文、账号偏好与修改密码的产品和跨栈合同",
+    "需要用户确认的安全决策和明确非目标"
+  ],
+  "acceptanceCriteria": [
+    "所有行为可追溯到 PRD、Pen 节点、用户确认或现有认证规格",
+    "proposal、design、specs、tasks 完整且 openspec strict validate 通过",
+    "修改密码后的会话策略、旅行上下文删除语义、国际化保持规则和数据边界明确",
+    "不修改前端、后端、现有 Pen 设计或 Git 状态"
+  ],
+  "verificationPlan": [
+    "openspec validate add-travel-context-and-account-preferences --strict",
+    "python3 .codex/skills/chinamate-fullstack-delivery/scripts/validate_handoff_contract.py --change add-travel-context-and-account-preferences --all",
+    "git diff --check"
+  ],
+  "userGates": [
+    {
+      "name": "DESIGN_DIRECTION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:采纳建议并要求先设计UI",
+        "docs/designs/chinamate-auth.pen"
+      ]
+    },
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "PENDING",
+      "evidenceRefs": []
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

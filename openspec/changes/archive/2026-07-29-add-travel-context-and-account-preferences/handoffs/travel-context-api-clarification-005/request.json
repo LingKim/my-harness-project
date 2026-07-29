@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-api-clarification-005",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "PRODUCT_SPEC",
+  "role": "product_manager",
+  "taskIds": [
+    "3.4",
+    "4.1",
+    "5.1",
+    "6.2"
+  ],
+  "executionMode": "SUBAGENT",
+  "authoritativeInputs": [
+    {
+      "path": "docs/product/chinamate-mvp-prd.md",
+      "fingerprint": "sha256:9413081eecee15819b52a48ee80d695134fd2805f306a62a3da08ba759957b71"
+    },
+    {
+      "path": "docs/standards/api-development-guidelines.md",
+      "fingerprint": "sha256:8b0c043e99eb96e43cf8877c1b39d0887f6c370c50e67b449f50ce6142ff99eb"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-spec-confirmation-002/result.json",
+      "fingerprint": "sha256:87c4ff412d317ba004a2b6be8f556414ed441a7c98090025c330336a3f06161c"
+    }
+  ],
+  "dependencies": [
+    "travel-context-spec-confirmation-002"
+  ],
+  "allowedWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/design.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/backend-account-preferences/spec.md",
+    "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md"
+  ],
+  "forbiddenWritePaths": [
+    "openspec/changes/add-travel-context-and-account-preferences/handoffs/",
+    "frontend/",
+    "backend/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/"
+  ],
+  "expectedOutputs": [
+    "冻结 DELETE 旅行上下文的 version 传输位置",
+    "冻结 409 版本冲突 ProblemDetail 的最新版本字段名"
+  ],
+  "acceptanceCriteria": [
+    "三个 artifacts 一致规定 DELETE 使用 `?version=N` 且无 JSON 请求体",
+    "三个 artifacts 一致规定冲突响应扩展字段为 `latestVersion`",
+    "不改变已确认业务范围或其他接口",
+    "OpenSpec strict validate 与 git diff --check 通过"
+  ],
+  "verificationPlan": [
+    "openspec validate add-travel-context-and-account-preferences --strict",
+    "git diff --check"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现",
+        "main-agent:in-scope-api-clarification"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

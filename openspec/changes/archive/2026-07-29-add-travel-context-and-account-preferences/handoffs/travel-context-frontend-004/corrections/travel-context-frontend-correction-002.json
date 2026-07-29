@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-frontend-correction-002",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "FRONTEND_IMPLEMENTATION",
+  "role": "frontend_engineer",
+  "taskIds": [
+    "5.2",
+    "5.4",
+    "6.3"
+  ],
+  "parentContractId": "travel-context-frontend-004",
+  "reviewFingerprint": "sha256:4d0d23cc4a186b43f7da3dc4d288beac667e973bb22e30250d7d7686017c2596",
+  "findingIds": [
+    "EXP-FE-LANGUAGE-SYNC-FAILURE-001"
+  ],
+  "authoritativeInputs": [
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/handoffs/travel-context-experience-review-008/reviews/travel-context-experience-review-002.json",
+      "fingerprint": "sha256:4d0d23cc4a186b43f7da3dc4d288beac667e973bb22e30250d7d7686017c2596"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/specs/frontend-account-settings/spec.md",
+      "fingerprint": "sha256:6addb662be926e9d484fd347a9c86ffdac14aa46d4a31bfcf8a8dc1b1e54618f"
+    },
+    {
+      "path": "openspec/changes/add-travel-context-and-account-preferences/design.md",
+      "fingerprint": "sha256:757829f1f7843588e60d6e2373ae2090951f8096ecd4d405413fb2acef5086c7"
+    }
+  ],
+  "allowedWritePaths": [
+    "frontend/src/app/layout.tsx",
+    "frontend/src/app/[locale]/layout.tsx",
+    "frontend/src/components/document-language.tsx",
+    "frontend/src/components/document-language.test.tsx",
+    "frontend/src/components/language-switcher.tsx",
+    "frontend/src/components/language-switcher.test.tsx",
+    "frontend/src/components/account/language-sync-state.ts",
+    "frontend/src/components/account/account-navigation.tsx",
+    "frontend/src/components/account/account-navigation.test.tsx",
+    "frontend/src/components/account/settings-draft.ts",
+    "frontend/src/components/account/change-password-form.tsx",
+    "frontend/src/components/account/security-settings.test.tsx",
+    "frontend/src/components/account/travel-context-form.tsx",
+    "frontend/src/components/account/travel-context-form.test.tsx",
+    "frontend/e2e/account-settings.spec.ts"
+  ],
+  "forbiddenWritePaths": [
+    "backend/",
+    "openspec/",
+    "docs/designs/chinamate-auth.pen",
+    ".codex/",
+    "frontend/src/i18n/"
+  ],
+  "expectedFixes": [
+    "语言偏好 PATCH 网络失败时仍立即切换到目标 locale，不回退旧语言或首页",
+    "切换后原样保留业务子路由、Query String 与 hash",
+    "跨 locale 重建时保留国家或地区、城市、日期、饮食限制和帮助需求等全部内存草稿，不写入 URL 或持久化浏览器存储",
+    "同步失败提示使用实际目标语言，保持非阻断且提供可达的重试操作",
+    "语言切换导航期间阻止账号恢复逻辑按尚未同步的旧偏好回跳；下一次独立加载仍以账号偏好为权威",
+    "建立 locale 之上的共享 Next 根布局，避免跨 locale 触发 document navigation；首屏与客户端导航后的 html lang 均保持正确",
+    "修改密码页三个未提交字段仅在当前 document 内存中跨 locale 保留，并在刷新、取消、提交成功或提交失败时清空",
+    "补充旅行上下文页和修改密码页 zh-CN 到 en、en 到 zh-CN 的失败路径回归测试"
+  ],
+  "acceptanceCriteria": [
+    "EXP-FE-LANGUAGE-SYNC-FAILURE-001 的 requiredVerification 全部具备自动化或真实浏览器复验证据",
+    "PATCH 失败后 URL、界面文案和提示均处于目标 locale，当前草稿完整保留",
+    "重试成功后账号偏好同步，且不引入重复提交或无限导航",
+    "不得把旅行草稿、密码或 Token 写入 URL、localStorage、sessionStorage、日志或分析事件",
+    "lint、typecheck、Vitest 与适用 E2E 通过"
+  ],
+  "retestPlan": [
+    "cd frontend && pnpm lint",
+    "cd frontend && pnpm typecheck",
+    "cd frontend && pnpm test",
+    "cd frontend && pnpm test:e2e -- account-settings.spec.ts",
+    "由原 experience_reviewer 在旅行上下文和修改密码页双向复核网络失败切换、草稿保留、提示和重试"
+  ],
+  "userGates": [
+    {
+      "name": "SPEC_CONFIRMATION",
+      "status": "SATISFIED",
+      "evidenceRefs": [
+        "user-message:确认采用建议的会话策略并继续实现"
+      ]
+    }
+  ],
+  "gitGates": [
+    {
+      "name": "GIT_WRITE",
+      "status": "NOT_APPLICABLE",
+      "evidenceRefs": []
+    }
+  ],
+  "status": "ISSUED",
+  "persistedBy": "main_agent"
+}

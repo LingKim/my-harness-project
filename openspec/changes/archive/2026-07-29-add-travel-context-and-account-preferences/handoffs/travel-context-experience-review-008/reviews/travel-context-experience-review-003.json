@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "1.0",
+  "contractId": "travel-context-experience-review-008",
+  "change": "add-travel-context-and-account-preferences",
+  "stage": "EXPERIENCE_REVIEW",
+  "role": "experience_reviewer",
+  "taskIds": [
+    "7.4"
+  ],
+  "resultFingerprint": "sha256:227a2952e21467a12b96f7c155f0cae956479fc477cb9bbdbd410e6a06690f64",
+  "reviewRole": "experience_reviewer",
+  "status": "PASS",
+  "findings": [
+    {
+      "findingId": "EXP-BE-NEW-ACCOUNT-PREFERENCES-001",
+      "severity": "P1",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "新账号空旅行上下文与账号安全页真实复验已通过。"
+      ],
+      "ownerRole": "backend_engineer",
+      "requiredVerification": [
+        "RESOLVED：后续常规回归继续覆盖新账号初始化与有效会话识别。"
+      ]
+    },
+    {
+      "findingId": "EXP-FE-LANGUAGE-SYNC-FAILURE-001",
+      "severity": "P1",
+      "status": "RESOLVED",
+      "evidenceRefs": [
+        "既有最终 clean live 已确认旅行页 zh-CN→en 与 en→zh 均保留 route/query/hash、html lang、目标语言 H1、六类旅行草稿、失败提示和 Retry。",
+        "全新 task space 9 中，改密页 zh-CN→en 后 URL 为 /en/account/settings/security/change-password?source=final#draft，html lang=en，H1 英文化，三字段长度保持 [14,14,14]。",
+        "改密页 en→zh 后 URL 恢复 /zh-CN/account/settings/security/change-password?source=final#draft，html lang=zh-CN，H1 中文化，三字段长度仍为 [14,14,14]。",
+        "语言 PATCH marker 跨两次软导航保留并命中 2 次；双向均显示目标语言同步失败提示和 Retry。",
+        "模拟 POST /api/v1/accounts/me:change-password 网络失败后，三字段长度为 [0,0,0]，焦点回到 currentPassword，并显示中文安全通用提示。",
+        "重新填入三字段后执行 Page.reload，新 Document 中三字段长度从 [14,14,14] 清为 [0,0,0]。",
+        "URL、localStorage、sessionStorage、console detector 和浏览器事件均未发现测试密码值；报告未回传密码内容。"
+      ],
+      "ownerRole": "frontend_engineer",
+      "requiredVerification": [
+        "RESOLVED：后续回归保持双向 locale、失败清空、新 Document 清空和敏感信息不落盘覆盖。"
+      ]
+    }
+  ],
+  "verificationSummary": [
+    {
+      "command": "ego-browser 全新 task space 9：改密页 zh-CN→en",
+      "status": "PASS",
+      "summary": "三字段保持 [14,14,14]，URL/query/hash、lang、H1、失败提示和 Retry 正确。"
+    },
+    {
+      "command": "ego-browser task space 9：改密页 en→zh",
+      "status": "PASS",
+      "summary": "三字段继续保持 [14,14,14]，双向语言恢复一致。"
+    },
+    {
+      "command": "拦截 POST /api/v1/accounts/me:change-password 模拟网络失败",
+      "status": "PASS",
+      "summary": "三字段清空、currentPassword 聚焦、本地化安全提示正确。"
+    },
+    {
+      "command": "Page.reload 新 Document 复验",
+      "status": "PASS",
+      "summary": "reload 前 [14,14,14]，reload 后 [0,0,0]。"
+    },
+    {
+      "command": "URL、Web Storage、console detector、browser events 敏感值检查",
+      "status": "PASS",
+      "summary": "均未发现测试密码值。"
+    },
+    {
+      "command": "completeTaskSpace(9, { keep: false })",
+      "status": "PASS",
+      "summary": "只读浏览器任务空间已关闭。"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "未点击语言 Retry，避免产生真实账号偏好写入。",
+    "未执行真实修改密码成功请求，避免改变测试账号凭据。",
+    "取消、成功及请求失败清空的自动化结果由上游 GREEN 7/7 覆盖，本轮仅真实复验合同指定的失败与 reload 路径。"
+  ],
+  "residualRisks": [
+    "本轮遵守只读边界，未验证会产生真实写入的 Retry 和修改密码成功路径；由现有自动化证据承接。"
+  ],
+  "acceptance": {
+    "status": "ACCEPTED",
+    "evidenceRefs": [
+      "EXP-BE-NEW-ACCOUNT-PREFERENCES-001:RESOLVED:P1",
+      "EXP-FE-LANGUAGE-SYNC-FAILURE-001:RESOLVED:P1",
+      "travel locale failure recovery both directions:PASS",
+      "change-password locale failure recovery both directions:PASS",
+      "change-password request failure clearing and focus:PASS",
+      "new Document clearing:PASS",
+      "password leakage checks:PASS"
+    ]
+  },
+  "persistedBy": "main_agent"
+}
