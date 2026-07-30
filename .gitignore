@@ -3,6 +3,7 @@
 .idea/
 .vscode/
 *.iml
+.playwright-mcp
 
 # Secrets and local overrides
 .env
